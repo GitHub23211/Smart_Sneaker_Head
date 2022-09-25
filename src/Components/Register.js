@@ -6,7 +6,7 @@ const Register= ()=>{
 
 
     
-    const paperStyle = {padding:20, height:'110vh',width:'70vh',margin:'20px auto'}
+    const paperStyle = {padding:20, height:'80vh',width:'70vh',margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
     const buttonStyle ={margin:'20px auto'}
@@ -23,16 +23,17 @@ const Register= ()=>{
             <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin}></TextField>
             <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin}></TextField>
              
-            <p>Please enter the ABN to sell products.</p>
+            {/* <p>Please enter the ABN to sell products.</p>
             <TextField label='ABN' placeholder='Enter ABN' fullWidth  style={margin}></TextField>
-            <TextField label='Address' placeholder='Enter Address'fullWidth style={margin}></TextField>
-            <Grid align='center'>
-               <Button type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Sign Up</Button>
-            </Grid>
+            <TextField label='Address' placeholder='Enter Address'fullWidth style={margin}></TextField> */}
 
             <FormGroup>
                  <FormControlLabel control={<Checkbox defaultUnChecked />} label="I accept the terms and conditions." />
             </FormGroup>
+
+            <Grid align='center'>
+               <Button type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Sign Up</Button>
+            </Grid>
             </Paper>
         </Grid>
     )
