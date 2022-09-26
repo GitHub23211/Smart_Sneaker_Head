@@ -65,4 +65,26 @@ const getUser = async (request, response) => {
     }
 }
 
-module.exports = {getUser, createUser}
+/* 
+ * loginUser - Checks if the username and password in the request
+ *   body contains a valid user.
+ *   return the user's token if match, else send an error.
+*/
+const loginUser = async (request, response) => {
+    const username = request.body.username
+    const password = request.body.password
+
+    const user = await models.Session.findOne({username: username})
+
+    if(!match) {
+        return response.json({status: "invalid username or password"})
+    }
+
+    if(await bcrypt.compare(password, user.password)) {
+        const token = encodeToken(user._id, user.username)
+        return response.status(200).json({status: "success", token: token})
+    }
+    return response.json({status: "invalid username or password"})
+}
+
+module.exports = {getUser, createUser, loginUser}
