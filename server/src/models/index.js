@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const config = require('../config')
+
 const sessionSchema = new mongoose.Schema({
     username: {type: String, unique: true},
     password: String,
@@ -37,10 +38,10 @@ const Product = mongoose.model("Product", productSchema)
 const startDb = () => {
     mongoose.connect(config.mongoDBUrl)
             .then(result => {
-                console.log('connected to database on port: ', config.port)
+                console.log('connected to database on port:', config.port)
             })
             .catch(error => {
-                console.log('error connecting to database: ', error.message)
+                console.log('error connecting to database:', error.message)
             })
 }
 

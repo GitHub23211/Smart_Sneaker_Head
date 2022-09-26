@@ -37,10 +37,9 @@ const createUser = async (request, response) => {
 }
 
 const getUser = async (request, response) => {
+
     const authHeader = request.get('Authorization')
-
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
-
         const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
         try {
             const userid = decodedToken.id
