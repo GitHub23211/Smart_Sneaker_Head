@@ -4,7 +4,6 @@ const config = require('../config')
 const sessionSchema = new mongoose.Schema({
     username: {type: String, unique: true},
     password: String,
-
 })
 
 sessionSchema.set('toJSON' , {

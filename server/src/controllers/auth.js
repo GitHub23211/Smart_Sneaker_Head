@@ -13,15 +13,14 @@ const encodeToken = (id, username) => {
     return jwt.sign(userForToken, SECRET)
 }
 
-const hashPassword = (request) => {
-    bcrypt.hash(request.body.password, 10)
+const hashPassword = async (request) => {
+    return await bcrypt.hash(request.body.password, 10)
                 .then(response => response)
 }
 
 
 const createUser = async (request, response) => {
 
-    console.log(request.body)
     const password = await hashPassword(request)
     const user = new models.Session({
         username: request.body.username,
@@ -33,8 +32,8 @@ const createUser = async (request, response) => {
         
     if(saveUser) {
         if(user._id) {
-            const token = encodeToken(session._id, returned.username)
-            return response.status(200).json({status: "success", token: token})
+            const token = encodeToken(user._id, saveUser.username)
+            return response.status(200).json({status: "success", token: token, u: saveUser})
         }
     }
 }
