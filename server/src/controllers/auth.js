@@ -5,7 +5,13 @@ const config = require('../config')
 
 const SECRET = config.secret
 
-/* Helper function to encode a token from user information */
+/**
+ * Helper function to encode a token from user information
+ * @function
+ * @param {String} id - user's id 
+ * @param {String} username - user's usernane
+ * @returns {String} user's unique token
+ */
 const encodeToken = (id, username) => {
     const userForToken = {
         id: id,
@@ -14,12 +20,25 @@ const encodeToken = (id, username) => {
     return jwt.sign(userForToken, SECRET)
 }
 
-/* Helper function that returns a password hashed by bcrypt */
+/**
+ * Helper function to encode a token from user information
+ * @function
+ * @param {String} password - plain text password to hash
+ * @returns {String} hashed password
+ */
 const hashPassword = async (password) => {
     return await bcrypt.hash(password, 10)
                 .then(response => response)
 }
 
+
+/**
+ * Creates user to post to database
+ * @function
+ * @param {Object} request - Object containing a body field that holds a JSON object with two keys: username and password.
+ * @param {Object} response - Object used to send a json response.
+ * @returns {Object} JSON object containing status and registered user's token if successful, otherwise a JSON containing an error.
+ */
 const createUser = async (request, response) => {
     const password = await hashPassword(request.body.password)
     const user = new models.Session({
@@ -40,6 +59,12 @@ const createUser = async (request, response) => {
     }
 }
 
+/**
+ * Gets user information from database using user token
+ * @param {Object} request - JSON Object containing headers with the user's token
+ * @param {Object} response - Object used to send a json response.
+ * @returns {Object} JSON object with user's information if successful, otherwise errors
+ */
 const getUser = async (request, response) => {
     const authHeader = request.get('Authorization')
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
@@ -60,11 +85,12 @@ const getUser = async (request, response) => {
     return response.json({error: "unregistered"})
 }
 
-/* 
- * loginUser - Checks if the username and password in the request
- *   body contains a valid user according to the database.
- *   return the user's token if match, else send an error.
-*/
+/**
+ * Function that logs user into the site
+ * @param {Object} request - Object containing a body field that holds a JSON object with two keys: username and password.
+ * @param {Object} response - Object used to send a json response.
+ * @returns {Object} JSON object containing status and user's token if successful, otherwise errors
+ */
 const loginUser = async (request, response) => {
     const username = request.body.username
     const password = request.body.password
@@ -80,10 +106,11 @@ const loginUser = async (request, response) => {
     return response.json({status: "invalid username or password"})
 }
 
-/* 
- * validUser - check for a valid user via Authorization header
- *   return user's id if found, false if not
-*/
+/**
+ * Function used to check if user is valid before allowing them to perform significant changes to the site
+ * @param {Object} request - JSON Object containing headers with the user's token
+ * @returns {Boolean} returns user's id if valid user which is equivalent to true, otherwise returns false
+ */
 const validateUser = async (request) => {
     const authHeader = request.get('Authorization')
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
