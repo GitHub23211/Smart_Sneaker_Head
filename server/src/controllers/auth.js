@@ -5,6 +5,21 @@ const config = require('../config')
 
 const SECRET = config.secret
 
+/* Helper function to encode a token from user information */
+const encodeToken = (id, username) => {
+    const userForToken = {
+        id: id,
+        username: username
+    }
+    return jwt.sign(userForToken, SECRET)
+}
+
+/* Helper function that returns a password hashed by bcrypt */
+const hashPassword = async (password) => {
+    return await bcrypt.hash(password, 10)
+                .then(response => response)
+}
+
 const createUser = async (request, response) => {
     const password = await hashPassword(request.body.password)
     const user = new models.Session({
@@ -85,18 +100,4 @@ const validateUser = async (request) => {
     return false
 }
 
-/* Helper function to encode a token from user information */
-const encodeToken = (id, username) => {
-    const userForToken = {
-        id: id,
-        username: username
-    }
-    return jwt.sign(userForToken, SECRET)
-}
-
-/* Helper function that returns a password hashed by bcrypt */
-const hashPassword = async (password) => {
-    return await bcrypt.hash(password, 10)
-                .then(response => response)
-}
 module.exports = {getUser, createUser, loginUser, validateUser}
