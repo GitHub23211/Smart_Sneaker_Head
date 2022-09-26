@@ -7,4 +7,6 @@ router.get('/', (request, response) => response.send("<h1>Hello World</h1>"))
 
 router.get('/auth/', auth.getUser)
 
+router.post('/auth/register', auth.createUser)
+
 module.exports = router 

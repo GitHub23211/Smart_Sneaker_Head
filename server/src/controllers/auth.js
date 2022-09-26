@@ -13,13 +13,16 @@ const encodeToken = (id, username) => {
     return jwt.sign(userForToken, SECRET)
 }
 
+const hashPassword = (request) => {
+    bcrypt.hash(request.body.password, 10)
+                .then(response => response)
+}
+
 
 const createUser = async (request, response) => {
 
-    let password = ""
-    await bcrypt.hash(request.body.password, 10)
-                .then(response => password = response)
-    
+    console.log(request.body)
+    const password = await hashPassword(request)
     const user = new models.Session({
         username: request.body.username,
         password: password
