@@ -29,12 +29,16 @@ const createUser = async (request, response) => {
     })
 
     const saveUser = await user.save()
-        .catch(error => response.json({error: "username taken"}))
+        .catch(e => {
+            response.json({error: "username taken"})
+        })
         
+    console.log(saveUser)
+    console.log(user._id)
     if(saveUser) {
         if(user._id) {
             const token = encodeToken(user._id, saveUser.username)
-            return response.status(200).json({status: "success", token: token, u: saveUser})
+            return response.status(200).json({status: "success", token: token})
         }
     }
 }

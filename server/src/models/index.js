@@ -38,6 +38,7 @@ const startDb = () => {
     mongoose.connect(config.mongoDBUrl)
             .then(result => {
                 console.log('connected to database on port:', config.port)
+                console.log("on mongoURL", config.mongoDBUrl)
             })
             .catch(error => {
                 console.log('error connecting to database:', error.message)
