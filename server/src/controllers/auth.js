@@ -15,15 +15,15 @@ const encodeToken = (id, username) => {
 }
 
 /* Helper function that returns a password hashed by bcrypt */
-const hashPassword = async (request) => {
-    return await bcrypt.hash(request.body.password, 10)
+const hashPassword = async (password) => {
+    return await bcrypt.hash(password, 10)
                 .then(response => response)
 }
 
 
 const createUser = async (request, response) => {
 
-    const password = await hashPassword(request)
+    const password = await hashPassword(request.body.password)
     const user = new models.Session({
         username: request.body.username,
         password: password
