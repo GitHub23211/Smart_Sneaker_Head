@@ -33,8 +33,6 @@ const createUser = async (request, response) => {
             response.json({error: "username taken"})
         })
         
-    console.log(saveUser)
-    console.log(user._id)
     if(saveUser) {
         if(user._id) {
             const token = encodeToken(user._id, saveUser.username)
