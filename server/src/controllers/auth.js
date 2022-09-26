@@ -14,6 +14,7 @@ const encodeToken = (id, username) => {
     return jwt.sign(userForToken, SECRET)
 }
 
+/* Helper function that returns a password hashed by bcrypt */
 const hashPassword = async (request) => {
     return await bcrypt.hash(request.body.password, 10)
                 .then(response => response)
