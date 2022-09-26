@@ -1,8 +1,9 @@
 const models = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require(`jsonwebtoken`)
+const config = require('../config')
 
-const SECRET = "secretcode"
+const SECRET = config.secret
 
 /* Helper function to encode a token from user information */
 const encodeToken = (id, username) => {
