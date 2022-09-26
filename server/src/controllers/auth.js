@@ -65,6 +65,10 @@ const loginUser = async (request, response) => {
     return response.json({status: "invalid username or password"})
 }
 
+/* 
+ * validUser - check for a valid user via Authorization header
+ *   return user's id if found, false if not
+*/
 const validateUser = async (request) => {
     const authHeader = request.get('Authorization')
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
