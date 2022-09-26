@@ -27,7 +27,7 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(error => response.json({error: "username taken"}))
-    
+        
     if(saveUser) {
         if(user._id) {
             const token = encodeToken(session._id, returned.username)
@@ -44,7 +44,6 @@ const getUser = async (request, response) => {
         const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
         try {
             const userid = decodedToken.id
-
             const user = await models.Session.findById(userid)
             if(user) {
                 response.json({
@@ -60,3 +59,5 @@ const getUser = async (request, response) => {
         response.json({error: "unregistered"})
     }
 }
+
+module.exports = {getUser, createUser}
