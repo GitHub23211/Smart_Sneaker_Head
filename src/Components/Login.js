@@ -1,11 +1,11 @@
-import React from "react";
 import { Avatar, Grid,Paper, TextField ,Button, Typography , Link} from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-
+import React from "react";
 
 
 
 const Login=()=>{
+
 
     const paperStyle = {padding:20, height:'70vh',width:'50vh',margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
@@ -22,7 +22,7 @@ const Login=()=>{
             <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required></TextField>
 
             <Grid align='center'>
-               <Button type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Login</Button>
+               <Button href= "/user" type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Login</Button>
             </Grid>
             <Typography >
                 Don't Have an Account ? 
