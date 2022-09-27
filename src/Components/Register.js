@@ -35,8 +35,6 @@ const Register= ()=>{
        
        axios.post("http://localhost:5001/auth/register", userObj)
        .then(response =>{
-           console.log(response.data)
-           if(response.data.status === "success"){
               console.log(response.data)
               setMessageTitle("Thank you for Registering!")
               setMessageContent("Please proceed to Login to start shopping!")
@@ -45,16 +43,12 @@ const Register= ()=>{
               setEmail("")        
               setPassword("")
               setConfirmPassword("")
-        
-           } else {
-            
-              setMessageTitle("Username Already Taken!")
-              setMessageContent("Please enter another username.") 
-              //reset only password
-              setPassword("")
-              setConfirmPassword("") 
-              
-           }
+         }).catch(error => {
+            setMessageTitle("Username Already Taken!")
+            setMessageContent("Please enter another username.") 
+            //reset only password
+            setPassword("")
+            setConfirmPassword("") 
          })
 
          console.log("msg" ,msgTitle )
