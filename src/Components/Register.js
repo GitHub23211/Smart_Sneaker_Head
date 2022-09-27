@@ -47,6 +47,7 @@ const Register= ()=>{
               setPassword("")
               setConfirmPassword("")
 <<<<<<< HEAD
+<<<<<<< HEAD
               openDialog();
            }
          }).catch(error => {
@@ -56,6 +57,8 @@ const Register= ()=>{
             openDialog();
           })
 =======
+=======
+>>>>>>> 2c1d7d91bbf6034ef21e11db67f322a45dcd7ec4
          }).catch(error => {
             setMessageTitle("Username Already Taken!")
             setMessageContent("Please enter another username.") 

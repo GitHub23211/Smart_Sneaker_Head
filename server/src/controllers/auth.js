@@ -35,7 +35,7 @@ const hashPassword = async (password) => {
 /**
  * Creates user to post to database
  * @function
- * @param {Object} request - Object containing a body field that holds a JSON object with two keys: username and password.
+ * @param {Object} request - Object containing a body field that is a JSON object with two keys: username and password.
  * @param {Object} response - Object used to send a json response.
  * @returns {Object} JSON object containing status and registered user's token if successful, otherwise a JSON containing an error.
  */
@@ -49,14 +49,13 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(e => {
-            //response.json({"status": "username taken"}).status(400)
-            return response.status(401).json({"status": "username taken"});
+            response.status(400).json({error: "username taken"})
         })
     
     if(saveUser) {
         if(user._id) {
             const token = encodeToken(user._id, saveUser.username)
-            return response.json({status: "success", token: token}).status(200)
+            return response.status(200).json({status: "success", token: token})
         }
     }
 }
@@ -75,16 +74,16 @@ const getUser = async (request, response) => {
             const userid = decodedToken.id
             const user = await models.Session.findById(userid)
             if(user) {
-                return response.json({
+                return response.status(200).json({
                     status: "success",
                     id: user._id,
                     username: user.username
-                }).status(200)
+                })
             }
         }
-        catch {response.json({error: "missing or invalid token"}).status(401)}
+        catch {response.status(401).json({error: "missing or invalid token"})}
     }
-    return response.json({error: "unregistered"}).status(400)
+    return response.status(400).json({error: "unregistered"})
 }
 
 /**
@@ -98,14 +97,14 @@ const loginUser = async (request, response) => {
     const password = request.body.password
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(401)({status: "invalid username or password"});
+        return response.status(401).json({status: "invalid username or password"})
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.status(401).json({status: "invalid username or password"});
+    return response.status(401).json({status: "invalid username or password"})
 }
 
 /**
