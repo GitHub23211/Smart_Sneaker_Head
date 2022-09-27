@@ -49,7 +49,7 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(e => {
-            response.json({"status": "username taken"})
+            return response.status(401).json({"status": "username taken"}) 
         })
         
     if(saveUser) {
@@ -97,14 +97,14 @@ const loginUser = async (request, response) => {
     const password = request.body.password
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(400).json({status: "invalid username or password"})
+        return response.status(401).json({status: "invalid username or password"})
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.status(400).json({status: "invalid username or password"})
+    return response.status(401).json({status: "invalid username or password"})
 }
 
 /**
