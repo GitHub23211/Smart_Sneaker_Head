@@ -95,7 +95,7 @@ const loginUser = async (request, response) => {
     const username = request.body.username
     const password = request.body.password
     const user = await models.Session.findOne({username: username})
-    if(!match) {
+    if(!user) {
         return response.status(401).json({status: "invalid username or password"})
     }
 
@@ -122,7 +122,6 @@ const validateUser = async (request) => {
                 return user._id
             }
         }
-        catch {response.json({status: "missing or invalid token"})}
     }
     return false
 }
