@@ -5,13 +5,10 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
-
-
 const Login=()=>{
   
     const [userName , setUserName] = useState("")
     const [Passcode , setPassword] = useState("")
-
 
     const[open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -52,7 +49,6 @@ const Login=()=>{
           })
 
     }
-    
     const paperStyle = {padding:20, height:'70vh',width:'50vh',margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
