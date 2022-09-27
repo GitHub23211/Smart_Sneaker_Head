@@ -114,13 +114,11 @@ const loginUser = async (request, response) => {
 const validateUser = async (request) => {
     const authHeader = request.get('Authorization')
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
-        try {
-            const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
-            const userid = decodedToken.id     
-            const user = await models.Session.findOne({_id: userid})  
-            if (user) {
-                return user._id
-            }
+        const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
+        const userid = decodedToken.id     
+        const user = await models.Session.findOne({_id: userid})  
+        if (user) {
+            return user._id
         }
     }
     return false
