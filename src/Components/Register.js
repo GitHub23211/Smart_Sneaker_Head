@@ -1,11 +1,88 @@
 import React from "react";
-import { Avatar, Grid , Paper, TextField , Button , Typography ,FormGroup,FormControlLabel,Checkbox} from "@mui/material";
+import { Avatar, Grid , Paper, TextField , Button , FormGroup , FormControlLabel ,Checkbox} from "@mui/material";
+import {Dialog , DialogTitle , DialogContent , DialogContentText , DialogActions}  from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { useState } from "react";
+import axios from "axios";
+
 
 const Register= ()=>{
 
+    const [userName , setUserName] = useState("")
+    const [email , setEmail] = useState("")
+    const [Passcode , setPassword] = useState("")
+    const [confirmpassword , setConfirmPassword] = useState("") 
 
-    
+    const[open,setOpen] = useState(false)
+    const [msgTitle, setMessageTitle] = useState("") 
+    const [msgContent , setMessageContent] = useState("") 
+
+    const handleNameChange = (event) => {
+        console.log(event.target.value)
+        setUserName(event.target.value)
+    }
+
+    const handleEmailChange = (event) => {
+        console.log(event.target.value)
+        setEmail(event.target.value)
+    }
+
+    const handlePassChange = (event) => {
+        console.log(event.target.value)
+        setPassword(event.target.value)
+    }
+
+    const handleConfirmPassChange = (event) => {
+        console.log(event.target.value)
+        setConfirmPassword(event.target.value)
+    }
+
+    const handleRegistration = (event)=>{
+       // event.preventDefault();
+        console.log("registeration called")
+
+        const userObj = {
+           username : userName ,
+           password : Passcode
+        }        
+        //axios call to post 
+       
+       axios.post("http://localhost:5001/auth/register", userObj)
+       .then(response =>{
+           console.log(response.data)
+           if(response.data.status === "success"){
+              console.log(response.data)
+              setMessageTitle("Thank you for Registering!")
+              setMessageContent("Please proceed to Login to start shopping!")
+              //resert the form
+              setUserName("")
+              setEmail("")        
+              setPassword("")
+              setConfirmPassword("")
+        
+           } else {
+            
+              setMessageTitle("Username Already Taken!")
+              setMessageContent("Please enter another username.") 
+              //reset only password
+              setPassword("")
+              setConfirmPassword("") 
+              
+           }
+         })
+
+         console.log("msg" ,msgTitle )
+         openDialog();
+
+    }
+
+    const openDialog= ()=>{
+        setOpen(true);
+    }
+
+
+
+
     const paperStyle = {padding:20, height:'80vh',width:'70vh',margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
@@ -18,22 +95,28 @@ const Register= ()=>{
                 <h2>Register Now</h2>
                 <p>Please fill this form to create an account!</p>
             </Grid>    
-            <TextField label='Username' placeholder='Enter username' fullWidth required style={margin}></TextField>
-            <TextField label='Email' placeholder='Enter email' fullWidth required style={margin}></TextField>
-            <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin}></TextField>
-            <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin}></TextField>
+            <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={handleNameChange}></TextField>
+            <TextField label='Email' placeholder='Enter email' fullWidth required style={margin} input value = {email} onChange={handleEmailChange}></TextField>
+            <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin} input value={Passcode} onChange={handlePassChange}></TextField>
+            <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin} input value={confirmpassword} onChange={handleConfirmPassChange}></TextField>
              
-            {/* <p>Please enter the ABN to sell products.</p>
-            <TextField label='ABN' placeholder='Enter ABN' fullWidth  style={margin}></TextField>
-            <TextField label='Address' placeholder='Enter Address'fullWidth style={margin}></TextField> */}
-
             <FormGroup>
-                 <FormControlLabel control={<Checkbox defaultUnChecked />} label="I accept the terms and conditions." />
+                 <FormControlLabel control={<Checkbox  />} label="I accept the terms and conditions." />
             </FormGroup>
 
             <Grid align='center'>
-               <Button type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Sign Up</Button>
+               <Button onClick={handleRegistration} type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Sign Up</Button>
             </Grid>
+           
+            <Dialog open={open}>
+                <DialogTitle>{msgTitle}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>{msgContent}</DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>setOpen(false)}>Okay</Button>
+                </DialogActions>
+            </Dialog>
             </Paper>
         </Grid>
     )
