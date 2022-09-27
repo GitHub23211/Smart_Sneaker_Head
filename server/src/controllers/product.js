@@ -10,10 +10,24 @@ const createProduct = async (request, response) => {
     const seller = await auth.validateUser(request)
     if(seller) {
         try {
-            
-        } catch {response.status(400).status({"error": "invalid user"})}
-    }
+            const newProduct = {
+                name: request.body.name,
+                price: request.body.price,
+                description: request.body.descrption,
+                quantity: request.body.quantity
+            }
 
+            const saveProduct = newProduct.save()
+                .catch(e => response.json({error: "product already exists"}).status(400))
+            
+            if(saveProduct) {
+                if(newProduct._id) {
+                    return response.json({status: "success", product: newProduct}).status(200)
+                }
+            }
+
+        } catch {response.json({error: "invalid user"}).status(401)}
+    }
 }
 
 /**
