@@ -49,7 +49,8 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(e => {
-            response.json({"status": "username taken"}).status(400)
+            //response.json({"status": "username taken"}).status(400)
+            return response.status(401).json({"status": "username taken"});
         })
     
     if(saveUser) {
@@ -97,14 +98,14 @@ const loginUser = async (request, response) => {
     const password = request.body.password
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.json({status: "invalid username or password"}).status(401)
+        return response.status(401)({status: "invalid username or password"});
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.json({status: "invalid username or password"}).status(401)
+    return response.status(401).json({status: "invalid username or password"});
 }
 
 /**
