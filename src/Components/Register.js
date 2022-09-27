@@ -22,8 +22,12 @@ const Register= ()=>{
         handler(event.target.value)
     }
 
+    const openDialog= ()=>{
+        setOpen(true);
+    }
+
     const handleRegistration = (event)=>{
-       // event.preventDefault();
+        event.preventDefault();
         console.log("registeration called")
 
         const userObj = {
@@ -31,8 +35,7 @@ const Register= ()=>{
            password : Passcode ,
            email : email
         }        
-        //axios call to post 
-       
+        //post request to register user 
        axios.post("http://localhost:5001/auth/register", userObj)
        .then(response =>{
            console.log(response.data)
@@ -45,29 +48,15 @@ const Register= ()=>{
               setEmail("")        
               setPassword("")
               setConfirmPassword("")
-        
-           } else {
-            
-              setMessageTitle("Username Already Taken!")
-              setMessageContent("Please enter another username.") 
-              //reset only password
-              setPassword("")
-              setConfirmPassword("") 
-              
+              openDialog();
            }
-         })
-
-         console.log("msg" ,msgTitle )
-         openDialog();
-
+         }).catch(error => {
+            console.log(error)
+            setMessageTitle("Username Already Taken!")
+            setMessageContent("Please enter another username.") 
+            openDialog();
+          })
     }
-
-    const openDialog= ()=>{
-        setOpen(true);
-    }
-
-
-
 
     const paperStyle = {padding:20, height:'80vh',width:'70vh',margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
@@ -93,7 +82,6 @@ const Register= ()=>{
             <Grid align='center'>
                <Button onClick={handleRegistration} type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Sign Up</Button>
             </Grid>
-           
             <Dialog open={open}>
                 <DialogTitle>{msgTitle}</DialogTitle>
                 <DialogContent>
@@ -107,7 +95,5 @@ const Register= ()=>{
         </Grid>
     )
 }
-
-
 
 export default Register;
