@@ -5,9 +5,10 @@ import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
+
 import {
   BrowserRouter as Router,
-  Routes, Route , Switch 
+  Routes, Route  
 } from "react-router-dom"
 
 
@@ -17,11 +18,15 @@ function App() {
     <Router>
       <div className='App'>
       <NavBar />
+      <section>
       <Routes>
         <Route path = "/" element={<Home />} />
         <Route path = "/login" element={<Login />} />
         <Route path = "/register" element={<Register />} />
+       
       </Routes>
+      </section>
+      
       </div>
      
    </Router>
