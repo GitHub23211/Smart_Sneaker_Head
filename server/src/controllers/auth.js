@@ -49,13 +49,13 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(e => {
-            response.json({"status": "username taken"})
+            response.json({"status": "username taken"}).status(400)
         })
-        
+    
     if(saveUser) {
         if(user._id) {
             const token = encodeToken(user._id, saveUser.username)
-            return response.status(200).json({status: "success", token: token})
+            return response.json({status: "success", token: token}).status(200)
         }
     }
 }
@@ -74,16 +74,16 @@ const getUser = async (request, response) => {
             const userid = decodedToken.id
             const user = await models.Session.findById(userid)
             if(user) {
-                response.status(200).json({
+                return response.json({
                     status: "success",
                     id: user._id,
                     username: user.username
-                })
+                }).status(200)
             }
         }
-        catch {response.status(401).json({error: "missing or invalid token"})}
+        catch {response.json({error: "missing or invalid token"}).status(401)}
     }
-    return response.status(400).json({error: "unregistered"})
+    return response.json({error: "unregistered"}).status(400)
 }
 
 /**
@@ -97,14 +97,14 @@ const loginUser = async (request, response) => {
     const password = request.body.password
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(400).json({status: "invalid username or password"})
+        return response.json({status: "invalid username or password"}).status(401)
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.status(400).json({status: "invalid username or password"})
+    return response.json({status: "invalid username or password"}).status(401)
 }
 
 /**
