@@ -48,7 +48,7 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(e => {
-            response.json({error: "username taken"})
+            response.status(400).json({error: "username taken"})
         })
         
     if(saveUser) {
@@ -73,16 +73,16 @@ const getUser = async (request, response) => {
             const userid = decodedToken.id
             const user = await models.Session.findById(userid)
             if(user) {
-                response.json({
+                response.status(200).json({
                     status: "success",
                     id: user._id,
                     username: user.username
                 })
             }
         }
-        catch {response.json({error: "missing or invalid token"})}
+        catch {response.status(401).json({error: "missing or invalid token"})}
     }
-    return response.json({error: "unregistered"})
+    return response.status(400).json({error: "unregistered"})
 }
 
 /**
@@ -96,14 +96,14 @@ const loginUser = async (request, response) => {
     const password = request.body.password
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(401).json({status: "invalid username or password"})
+        return response.status(400).json({status: "invalid username or password"})
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.status(401)
+    return response.status(400).json({status: "invalid username or password"})
 }
 
 /**
