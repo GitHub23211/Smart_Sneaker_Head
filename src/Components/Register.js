@@ -38,8 +38,6 @@ const Register= ()=>{
         //post request to register user 
        axios.post("http://localhost:5001/auth/register", userObj)
        .then(response =>{
-           console.log(response.data)
-           if(response.data.status === "success"){
               console.log(response.data)
               setMessageTitle("Thank you for Registering!")
               setMessageContent("Please proceed to Login to start shopping!")
@@ -48,6 +46,7 @@ const Register= ()=>{
               setEmail("")        
               setPassword("")
               setConfirmPassword("")
+<<<<<<< HEAD
               openDialog();
            }
          }).catch(error => {
@@ -56,6 +55,23 @@ const Register= ()=>{
             setMessageContent("Please enter another username.") 
             openDialog();
           })
+=======
+         }).catch(error => {
+            setMessageTitle("Username Already Taken!")
+            setMessageContent("Please enter another username.") 
+            //reset only password
+            setPassword("")
+            setConfirmPassword("") 
+         })
+
+         console.log("msg" ,msgTitle )
+         openDialog();
+
+    }
+
+    const openDialog= ()=>{
+        setOpen(true);
+>>>>>>> 8d0b2c3f91aea9b4cf8d1042481ba3b06ca3ce30
     }
 
     const paperStyle = {padding:20, height:'80vh',width:'70vh',margin:'20px auto'}
