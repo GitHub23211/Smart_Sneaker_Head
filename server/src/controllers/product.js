@@ -13,7 +13,7 @@ const createProduct = async (request, response) => {
             const newProduct = new models.Product({
                 name: request.body.name,
                 price: request.body.price,
-                description: request.body.descrption,
+                description: request.body.description,
                 quantity: request.body.quantity
             })
 
