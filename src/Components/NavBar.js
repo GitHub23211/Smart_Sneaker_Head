@@ -2,18 +2,8 @@ import React from "react";
 import { AppBar, Grid, Toolbar, Typography ,Button , TextField ,InputAdornment ,IconButton ,Box} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-/*
-< Grid container>
-<Grid item xs={6} md={12}>
-  Hi
-</Grid>
-<Grid item xs={6} md={12}>
-  Hi
-</Grid>
-</Grid>*/
 const navStyle = {background:'linear-gradient(90deg, rgba(2,0,36,1) 6%, rgba(37,59,23,1) 31%, rgba(49,80,18,1) 47%, rgba(9,121,83,1) 67%, rgba(0,212,255,1) 100%)'}
 const buttonStyle = {backgroundColor:"white", color: 'black' }
-const margin = {margin :'20px auto'}
 const NavBar = () =>{
 
     const bg ={backgroundColor:'white',margin:'auto'}
