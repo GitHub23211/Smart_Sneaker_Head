@@ -17,24 +17,9 @@ const Register= ()=>{
     const [msgTitle, setMessageTitle] = useState("") 
     const [msgContent , setMessageContent] = useState("") 
 
-    const handleNameChange = (event) => {
+    const handleOnChange = (event, handler) => {
         console.log(event.target.value)
-        setUserName(event.target.value)
-    }
-
-    const handleEmailChange = (event) => {
-        console.log(event.target.value)
-        setEmail(event.target.value)
-    }
-
-    const handlePassChange = (event) => {
-        console.log(event.target.value)
-        setPassword(event.target.value)
-    }
-
-    const handleConfirmPassChange = (event) => {
-        console.log(event.target.value)
-        setConfirmPassword(event.target.value)
+        handler(event.target.value)
     }
 
     const handleRegistration = (event)=>{
@@ -43,7 +28,8 @@ const Register= ()=>{
 
         const userObj = {
            username : userName ,
-           password : Passcode
+           password : Passcode ,
+           email : email
         }        
         //axios call to post 
        
@@ -95,10 +81,10 @@ const Register= ()=>{
                 <h2>Register Now</h2>
                 <p>Please fill this form to create an account!</p>
             </Grid>    
-            <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={handleNameChange}></TextField>
-            <TextField label='Email' placeholder='Enter email' fullWidth required style={margin} input value = {email} onChange={handleEmailChange}></TextField>
-            <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin} input value={Passcode} onChange={handlePassChange}></TextField>
-            <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin} input value={confirmpassword} onChange={handleConfirmPassChange}></TextField>
+            <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={(event) => handleOnChange(event, setUserName)}></TextField>
+            <TextField label='Email' placeholder='Enter email' fullWidth required style={margin} input value = {email} onChange={(event) => handleOnChange(event, setEmail)}></TextField>
+            <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin} input value={Passcode} onChange={(event) => handleOnChange(event, setPassword)}></TextField>
+            <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin} input value={confirmpassword} onChange={(event) => handleOnChange(event, setConfirmPassword)}></TextField>
              
             <FormGroup>
                  <FormControlLabel control={<Checkbox  />} label="I accept the terms and conditions." />

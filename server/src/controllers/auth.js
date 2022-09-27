@@ -43,7 +43,8 @@ const createUser = async (request, response) => {
     const password = await hashPassword(request.body.password)
     const user = new models.Session({
         username: request.body.username,
-        password: password
+        password: password,
+        email: request.body.email
     })
 
     const saveUser = await user.save()
