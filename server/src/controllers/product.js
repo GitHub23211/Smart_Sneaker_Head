@@ -2,9 +2,9 @@ const models = require('../models')
 const auth = require('./auth')
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Creates new product to put into database
+ * @param {Object} request - Object containing a body field that is a JSON object with 4 keys: name, price, description, quantity
+ * @param {Object} response - Object used to send a json response.
  */
 const createProduct = async (request, response) => {
     const seller = await auth.validateUser(request)
@@ -17,15 +17,17 @@ const createProduct = async (request, response) => {
                 quantity: request.body.quantity
             })
 
-            const saveProduct = newProduct.save()
-                .catch(e => response.json({error: "product already exists"}).status(400))
+            const saveProduct = await newProduct.save()
+                .catch(e => {
+                    response.status(400).json({error: "product already exists"})
+                })
                 
             if(saveProduct) {
                 if(newProduct._id) {
-                    return response.json({status: "success", product: newProduct}).status(200)
+                    return response.status(200).json({status: "success", product: newProduct})
                 }
             }
-        } catch {response.json({error: "invalid user"}).status(401)}
+        } catch {response.status(401).json({error: "invalid user"})}
     }
 }
 
