@@ -49,7 +49,7 @@ const createUser = async (request, response) => {
 
     const saveUser = await user.save()
         .catch(e => {
-            response.json({"status": "username taken", error: e}).status(400)
+            response.json({"status": "username taken"}).status(400)
         })
     
     if(saveUser) {
