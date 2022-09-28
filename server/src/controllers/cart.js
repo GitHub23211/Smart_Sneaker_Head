@@ -39,6 +39,33 @@ const addToCart = async (request, response) => {
 }
 
 /**
+ * 
+ * @param {*} request 
+ * @param {*} response 
+ * @returns 
+ */
+ const updateQuantity = async (request, response) => {
+    const buyer = await auth.validateUser(request)
+
+    if(buyer) {
+        const user = await models.Session.findById(buyer)
+        const productToUpdate = request.body.productid
+        const itemIndex = user.cart.findIndex(item => item.productid.toString() === productToUpdate)
+
+        if(itemIndex > -1) {
+            user.cart[itemIndex].quantity = request.body.quantity
+            await user.save()
+            .catch(e => {
+                response.status(400).json({error: "unable to update quantity", error: e})
+            })
+            return response.status(200).json({status: "successfully updated item quantity", newCart: user.cart})
+        }
+        return response.status(400).json({error: "could not find item to update"})
+    }
+    return response.status(401).json({error: "invalid user"})
+}
+
+/**
  * Deletes item from cart
  * @param {Object} request Object containing a params field that is a JSON object with key productid
  * @param {Object} response Object for returning json responses 
@@ -63,4 +90,4 @@ const deleteFromCart = async (request, response) => {
     return response.status(401).json({error: "invalid user"})
 }
 
-module.exports = {addToCart, deleteFromCart}
+module.exports = {addToCart, deleteFromCart, updateQuantity}
