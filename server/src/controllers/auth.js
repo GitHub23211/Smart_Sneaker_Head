@@ -77,7 +77,9 @@ const getUser = async (request, response) => {
                 return response.status(200).json({
                     status: "success",
                     id: user._id,
-                    username: user.username
+                    username: user.username,
+                    email: user.email,
+                    address: user.address
                 })
             }
         }
