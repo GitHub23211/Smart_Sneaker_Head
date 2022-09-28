@@ -28,8 +28,9 @@ const createProduct = async (request, response) => {
                     return response.status(200).json({status: "success", product: newProduct})
                 }
             }
-        } catch {response.status(401).json({error: "invalid user"})}
+        } catch {return response.status(401).json({error: "could not create product"})}
     }
+    return response.status(401).json({error: "invalid user"})
 }
 
 /**
@@ -40,7 +41,20 @@ const createProduct = async (request, response) => {
 const updateProduct = async (request, response) => {
     const seller = await auth.validateUser(request)
     if(seller) {
+        try {
+            const filter = {_id: request.params.productid, seller: seller}
+            const updatedProduct = {
+                name: request.body.name,
+                price: request.body.price,
+                description: request.body.description,
+                quantity: request.body.quantity
+            }
+            const productToUpdate = await models.Product.findOneAndUpdate(filter, updatedProduct)
+            return response.status(200).json({status: "successfully updated product", pro: productToUpdate, up: updatedProduct})
+        }
+        catch {return response.status(401).json({error: "failed to update product"})}
     }
+    return response.status(401).json({status: "invalid seller"})
 }
 
 /**
