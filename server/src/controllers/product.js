@@ -52,7 +52,10 @@ const updateProduct = async (request, response) => {
                 quantity: request.body.quantity
             }
             const productToUpdate = await models.Product.findOneAndUpdate(filter, updatedProduct)
-            return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
+            if(productToUpdate) {
+                return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
+            }
+            return response.status(400).json({error: "product does not exist"})
         }
         catch {return response.status(401).json({error: "failed to update product"})}
     }
