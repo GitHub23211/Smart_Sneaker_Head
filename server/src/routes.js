@@ -29,6 +29,6 @@ router.delete(`/api/product/delete/:productid`, product.deleteProduct)
 router.put(`/api/cart/add/:productid`, cart.addToCart)
 
 /* DELETE request to remove a product from cart */
-router.delete(`/api/cart/delete/:productid`, cart.deleteCart)
+router.delete(`/api/cart/delete/:productid`, cart.deleteFromCart)
 
 module.exports = router 
