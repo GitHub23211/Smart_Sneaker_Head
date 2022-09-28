@@ -8,7 +8,7 @@ const sessionSchema = new mongoose.Schema({
     address: String,
     cart: [ 
         {
-            product: {type: mongoose.Types.ObjectId, ref: "Product"},
+            productid: {type: mongoose.Types.ObjectId, ref: "Product"},
             quantity: Number
         }
     ]
