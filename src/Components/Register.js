@@ -10,10 +10,11 @@ const Register= ()=>{
 
     const [userName , setUserName] = useState("")
     const [email , setEmail] = useState("")
+    const [address, setAddress] = useState("") 
     const [Passcode , setPassword] = useState("")
     const [confirmpassword , setConfirmPassword] = useState("") 
 
-    const[open,setOpen] = useState(false)
+    const [open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
     const [msgContent , setMessageContent] = useState("") 
 
@@ -33,7 +34,8 @@ const Register= ()=>{
         const userObj = {
            username : userName ,
            password : Passcode ,
-           email : email
+           email : email,
+           address : address
         }        
         //post request to register user 
        axios.post("http://localhost:5001/auth/register", userObj)
@@ -43,7 +45,8 @@ const Register= ()=>{
               setMessageContent("Please proceed to Login to start shopping!")
               //resert the form
               setUserName("")
-              setEmail("")        
+              setEmail("")
+              setAddress("")        
               setPassword("")
               setConfirmPassword("")
               openDialog();
@@ -74,6 +77,7 @@ const Register= ()=>{
             </Grid>    
             <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={(event) => handleOnChange(event, setUserName)}></TextField>
             <TextField label='Email' placeholder='Enter email' fullWidth required style={margin} input value = {email} onChange={(event) => handleOnChange(event, setEmail)}></TextField>
+            <TextField label='Address' placeholder='Enter postal address' fullWidth required style={margin} input value = {address} onChange={(event) => handleOnChange(event, setAddress)}></TextField>
             <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin} input value={Passcode} onChange={(event) => handleOnChange(event, setPassword)}></TextField>
             <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin} input value={confirmpassword} onChange={(event) => handleOnChange(event, setConfirmPassword)}></TextField>
              
