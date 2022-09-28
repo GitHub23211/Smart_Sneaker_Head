@@ -26,7 +26,7 @@ router.put(`/api/product/update/:productid`, product.updateProduct)
 router.delete(`/api/product/delete/:productid`, product.deleteProduct)
 
 /* PUT request to add products to cart */
-router.put(`/api/cart/add/:productid`, cart.addToCart)
+router.put(`/api/cart/add`, cart.addToCart)
 
 /* DELETE request to remove a product from cart */
 router.delete(`/api/cart/delete/:productid`, cart.deleteFromCart)
