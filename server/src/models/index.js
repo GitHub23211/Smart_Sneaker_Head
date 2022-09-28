@@ -5,7 +5,8 @@ const sessionSchema = new mongoose.Schema({
     username: {type: String, unique: true},
     password: String,
     email: {type: String, unique: true},
-    address: String
+    address: String,
+    cart: [{type: mongoose.Types.ObjectId, ref: "Product"}]
 })
 
 sessionSchema.set('toJSON' , {
