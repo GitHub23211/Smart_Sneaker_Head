@@ -81,7 +81,7 @@ const getUser = async (request, response) => {
                 })
             }
         }
-        catch {response.status(401).json({error: "missing or invalid token"})}
+        catch {return response.status(401).json({error: "missing or invalid token"})}
     }
     return response.status(400).json({error: "unregistered"})
 }
@@ -115,12 +115,15 @@ const loginUser = async (request, response) => {
 const validateUser = async (request) => {
     const authHeader = request.get('Authorization')
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
-        const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
-        const userid = decodedToken.id     
-        const user = await models.Session.findOne({_id: userid})  
-        if (user) {
-            return user._id
+        try {
+            const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
+            const userid = decodedToken.id     
+            const user = await models.Session.findOne({_id: userid})
+            if (user) {
+                return user._id
+            }
         }
+        catch {return false}
     }
     return false
 }
