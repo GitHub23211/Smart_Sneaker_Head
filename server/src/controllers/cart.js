@@ -11,7 +11,11 @@ const addToCart = async (request, response) => {
     const buyer = await auth.validateUser(request)
     if(buyer) {
         const user = await models.Session.findById(buyer)
-        const newCart = user.cart.concat([request.params.productid])
+        const itemToAdd = {
+            product: request.params.productid,
+            quantity: 1
+        }
+        const newCart = user.cart.concat(itemToAdd)
         user.cart = newCart
         await user.save()
             .catch(e => {
