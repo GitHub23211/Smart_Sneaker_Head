@@ -14,7 +14,8 @@ const createProduct = async (request, response) => {
                 name: request.body.name,
                 price: request.body.price,
                 description: request.body.description,
-                quantity: request.body.quantity
+                quantity: request.body.quantity,
+                seller: seller
             })
 
             const saveProduct = await newProduct.save()
@@ -37,7 +38,9 @@ const createProduct = async (request, response) => {
  * @param {*} response 
  */
 const updateProduct = async (request, response) => {
-
+    const seller = await auth.validateUser(request)
+    if(seller) {
+    }
 }
 
 /**
@@ -46,7 +49,9 @@ const updateProduct = async (request, response) => {
  * @param {*} response 
  */
 const deleteProduct = async (request, response) => {
-
+    const seller = await auth.validateUser(request)
+    if(seller) {
+    }
 }
 
 module.exports = {createProduct, updateProduct, deleteProduct}

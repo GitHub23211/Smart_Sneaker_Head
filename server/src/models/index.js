@@ -22,7 +22,8 @@ const productSchema = new mongoose.Schema({
     name: {type: String, unique: true},
     price: Number,
     description: String,
-    quantity: Number
+    quantity: Number,
+    seller: {type: mongoose.Types.ObjectId, ref: "Session"}
 })
 
 productSchema.set('toJSON' , {
