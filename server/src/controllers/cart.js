@@ -5,7 +5,7 @@ const auth = require('./auth')
  * Adds productID to cart field of a user document in the database
  * @param {Object} request Object containing a body field that is a JSON object with two keys: productid and quantity
  * @param {Object} response Object for returning json responses 
- * @returns 200 status on success, else 40x codes on errors
+ * @returns 200 status on success with the users cart, else 40x codes on errors
  */
 const addToCart = async (request, response) => {
     const buyer = await auth.validateUser(request)
@@ -39,10 +39,10 @@ const addToCart = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
- * @returns 
+ * Updates the quantity of a given item in a cart
+ * @param {Object} request Object containing a body field that is a JSON object with two keys: productid and quantity
+ * @param {Object} response Object for returning json responses 
+ * @returns 200 status on success with the users cart, else 40x codes on errors
  */
  const updateQuantity = async (request, response) => {
     const buyer = await auth.validateUser(request)
@@ -69,7 +69,7 @@ const addToCart = async (request, response) => {
  * Deletes item from cart
  * @param {Object} request Object containing a params field that is a JSON object with key productid
  * @param {Object} response Object for returning json responses 
- * @returns 200 status on success, else 40x codes on errors
+ * @returns 200 status on success with the users cart, else 40x codes on errors
  */
 const deleteFromCart = async (request, response) => {
     const buyer = await auth.validateUser(request)
