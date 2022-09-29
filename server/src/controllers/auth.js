@@ -44,8 +44,7 @@ const createUser = async (request, response) => {
     const user = new models.Session({
         username: request.body.username,
         password: password,
-        email: request.body.email,
-        cart: user.cart
+        email: request.body.email
     })
 
     const saveUser = await user.save()
@@ -80,7 +79,8 @@ const getUser = async (request, response) => {
                     id: user._id,
                     username: user.username,
                     email: user.email,
-                    address: user.address
+                    address: user.address,
+                    cart: user.cart
                 })
             }
         }
