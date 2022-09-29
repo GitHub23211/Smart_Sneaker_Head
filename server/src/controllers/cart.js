@@ -29,10 +29,7 @@ const addToCart = async (request, response) => {
             })
             return response.status(200).json({status: "successfully added item to cart", newCart: user.cart})
         }
-        else {
-            return response.status(400).json({error: "item already in cart"})
-        }
-
+        return response.status(400).json({error: "item already in cart"})
     }
     return response.status(401).json({error: "invalid user"})
 }
