@@ -9,28 +9,25 @@ const models = require('../models')
 const createProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
-        try {
-            const newProduct = new models.Product({
-                name: request.body.name,
-                price: request.body.price,
-                description: request.body.description,
-                quantity: request.body.quantity,
-                seller: seller
-            })
+        const newProduct = new models.Product({
+            name: request.body.name,
+            price: request.body.price,
+            description: request.body.description,
+            quantity: request.body.quantity,
+            seller: seller
+        })
 
-            const saveProduct = await newProduct.save()
-                .catch(e => {
-                    response.status(400).json({error: "product already exists"})
-                })
-                
-            if(saveProduct) {
-                if(newProduct._id) {
-                    return response.status(200).json({status: "success", product: newProduct})
-                }
+        const saveProduct = await newProduct.save()
+            .catch(e => {
+                response.status(400).json({error: "product already exists"})
+            })
+        
+        if(saveProduct) {
+            if(newProduct._id) {
+                return response.status(200).json({status: "success", product: newProduct})
             }
-        } catch {return response.status(401).json({error: "could not create product"})}
+        }
     }
-    return response.status(401).json({error: "invalid user"})
 }
 
 /**
@@ -43,21 +40,20 @@ const createProduct = async (request, response) => {
 const updateProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
-        try {
-            const filter = {_id: request.params.productid, seller: seller}
-            const updatedProduct = {
-                name: request.body.name,
-                price: request.body.price,
-                description: request.body.description,
-                quantity: request.body.quantity
-            }
-            const productToUpdate = await models.Product.findOneAndUpdate(filter, updatedProduct)
-            if(productToUpdate) {
-                return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
-            }
-            return response.status(400).json({error: "product does not exist"})
+        const filter = {_id: request.params.productid, seller: seller}
+        const updatedProduct = {
+            name: request.body.name,
+            price: request.body.price,
+            description: request.body.description,
+            quantity: request.body.quantity
         }
-        catch {return response.status(401).json({error: "failed to update product"})}
+
+        const productToUpdate = await models.Product.findOneAndUpdate(filter, updatedProduct)
+                                                    .catch(e => response.status(400).json({error: "failed to update product"}))
+        if(productToUpdate) {
+            return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
+        }
+        return response.status(400).json({error: "product does not exist"})
     }
     return response.status(401).json({error: "invalid seller"})
 }
@@ -71,16 +67,16 @@ const updateProduct = async (request, response) => {
 const deleteProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
-        try {
-            const filter = {_id: request.params.productid, seller: seller}
-            const productToDelete = await models.Product.find(filter)
-            if(productToDelete.length > 0) {
-                await models.Product.deleteOne(filter)
-                return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
-            }
-            return response.status(400).json({error: "product does not exist or you are not the seller of the product"})
+        const filter = {_id: request.params.productid, seller: seller}
+        const productToDelete = await models.Product.find(filter)
+
+        if(productToDelete.length > 0) {
+            await models.Product.deleteOne(filter)
+            .catch(e => response.status(400).json({error: "failed to delete product"}))
+
+            return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
         }
-        catch {return response.status(401).json({error: "failed to delete product"})}
+        return response.status(400).json({error: "product does not exist or you are not the seller of the product"})
     }
     return response.status(401).json({error: "invalid seller"})
 }
