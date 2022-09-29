@@ -1,5 +1,4 @@
 const models = require('../models')
-const auth = require('./auth')
 
 /**
  * Creates new product and puts it into the database
@@ -8,7 +7,7 @@ const auth = require('./auth')
  * @returns 200 status on success, 400 status if product exists, 401 status if unknown error or seller could not be validated
  */
 const createProduct = async (request, response) => {
-    const seller = await auth.validateUser(request)
+    const seller = request.user
     if(seller) {
         try {
             const newProduct = new models.Product({
@@ -42,7 +41,7 @@ const createProduct = async (request, response) => {
  * @returns 200 status on success, 401 status if unknown error or is invalid seller
  */
 const updateProduct = async (request, response) => {
-    const seller = await auth.validateUser(request)
+    const seller = request.user
     if(seller) {
         try {
             const filter = {_id: request.params.productid, seller: seller}
@@ -70,7 +69,7 @@ const updateProduct = async (request, response) => {
  * @returns 200 status on success, 401 status if unknown error or is invalid seller
  */
 const deleteProduct = async (request, response) => {
-    const seller = await auth.validateUser(request)
+    const seller = request.user
     if(seller) {
         try {
             const filter = {_id: request.params.productid, seller: seller}

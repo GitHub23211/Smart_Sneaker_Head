@@ -1,5 +1,4 @@
 const models = require('../models')
-const auth = require('./auth')
 
 /**
  * Adds productID to cart field of a user document in the database
@@ -8,7 +7,7 @@ const auth = require('./auth')
  * @returns 200 status on success with the users cart, else 40x codes on errors
  */
 const addToCart = async (request, response) => {
-    const buyer = await auth.validateUser(request)
+    const buyer = request.user
 
     if(buyer) {
         const user = await models.Session.findById(buyer)
@@ -45,7 +44,7 @@ const addToCart = async (request, response) => {
  * @returns 200 status on success with the users cart, else 40x codes on errors
  */
  const updateQuantity = async (request, response) => {
-    const buyer = await auth.validateUser(request)
+    const buyer = request.user
 
     if(buyer) {
         const user = await models.Session.findById(buyer)
@@ -72,7 +71,7 @@ const addToCart = async (request, response) => {
  * @returns 200 status on success with the users cart, else 40x codes on errors
  */
 const deleteFromCart = async (request, response) => {
-    const buyer = await auth.validateUser(request)
+    const buyer = request.user
 
     if(buyer) {
         const productToDelete = request.params.productid
