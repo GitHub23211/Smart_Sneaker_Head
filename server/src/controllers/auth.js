@@ -26,9 +26,9 @@ const encodeToken = (id, username) => {
  * @param {String} password - plain text password to hash
  * @returns {String} hashed password
  */
-const hashPassword = async (password) => {
-    return await bcrypt.hash(password, 10)
-                .then(response => response)
+const hashPassword = (password) => {
+    return bcrypt.hash(password, 10)
+            .then(response => response)
 }
 
 
