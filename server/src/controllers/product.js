@@ -17,7 +17,7 @@ const createProduct = async (request, response) => {
                 quantity: request.body.quantity,
                 seller: seller
             })
-
+    
             const saveProduct = await newProduct.save()
                 
             if(saveProduct) {
@@ -25,9 +25,9 @@ const createProduct = async (request, response) => {
                     return response.status(200).json({status: "success", product: newProduct})
                 }
             }
-        } catch {return response.status(401).json({error: "product already exists"})}
+        }
+        catch {return response.status(401).json({error: "product already exists"})}
     }
-    return response.status(401).json({error: "invalid user"})
 }
 
 /**
