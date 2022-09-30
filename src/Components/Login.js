@@ -31,7 +31,7 @@ const Login=()=>{
             password : Passcode 
          }   
 
-       axios.post("http://localhost:5001/auth/login", userObj)
+       axios.post("auth/login", userObj)
        .then(response =>{
            console.log(response.data)
            if(response.data.status === "success"){

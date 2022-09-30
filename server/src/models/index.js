@@ -4,7 +4,14 @@ const config = require('../config')
 const sessionSchema = new mongoose.Schema({
     username: {type: String, unique: true},
     password: String,
-    email: {type: String, unique: true}
+    email: {type: String, unique: true},
+    address: String,
+    cart: [ 
+        {
+            productid: {type: mongoose.Types.ObjectId, ref: "Product"},
+            quantity: Number
+        }
+    ]
 })
 
 sessionSchema.set('toJSON' , {
@@ -21,7 +28,8 @@ const productSchema = new mongoose.Schema({
     name: {type: String, unique: true},
     price: Number,
     description: String,
-    quantity: Number
+    quantity: Number,
+    seller: {type: mongoose.Types.ObjectId, ref: "Session"}
 })
 
 productSchema.set('toJSON' , {
