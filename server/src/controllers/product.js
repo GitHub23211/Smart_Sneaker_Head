@@ -1,5 +1,4 @@
 const models = require('../models')
-const auth = require('./auth')
 
 /**
  * Creates new product and puts it into the database
@@ -8,7 +7,7 @@ const auth = require('./auth')
  * @returns 200 status on success, 400 status if product exists, 401 status if unknown error or seller could not be validated
  */
 const createProduct = async (request, response) => {
-    const seller = await auth.validateUser(request)
+    const seller = request.user
     if(seller) {
         try {
             const newProduct = new models.Product({
@@ -18,20 +17,16 @@ const createProduct = async (request, response) => {
                 quantity: request.body.quantity,
                 seller: seller
             })
-
+    
             const saveProduct = await newProduct.save()
-                .catch(e => {
-                    response.status(400).json({error: "product already exists"})
-                })
                 
             if(saveProduct) {
                 if(newProduct._id) {
                     return response.status(200).json({status: "success", product: newProduct})
                 }
             }
-        } catch {return response.status(401).json({error: "could not create product"})}
+        } catch {return response.status(401).json({error: "product already exists"})}
     }
-    return response.status(401).json({error: "invalid user"})
 }
 
 /**
@@ -42,7 +37,7 @@ const createProduct = async (request, response) => {
  * @returns 200 status on success, 401 status if unknown error or is invalid seller
  */
 const updateProduct = async (request, response) => {
-    const seller = await auth.validateUser(request)
+    const seller = request.user
     if(seller) {
         try {
             const filter = {_id: request.params.productid, seller: seller}
@@ -56,9 +51,12 @@ const updateProduct = async (request, response) => {
             if(productToUpdate) {
                 return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
             }
-            return response.status(400).json({error: "product does not exist"})
+        } catch(e) {
+            if(e.codeName) {
+                return response.status(401).json({error: "product with this name already exists"})
+            }
+            return response.status(401).json({error: "product does not exist"})
         }
-        catch {return response.status(401).json({error: "failed to update product"})}
     }
     return response.status(401).json({error: "invalid seller"})
 }
@@ -70,7 +68,7 @@ const updateProduct = async (request, response) => {
  * @returns 200 status on success, 401 status if unknown error or is invalid seller
  */
 const deleteProduct = async (request, response) => {
-    const seller = await auth.validateUser(request)
+    const seller = request.user
     if(seller) {
         try {
             const filter = {_id: request.params.productid, seller: seller}
@@ -79,9 +77,7 @@ const deleteProduct = async (request, response) => {
                 await models.Product.deleteOne(filter)
                 return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
             }
-            return response.status(400).json({error: "product does not exist or you are not the seller of the product"})
-        }
-        catch {return response.status(401).json({error: "failed to delete product"})}
+        } catch{return response.status(401).json({error: "product does not exist or you are not the seller of the product"})}
     }
     return response.status(401).json({error: "invalid seller"})
 }
