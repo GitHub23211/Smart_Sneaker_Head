@@ -5,9 +5,6 @@ const cart = require('./controllers/cart')
 
 const router = express.Router()
 
-/* GET request that returns currently logged in user */
-router.get('/auth/', auth.getUser)
-
 /* POST request to register product on to website for sale */
 router.post(`/api/product/register`, product.createProduct)
 

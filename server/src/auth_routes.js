@@ -3,6 +3,7 @@ const auth = require('./controllers/auth')
 
 const router = express.Router()
 
+/* GET request that returns currently logged in user */
 router.get('', auth.getUser)
 
 /* POST request that registers user to website */
