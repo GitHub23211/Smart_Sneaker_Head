@@ -56,8 +56,7 @@ const addToCart = async (request, response) => {
                 return response.status(200).json({status: "successfully updated item quantity", newCart: user.cart})
             }
             return response.status(400).json({error: "could not find item to update"})
-        }
-        catch(e) {return response.status(401).json({error: e})}
+        } catch(e) {return response.status(401).json({error: e})}
     }
     return response.status(401).json({error: "invalid user"})
 }
@@ -84,8 +83,7 @@ const deleteFromCart = async (request, response) => {
                 })
     
             return response.status(200).json({status: "successfully deleted item from cart", newCart: user.cart})
-        }
-        catch(e) {return response.status(401).json({error: e})}
+        } catch(e) {return response.status(401).json({error: e})}
     }
     return response.status(401).json({error: "invalid user"})
 }
