@@ -25,8 +25,7 @@ const createProduct = async (request, response) => {
                     return response.status(200).json({status: "success", product: newProduct})
                 }
             }
-        }
-        catch {return response.status(401).json({error: "product already exists"})}
+        } catch {return response.status(401).json({error: "product already exists"})}
     }
 }
 
@@ -52,8 +51,7 @@ const updateProduct = async (request, response) => {
             if(productToUpdate) {
                 return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
             }
-        }
-        catch(e) {
+        } catch(e) {
             if(e.codeName) {
                 return response.status(401).json({error: "product with this name already exists"})
             }
@@ -79,8 +77,7 @@ const deleteProduct = async (request, response) => {
                 await models.Product.deleteOne(filter)
                 return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
             }
-        }
-        catch{return response.status(401).json({error: "product does not exist or you are not the seller of the product"})}
+        } catch{return response.status(401).json({error: "product does not exist or you are not the seller of the product"})}
     }
     return response.status(401).json({error: "invalid seller"})
 }
