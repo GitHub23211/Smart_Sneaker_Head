@@ -1,9 +1,11 @@
 const express = require('express')
-const auth = require('./controllers/auth')
 const product = require('./controllers/product')
 const cart = require('./controllers/cart')
 
 const router = express.Router()
+
+/* GET request to get all products */
+router.get("/api/product", product.getProducts)
 
 /* POST request to register product on to website for sale */
 router.post(`/api/product/register`, product.createProduct)
@@ -15,10 +17,10 @@ router.put(`/api/product/update/:productid`, product.updateProduct)
 router.delete(`/api/product/delete/:productid`, product.deleteProduct)
 
 /* PUT request to add products to cart */
-router.put(`/api/cart/add`, cart.addToCart)
+router.put(`/api/cart/add/:productid`, cart.addToCart)
 
 /* PUT request to update quantity of item in cart */
-router.put(`/api/cart/update`, cart.updateQuantity)
+router.put(`/api/cart/update/:productid`, cart.updateQuantity)
 
 /* DELETE request to remove a product from cart */
 router.delete(`/api/cart/delete/:productid`, cart.deleteFromCart)
