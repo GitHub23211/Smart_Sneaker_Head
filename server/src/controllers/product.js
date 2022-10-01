@@ -51,11 +51,15 @@ const updateProduct = async (request, response) => {
             if(productToUpdate) {
                 return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
             }
+            throw new Error("Not the original seller")
         } catch(e) {
-            if(e.codeName) {
-                return response.status(401).json({error: "product with this name already exists"})
+            if(e.keyPattern && e.keyPattern.name) {
+                return response.status(400).json({error: "product with that name already exists"})
             }
-            return response.status(401).json({error: "product does not exist"})
+            else if(e.name === "CastError") {
+                return response.status(400).json({error: "invalid productid"})
+            }
+            return response.status(401).json({error: e.toString()})
         }
     }
     return response.status(401).json({error: "invalid seller"})
