@@ -84,7 +84,7 @@ const deleteProduct = async (request, response) => {
             const productToDelete = await models.Product.find(filter)
             if(productToDelete.length > 0) {
                 await models.Product.deleteOne(filter)
-                return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
+                return response.status(200).json({status: "successfully deleted product", product: productToDelete})
             }
             throw new Error("Not the original seller or product no longer exists")
         } catch(e) {
