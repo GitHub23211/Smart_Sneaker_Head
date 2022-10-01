@@ -1,21 +1,34 @@
 
 import './App.css';
 import React from 'react';
+import { useState } from "react";
+
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import User from './Components/User';
+import Orders from './Components/Orders';
+import UserProfile from './Components/UserProfile';
+import UpdateProfile from './Components/UpdateProfile';
+import Sell from './Components/Sell';
+import Product  from './Components/Product';
+import Cart  from './Components/Cart';
+import DeleteAccount  from './Components/DeleteAccount';
+import LoginContext from './LoginContext';
 
 import {
   BrowserRouter as Router,
-  Routes, Route  
+  Routes, Route 
 } from "react-router-dom"
 
 
-
 function App() {
+  const [isLogin, setLogin] = useState(false);
+  console.log("I m here :: ", isLogin);
   return (
-    <Router>
+    <LoginContext.Provider value={{isLogin, setLogin}}> 
+    <Router>      
       <div className='App'>
       <NavBar />
       <section>
@@ -23,15 +36,21 @@ function App() {
         <Route path = "/" element={<Home />} />
         <Route path = "/login" element={<Login />} />
         <Route path = "/register" element={<Register />} />
-       
+        <Route path = "/user" element={<User />}>
+               <Route index element={<UserProfile />} />
+               <Route path = "/user/profile" element={<UserProfile />} />
+               <Route path = "/user/updateprofile" element={<UpdateProfile />} />
+               <Route path = "/user/orders" element={<Orders />} />
+               <Route path = "/user/sell" element={<Sell />} />
+               <Route path = "/user/delete" element={<DeleteAccount />} />
+        </Route>  
+        <Route path = "/user/cart" element={<Cart />} />
+        <Route path = "/product" element={<Product />} /> 
       </Routes>
       </section>
-      
       </div>
-     
-   </Router>
-
-  
+    </Router>
+    </LoginContext.Provider>  
   );
 }
 
