@@ -10,3 +10,4 @@
 Website emulating online marketplaces like eBay.
 
 ## Functions and Features
+[Link to back-end API usage](api.md)
