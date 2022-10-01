@@ -11,7 +11,7 @@ function Item({item})
             <h2>{item.title}</h2>
 
             <Button className="CheckButton">
-                Check it out!
+                Link to Product Page
             </Button>
         </Paper>
     )
