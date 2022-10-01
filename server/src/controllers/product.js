@@ -1,5 +1,10 @@
 const models = require('../models')
 
+const getProducts = async (request, response) => {
+    const products = await models.Product.find({})
+    return response.status(200).json({status: "success", products: products})
+}
+
 /**
  * Creates new product and puts it into the database
  * @param {Object} request - Object containing a body field that is a JSON object with 4 keys: name, price, description, quantity
@@ -22,7 +27,7 @@ const createProduct = async (request, response) => {
                 
             if(saveProduct) {
                 if(newProduct._id) {
-                    return response.status(200).json({status: "success", product: newProduct})
+                    return response.status(201).json({status: "success", product: newProduct})
                 }
             }
         } catch {return response.status(401).json({error: "product already exists"})}
@@ -51,11 +56,15 @@ const updateProduct = async (request, response) => {
             if(productToUpdate) {
                 return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
             }
+            throw new Error("Not the original seller or product no longer exists")
         } catch(e) {
-            if(e.codeName) {
-                return response.status(401).json({error: "product with this name already exists"})
+            if(e.keyPattern && e.keyPattern.name) {
+                return response.status(400).json({error: "product with that name already exists"})
             }
-            return response.status(401).json({error: "product does not exist"})
+            else if(e.name === "CastError") {
+                return response.status(400).json({error: "invalid productid"})
+            }
+            return response.status(401).json({error: e.toString()})
         }
     }
     return response.status(401).json({error: "invalid seller"})
@@ -75,11 +84,17 @@ const deleteProduct = async (request, response) => {
             const productToDelete = await models.Product.find(filter)
             if(productToDelete.length > 0) {
                 await models.Product.deleteOne(filter)
-                return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
+                return response.status(200).json({status: "successfully deleted product", product: productToDelete})
             }
-        } catch{return response.status(401).json({error: "product does not exist or you are not the seller of the product"})}
+            throw new Error("Not the original seller or product no longer exists")
+        } catch(e) {
+            if(e.name === "CastError") {
+                return response.status(400).json({error: "invalid productid"})
+            }
+            return response.status(401).json({error: e.toString()})
+        }
     }
     return response.status(401).json({error: "invalid seller"})
 }
 
-module.exports = {createProduct, updateProduct, deleteProduct}
+module.exports = {getProducts, createProduct, updateProduct, deleteProduct}
