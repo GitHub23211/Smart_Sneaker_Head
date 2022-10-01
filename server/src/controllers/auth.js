@@ -47,16 +47,20 @@ const createUser = async (request, response) => {
         email: request.body.email
     })
 
-    const saveUser = await user.save()
-        .catch(e => {
-            response.status(400).json({error: "username taken"})
-        })
+    try {
+        const saveUser = await user.save()
     
-    if(saveUser) {
-        if(user._id) {
-            const token = encodeToken(user._id, saveUser.username)
-            return response.status(201).json({status: "success", token: token})
+        if(saveUser) {
+            if(user._id) {
+                const token = encodeToken(user._id, saveUser.username)
+                return response.status(201).json({status: "success", token: token})
+            }
         }
+    } catch(e) {
+        if(e.keyValue.username) {
+            return response.status(400).json({error:"username already taken"})
+        }
+        return response.status(400).json({error: "email already taken"})
     }
 }
 
