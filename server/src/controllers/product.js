@@ -22,7 +22,7 @@ const createProduct = async (request, response) => {
                 
             if(saveProduct) {
                 if(newProduct._id) {
-                    return response.status(200).json({status: "success", product: newProduct})
+                    return response.status(201).json({status: "success", product: newProduct})
                 }
             }
         } catch {return response.status(401).json({error: "product already exists"})}

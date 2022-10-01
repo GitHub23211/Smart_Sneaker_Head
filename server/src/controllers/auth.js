@@ -55,7 +55,7 @@ const createUser = async (request, response) => {
     if(saveUser) {
         if(user._id) {
             const token = encodeToken(user._id, saveUser.username)
-            return response.status(200).json({status: "success", token: token})
+            return response.status(201).json({status: "success", token: token})
         }
     }
 }
