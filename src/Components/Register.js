@@ -55,8 +55,8 @@ const Register= ()=>{
             openDialog();
           })
 
-         console.log("msg" ,msgTitle )
-         openDialog();
+         
+         
     }
 
 
