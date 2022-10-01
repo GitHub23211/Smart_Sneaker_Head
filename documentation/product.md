@@ -5,7 +5,7 @@ Returns a JSON object on success that contains the status code and list of all p
 ```json
 {
   "status": "success",
-  "produts": 
+  "products": 
   [
     {
       "name": "product name",
@@ -35,7 +35,7 @@ Returns 201 status code with JSON object if successful:
 ```json
 {
   "status": "success",
-  "produt": {
+  "product": {
       "name": "product name",
       "price": "product price",
       "description": "product description",
