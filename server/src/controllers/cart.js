@@ -12,7 +12,7 @@ const addToCart = async (request, response) => {
     if(buyer) {
         try {
             const user = await models.Session.findById(buyer)
-            const productid = request.body.productid
+            const productid = request.params.productid
 
             const itemInCart = user.cart.some(product => product.productid.toString() === productid)
             if(!itemInCart) {
@@ -46,7 +46,7 @@ const addToCart = async (request, response) => {
     if(buyer) {
         try {
             const user = await models.Session.findById(buyer)
-            const productToUpdate = request.body.productid
+            const productToUpdate = request.params.productid
             const itemIndex = user.cart.findIndex(item => item.productid.toString() === productToUpdate)
     
             if(itemIndex > -1) {
@@ -74,16 +74,17 @@ const deleteFromCart = async (request, response) => {
         try {
             const productToDelete = request.params.productid
             const user = await models.Session.findById(buyer)
-            const newCart = user.cart.filter(item => item.productid.toString() != productToDelete)
-            user.cart = newCart
-    
-            await user.save()
-                .catch(e => {
-                    response.status(400).json({error: "unable to delete from cart", error: e})
-                })
-    
-            return response.status(200).json({status: "successfully deleted item from cart", newCart: user.cart})
-        } catch(e) {return response.status(401).json({error: e})}
+            const itemInCart = user.cart.some(item => item.productid.toString() === productToDelete)
+            if(itemInCart){
+                const newCart = user.cart.filter(item => item.productid.toString() !== productToDelete)
+                user.cart = newCart
+
+                await user.save()
+
+                return response.status(200).json({status: "successfully deleted item from cart", newCart: user.cart})
+            }
+            throw new Error("product not in cart")
+        } catch(e) {return response.status(401).json({error: e.toString()})}
     }
     return response.status(401).json({error: "invalid user"})
 }
