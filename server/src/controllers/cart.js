@@ -26,7 +26,7 @@ const addToCart = async (request, response) => {
 
                 await user.save()
 
-                return response.status(200).json({status: "successfully added item to cart", newCart: user.cart})
+                return response.status(200).json({status: "success", newCart: user.cart})
             }
             return response.status(400).json({error: "item already in cart"})
         } catch(e) {return response.status(400).json({error: e})}
@@ -53,7 +53,7 @@ const addToCart = async (request, response) => {
                 user.cart[itemIndex].quantity = request.body.quantity
     
                 await user.save()
-                return response.status(200).json({status: "successfully updated item quantity", newCart: user.cart})
+                return response.status(200).json({status: "success", newCart: user.cart})
             }
             return response.status(400).json({error: "could not find item to update"})
         } catch(e) {return response.status(401).json({error: e})}
@@ -81,7 +81,7 @@ const deleteFromCart = async (request, response) => {
 
                 await user.save()
 
-                return response.status(200).json({status: "successfully deleted item from cart", newCart: user.cart})
+                return response.status(200).json({status: "success", newCart: user.cart})
             }
             throw new Error("product not in cart or invalid productid")
         } catch(e) {return response.status(401).json({error: e.toString()})}
