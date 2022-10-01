@@ -51,7 +51,7 @@ const updateProduct = async (request, response) => {
             if(productToUpdate) {
                 return response.status(200).json({status: "successfully updated product", before: productToUpdate, after: updatedProduct})
             }
-            throw new Error("Not the original seller")
+            throw new Error("Not the original seller or product no longer exists")
         } catch(e) {
             if(e.keyPattern && e.keyPattern.name) {
                 return response.status(400).json({error: "product with that name already exists"})
@@ -81,7 +81,13 @@ const deleteProduct = async (request, response) => {
                 await models.Product.deleteOne(filter)
                 return response.status(200).json({status: "successfully deleted product", productDeleted: productToDelete})
             }
-        } catch{return response.status(401).json({error: "product does not exist or you are not the seller of the product"})}
+            throw new Error("Not the original seller or product no longer exists")
+        } catch(e) {
+            if(e.name === "CastError") {
+                return response.status(400).json({error: "invalid productid"})
+            }
+            return response.status(401).json({error: e.toString()})
+        }
     }
     return response.status(401).json({error: "invalid seller"})
 }
