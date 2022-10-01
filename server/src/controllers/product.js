@@ -1,5 +1,10 @@
 const models = require('../models')
 
+const getProducts = async (request, response) => {
+    const products = await models.Product.find({})
+    return response.status(200).json({status: "success", products: products})
+}
+
 /**
  * Creates new product and puts it into the database
  * @param {Object} request - Object containing a body field that is a JSON object with 4 keys: name, price, description, quantity
@@ -92,4 +97,4 @@ const deleteProduct = async (request, response) => {
     return response.status(401).json({error: "invalid seller"})
 }
 
-module.exports = {createProduct, updateProduct, deleteProduct}
+module.exports = {getProducts, createProduct, updateProduct, deleteProduct}
