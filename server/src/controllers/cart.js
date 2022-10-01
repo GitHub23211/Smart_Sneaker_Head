@@ -83,7 +83,7 @@ const deleteFromCart = async (request, response) => {
 
                 return response.status(200).json({status: "successfully deleted item from cart", newCart: user.cart})
             }
-            throw new Error("product not in cart")
+            throw new Error("product not in cart or invalid productid")
         } catch(e) {return response.status(401).json({error: e.toString()})}
     }
     return response.status(401).json({error: "invalid user"})
