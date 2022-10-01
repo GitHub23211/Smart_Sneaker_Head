@@ -1,7 +1,7 @@
 # Authentication
 
-## /auth
-### **GET**
+## Route: **/auth**
+## Request Type: **GET**
 Returns a JSON object on success:
 ```json
 {
@@ -17,9 +17,9 @@ else returns two errors:
 * 400: User is not registered on the system
 * 401: User token sent is invalid or token is missing.
 
-## /auth/register
-### **POST**
-
+## Route: **/auth/register**
+## Request Type: **POST**
+JSON object to send:
 ```json
 {
   "username": "display and login name"
@@ -40,9 +40,9 @@ or an error if:
 * Username is not unique
 * Email is not unique
 
-## /auth/login
-### **POST**
-
+## Route: **/auth/login**
+## Request Type: **POST**
+JSON object to send:
 ```json
 {
   "username": "username to login with"

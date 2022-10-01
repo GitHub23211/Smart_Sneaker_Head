@@ -1,6 +1,6 @@
 # Product
-## api/product
-### **GET**
+## Route: **api/product**
+## Request Type: **GET**
 Returns a JSON object on success that contains the status code and list of all products:
 ```json
 {
@@ -20,9 +20,9 @@ Returns a JSON object on success that contains the status code and list of all p
 }
 ```
 
-## api/product/register
-### **POST**
-
+## Route: **api/product/register**
+## Request Type: **POST**
+JSON object to send:
 ```json
 {
   "name": "Name of product to sell"
@@ -49,9 +49,9 @@ or an error if:
 * Product name is already taken.
 * Invalid user tries to create a product.
 
-## api/product/update/:productid
-### **PUT**
-
+## Route: **api/product/update/:productid**
+## Request Type: **PUT**
+JSON object to send:
 ```json
 {
   "name": "Updated product name"
@@ -76,9 +76,8 @@ Returns 200 status code with JSON object if successful:
 * 401: Product no longer exists.
 * 401: Invalid user tries to update a product.
 
-## api/product/delete/:productid
-### **DELETE**
-
+## Route: **api/product/delete/:productid**
+## Request Type: **DELETE**
 No need to send a JSON object. Axios call URL needs to have the corrct productid.
 
 Returns 200 status code with JSON object if successful:

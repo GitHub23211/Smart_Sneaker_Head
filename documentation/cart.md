@@ -1,7 +1,7 @@
 # Cart
-## api/cart/add/:productid
-### **PUT**
-
+## Route: **api/cart/add/:productid**
+## Request Type: **PUT**
+JSON object to send:
 ```json
 {
   "quantity": "amount of item to add to cart"
@@ -24,9 +24,9 @@ or an error if:
 * Invalid productid
 * Invalid user tries to add item to cart.
 
-## api/cart/update/:productid
-### **PUT**
-
+## Route: **api/cart/update/:productid**
+## Request Type: **PUT**
+JSON object to send:
 ```json
 {
   "quantity": "updated amount of item to add to cart"
@@ -50,8 +50,8 @@ or an error if:
 * Invalid productid
 * Invalid user tries to update item in cart.
 
-## api/cart/delete/:productid
-### **DELETE**
+## Route: **api/cart/delete/:productid**
+## Request Type: **DELETE**
 
 No need to send a JSON object. Axios call URL needs to have the corrct productid.
 
