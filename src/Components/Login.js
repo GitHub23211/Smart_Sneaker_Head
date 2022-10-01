@@ -1,14 +1,21 @@
-import { Avatar, Grid,Paper, TextField ,Button, Typography , Link} from "@mui/material";
-import {Dialog , DialogTitle , DialogContent , DialogContentText , DialogActions}  from "@mui/material";
+import { Avatar, Grid,Paper, TextField ,Button, Typography , Link } from "@mui/material";
+import {Dialog  , DialogTitle , DialogContent , DialogContentText , DialogActions}  from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import {Navigate} from 'react-router-dom';
+
+import LoginContext from '../LoginContext';
+
 
 const Login=()=>{
+
+    const {isLogin, setLogin} = useContext(LoginContext);
   
     const [userName , setUserName] = useState("")
     const [Passcode , setPassword] = useState("")
+    const [flag,setFlag]=useState(false)
 
     const[open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -35,11 +42,12 @@ const Login=()=>{
        .then(response =>{
            console.log(response.data)
            if(response.data.status === "success"){
-            // TODO :  redirect to Home Page
               console.log("Logged in")
               //resert the form
               setUserName("")    
               setPassword("")
+              setFlag(true);
+              setLogin(true);
            }
          }).catch(error => {
             console.log(error.response.status);
@@ -54,40 +62,46 @@ const Login=()=>{
     const margin={margin:'20px auto'}
     const buttonStyle ={margin:'20px auto'}
 
-    return(
-        <Grid>
-            <Paper elevation={10}  style={paperStyle}>
-            <Grid align='center'>
-                 <Avatar style={avatarStyle}><PersonOutlineIcon /></Avatar>    
-                <h2>Sign In</h2>
-            </Grid>    
-            <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={(event) => handleOnChange(event, setUserName)}></TextField>
-
-            <TextField label='Password' placeholder='Enter password' type = 'password' 
-            fullWidth required input value={Passcode} onChange={(event)=> handleOnChange(event,setPassword)}></TextField>
-
-            <Grid align='center'>
-               <Button onClick={handleLogin} href= "/user" type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Login</Button>
-            </Grid>
-            <Typography >
-                Don't Have an Account ? 
+        if(flag === false){
+            return (
+            <Grid>
+                <Paper elevation={10}  style={paperStyle}>
+                <Grid align='center'>
+                     <Avatar style={avatarStyle} size="large"><PersonOutlineIcon /></Avatar>    
+                    <h2>Sign In</h2>
+                </Grid>    
+                <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={(event) => handleOnChange(event, setUserName)}></TextField>
+    
+                <TextField label='Password' placeholder='Enter password' type = 'password' 
+                fullWidth required input value={Passcode} onChange={(event)=> handleOnChange(event,setPassword)}></TextField>
+    
+                <Grid align='center'>
+                   <Button onClick={handleLogin} href= "/user" type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Login</Button>
+                </Grid>
+                <Typography >
+                    Don't Have an Account ? 
+                   
+                </Typography>
                 <Link href='/register'>
-                     Sign Up 
-                </Link>
-            </Typography>
+                         Sign Up 
+                    </Link>
+    
+                <Dialog open={open}>
+                    <DialogTitle>{msgTitle}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>{msgContent}</DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={()=>setOpen(false)}>Okay</Button>
+                    </DialogActions>
+                </Dialog>
+                </Paper>
+            </Grid>
+          )} else if(flag === true){
+               return(
+                <Navigate to='/'/>
+               )}
+       
+} 
 
-            <Dialog open={open}>
-                <DialogTitle>{msgTitle}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>{msgContent}</DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={()=>setOpen(false)}>Okay</Button>
-                </DialogActions>
-            </Dialog>
-
-            </Paper>
-        </Grid>
-    )
-}
 export default Login;
