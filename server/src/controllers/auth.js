@@ -123,7 +123,6 @@ const loginUser = async (request, response) => {
  */
 const validateUser = async (request) => {
     const authHeader = request.get('Authorization')
-    console.log(authHeader)
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
         try {
             const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
