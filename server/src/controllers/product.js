@@ -1,8 +1,16 @@
 const models = require('../models')
 
+/**
+ * Returns a list of products from the database
+ * @param {Object} request Object containing a query field that is used to filter the returned items
+ * @param {Object} response - Object used to send a json response.
+ * @returns JSON object containing the requested products or an error if it cannot find the products.
+ */
 const getProducts = async (request, response) => {
-    const products = await models.Product.find({})
-    return response.status(200).json({status: "success", products: products})
+    try {
+        const products = await models.Product.find({})
+        return response.status(200).json({status: "success", products: products})
+    } catch(e) {return response.status(401).json({error: e})}
 }
 
 /**
