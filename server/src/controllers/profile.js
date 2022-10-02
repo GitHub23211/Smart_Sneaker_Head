@@ -14,8 +14,7 @@ const updateProfile = async (request, response) => {
             }
 
             if(password) {
-                await bcrypt.hash(password, 10)
-                            .then(response => updatedInfo.password = response)
+                updatedInfo.password = await bcrypt.hash(password, 10)
             }
 
             const userToUpdate = await models.Session.findByIdAndUpdate(user, updatedInfo)

@@ -26,10 +26,6 @@ const encodeToken = (id, username) => {
  * @param {String} password - plain text password to hash
  * @returns {String} hashed password
  */
-const hashPassword = (password) => {
-    return bcrypt.hash(password, 10)
-            .then(response => response)
-}
 
 
 /**
@@ -40,11 +36,15 @@ const hashPassword = (password) => {
  * @returns {Object} JSON object containing status and registered user's token if successful, otherwise a JSON containing an error.
  */
 const createUser = async (request, response) => {
-    const password = await hashPassword(request.body.password)
+    const {username, password, email, address} = request.body
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+    
     const user = new models.Session({
-        username: request.body.username,
-        password: password,
-        email: request.body.email
+        username: username,
+        password: hashedPassword,
+        email: email,
+        address: address
     })
 
     try {
