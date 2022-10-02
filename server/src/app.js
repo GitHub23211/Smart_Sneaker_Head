@@ -10,8 +10,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
-app.use('/auth', auth)
-app.use(verifyUser.authenticate)
 app.use('/', router)
+app.use(verifyUser.authenticate)
+app.use('/', auth)
 
 module.exports = app
