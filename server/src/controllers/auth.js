@@ -80,11 +80,13 @@ const getUser = async (request, response) => {
             if(user) {
                 return response.status(200).json({
                     status: "success",
-                    id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    address: user.address,
-                    cart: user.cart
+                    user: {
+                        id: user._id,
+                        username: user.username,
+                        email: user.email,
+                        address: user.address,
+                        cart: user.cart
+                    }
                 })
             }
         }
@@ -121,6 +123,7 @@ const loginUser = async (request, response) => {
  */
 const validateUser = async (request) => {
     const authHeader = request.get('Authorization')
+    console.log(authHeader)
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
         try {
             const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
