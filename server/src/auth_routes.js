@@ -1,6 +1,7 @@
 const express = require('express')
 const product = require('./controllers/product')
 const cart = require('./controllers/cart')
+const profile = require('./controllers/profile')
 
 const router = express.Router()
 
@@ -21,5 +22,8 @@ router.put(`/api/cart/update/:productid`, cart.updateQuantity)
 
 /* DELETE request to remove a product from cart */
 router.delete(`/api/cart/delete/:productid`, cart.deleteFromCart)
+
+/* PUT request to update user profile information */
+router.put('/api/profile/update', profile.updateProfile)
 
 module.exports = router 
