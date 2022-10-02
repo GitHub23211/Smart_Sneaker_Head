@@ -54,13 +54,13 @@ or an error if:
 JSON object to send:
 ```json
 {
-  "name": "Updated product name"
-  "price": "Updated product price",
-  "description": "Updated product description"
-  "quantity": "Updated product quantity"
+  "name": "Updated product name (optional)",
+  "price": "Updated product price (optional)",
+  "description": "Updated product description (optional)",
+  "quantity": "Updated product quantity (optional)"
 }
 ```
-If only certain fields need to be updated, leave the other fields the same.
+All fields are optional i.e. if you only need to update name then send a JSON object only with a name field. if want to update price and quantity, then send a JSON object only with price and quantity fields and etc.
 Returns 200 status code with JSON object if successful:
 ```json
 {
