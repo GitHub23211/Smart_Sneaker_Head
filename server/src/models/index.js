@@ -29,7 +29,8 @@ const productSchema = new mongoose.Schema({
     price: Number,
     description: String,
     quantity: Number,
-    seller: {type: mongoose.Types.ObjectId, ref: "Session"}
+    seller: {type: mongoose.Types.ObjectId, ref: "Session"},
+    picture: String
 })
 
 productSchema.set('toJSON' , {
