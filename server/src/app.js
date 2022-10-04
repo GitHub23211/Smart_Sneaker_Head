@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const router = require('./routes')
 const auth = require('./auth_routes')
 const verifyUser = require('./middleware/auth')
-const upload = require('./middleware/upload')
+const upload = require('./upload_routes')
 
 const app = express()
 
