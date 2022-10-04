@@ -2,7 +2,7 @@ const express = require('express')
 const upload = require('../middleware/upload')
 const router = express.Router()
 
-const avatarDest = './server/src/pictures/users'
+const avatarDest = './server/src/pictures/avatars'
 const productDest = './server/src/pictures/products'
 
 router.post('/api/upload/avatar', upload.createUpload(avatarDest).single('avatar'), (req, res) => {
