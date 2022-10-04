@@ -1,10 +1,10 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
-const router = require('./routes')
-const auth = require('./auth_routes')
+const upload = require('./routes/upload_routes')
+const router = require('./routes/routes')
+const auth = require('./routes/auth_routes')
 const verifyUser = require('./middleware/auth')
-const upload = require('./upload_routes')
 
 const app = express()
 

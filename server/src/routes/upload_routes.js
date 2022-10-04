@@ -1,5 +1,5 @@
 const express = require('express')
-const upload = require('./middleware/upload')
+const upload = require('../middleware/upload')
 const router = express.Router()
 
 const avatarDest = './server/src/pictures/users'
