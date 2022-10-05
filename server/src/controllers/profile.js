@@ -1,6 +1,12 @@
 const models = require('../models')
 const bcrypt = require('bcrypt')
 
+/**
+ * Updates user information in databse
+ * @param {Object} request Contains JSON object with four keys: username, password, email, address
+ * @param {Object} response Object for returning json responses 
+ * @returns 200 status on success with the users cart, else 40x codes on errors
+ */
 const updateProfile = async (request, response) => {
     const user = request.user
     if(user) {

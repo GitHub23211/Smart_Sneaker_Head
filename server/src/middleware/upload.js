@@ -1,5 +1,10 @@
 const multer = require('multer')
 
+/**
+ * Creates storage engine that saves file to dest
+ * @param {String} dest Path to folder to save file to
+ * @returns Storage engine for multer
+ */
 const createStorage = (dest) => {
     const storage = multer.diskStorage({
         destination: function(req, file, cb) {
@@ -13,6 +18,11 @@ const createStorage = (dest) => {
     return storage
 }
 
+/**
+ * Creates a multer instance with storage engine that saves file to dest
+ * @param {String} dest File path to pass to storage creation function
+ * @returns Multer instance
+ */
 const createUpload = (dest) => {
     return multer({storage: createStorage(dest)})
 }

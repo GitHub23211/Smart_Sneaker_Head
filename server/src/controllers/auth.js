@@ -103,8 +103,7 @@ const getUser = async (request, response) => {
  * @returns {Object} JSON object containing status and user's token if successful, otherwise errors
  */
 const loginUser = async (request, response) => {
-    const username = request.body.username
-    const password = request.body.password
+    const {username, password} = request.body
     const user = await models.Session.findOne({username: username})
     if(!user) {
         return response.status(401).json({status: "invalid username or password"})
