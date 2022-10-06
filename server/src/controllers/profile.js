@@ -26,7 +26,12 @@ const updateProfile = async (request, response) => {
             const userToUpdate = await models.Session.findByIdAndUpdate(user, updatedInfo)
 
             if(userToUpdate) {
-                return response.status(200).json({status: "successfully updated user profile", updatedInfo: updatedInfo})
+                const info = {
+                    username: username,
+                    email:email,
+                    address: address
+                }
+                return response.status(200).json({status: "successfully updated user profile", updatedInfo: info})
             }
             
             throw new Error("User profile does not exist")
