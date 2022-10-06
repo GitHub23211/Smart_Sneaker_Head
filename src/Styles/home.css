@@ -1,0 +1,20 @@
+
+.home-banner{
+    height: 150px;
+    border-bottom: red;
+    background-color: antiquewhite;
+    padding-top: 10px;
+    box-shadow: 115px;
+}
+.home-container{
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+.home-products{
+    display: inline-flex;
+}
+
+.item{
+    padding: 20px;
+}
