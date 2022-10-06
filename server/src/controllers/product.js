@@ -8,9 +8,12 @@ const models = require('../models')
  */
 const getProducts = async (request, response) => {
     try {
-        const products = await models.Product.find({})
-        return response.status(200).json({status: "success", products: products})
-    } catch(e) {return response.status(401).json({error: e})}
+        const query = request.query.name
+        const products = await models.Product.find({
+            name: {$regex: query, $options: 'i'}
+        })
+        return response.status(200).json({status: "success", products: products, query: request.query})
+    } catch(e) {return response.status(401).json({error: e.toString()})}
 }
 
 /**

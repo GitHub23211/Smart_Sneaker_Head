@@ -1,6 +1,19 @@
 # Product
 ## Route: **/api/product**
 ## Request Type: **GET**
+
+Structure axios.get function like this:
+```json
+const headers = {
+  params {
+    name: "search keywords here"
+  }
+}
+
+axios.get("/api/product", headers)
+     .then(response => ...)
+```
+
 Returns a JSON object on success that contains the status code and list of all products:
 ```json
 {
