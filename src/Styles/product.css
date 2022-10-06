@@ -1,0 +1,29 @@
+.product-container{
+    display: flex;
+    background-color: white;
+    text-align: center;
+    justify-content: center;
+  }
+  .product-img-section{
+    border: 1px solid #ddd;
+    width: 500px;
+    height:800px;
+  }
+
+  .product-img{
+    width: 400px;
+    height: auto;
+  }
+
+  .product-details-section{
+    border: 1px solid #ddd;
+    width: 500px;
+    height:800px;
+    text-align: center;
+     
+  }
+
+  .counter{
+    display: inline-flex;
+  }
+

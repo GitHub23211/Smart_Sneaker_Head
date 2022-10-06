@@ -1,11 +1,10 @@
 import React from "react";
 
-
-const Orders = ()=>{
+const Cart = ()=>{
 
     return(
         <h1>Cart is empty</h1>
     )
 }
 
-export default Orders;
+export default Cart;

@@ -1,6 +1,18 @@
 const models = require('../models')
 
 /**
+ * Checks if a query exists
+ * @param {String} query Can be undefined or a String
+ * @returns the query itself if it is not undefined, otherwise returns blank
+ */
+const checkQuery = (query) => {
+    if(query) {
+        return query
+    }
+    return ""
+}
+
+/**
  * Returns a list of products from the database
  * @param {Object} request Object containing a query field that is used to filter the returned items
  * @param {Object} response - Object used to send a json response.
@@ -8,7 +20,7 @@ const models = require('../models')
  */
 const getProducts = async (request, response) => {
     try {
-        const query = request.query.name
+        const query = checkQuery(request.query.name)
         const products = await models.Product.find({
             name: {$regex: query, $options: 'i'}
         })
@@ -26,12 +38,13 @@ const createProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
         try {
-            const {name, price, description, quantity} = request.body
+            const {name, price, description, quantity, picture} = request.body
             const newProduct = new models.Product({
                 name: name,
                 price: price,
                 description: description,
                 quantity: quantity,
+                picture: picture,
                 seller: seller
             })
     

@@ -1,21 +1,20 @@
-import { Avatar, Grid,Paper, TextField ,Button, Typography , Link } from "@mui/material";
-import {Dialog  , DialogTitle , DialogContent , DialogContentText , DialogActions}  from "@mui/material";
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import React from "react";
-import { useState, useContext } from "react";
+import { React, useState, useContext } from "react";
 import axios from "axios";
-import {Navigate} from 'react-router-dom';
+import { Navigate , Link } from 'react-router-dom';
+
+import { Avatar, Grid, Paper, TextField, Button, Typography} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 import LoginContext from '../LoginContext';
 
-
 const Login=()=>{
 
-    const {isLogin, setLogin} = useContext(LoginContext);
+    const {setLogin, setToken} = useContext(LoginContext);
   
-    const [userName , setUserName] = useState("")
-    const [Passcode , setPassword] = useState("")
-    const [flag,setFlag]=useState(false)
+    const [userName, setUserName] = useState("")
+    const [Passcode, setPassword] = useState("")
+    const [flag,setFlag] = useState(false)
 
     const[open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -34,30 +33,28 @@ const Login=()=>{
         event.preventDefault();
 
         const userObj = {
-            username : userName ,
+            username : userName,
             password : Passcode 
          }   
 
        axios.post("auth/login", userObj)
        .then(response =>{
-           console.log(response.data)
            if(response.data.status === "success"){
-              console.log("Logged in")
               //resert the form
               setUserName("")    
               setPassword("")
               setFlag(true);
               setLogin(true);
+              setToken(response.data.token)
            }
          }).catch(error => {
-            console.log(error.response.status);
             setMessageTitle("Error");
             setMessageContent("Invalid Username or Password");
             openDialog();
           })
 
     }
-    const paperStyle = {padding:20, height:'70vh',width:'50vh',margin:'20px auto'}
+    const paperStyle = {padding:20, height:'70vh', width:'50vh', margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
     const buttonStyle ={margin:'20px auto'}
@@ -76,16 +73,15 @@ const Login=()=>{
                 fullWidth required input value={Passcode} onChange={(event)=> handleOnChange(event,setPassword)}></TextField>
     
                 <Grid align='center'>
-                   <Button onClick={handleLogin} href= "/user" type='submit' color='primary' variant="contained" style= {buttonStyle} fullWidth required disableElevation>Login</Button>
-                </Grid>
-                <Typography >
-                    Don't Have an Account ? 
-                   
-                </Typography>
-                <Link href='/register'>
-                         Sign Up 
+                    <Link to = "/" style={{color:"black" , textDecoration: 'none'}}>
+                      <Button onClick={handleLogin} type='submit' color='primary' variant="contained" 
+                      style= {buttonStyle} fullWidth required disableElevation>Login</Button>
                     </Link>
-    
+                </Grid>
+                <Typography >Don't Have an Account ? </Typography>
+
+                <Link to ="/register">Sign Up</Link>
+
                 <Dialog open={open}>
                     <DialogTitle>{msgTitle}</DialogTitle>
                     <DialogContent>
@@ -101,7 +97,6 @@ const Login=()=>{
                return(
                 <Navigate to='/'/>
                )}
-       
 } 
 
 export default Login;

@@ -16,6 +16,9 @@ import Product  from './Components/Product';
 import Cart  from './Components/Cart';
 import DeleteAccount  from './Components/DeleteAccount';
 import LoginContext from './LoginContext';
+import ProductContext from './ProductContext';
+
+import ProductList from './Components/ProductList';
 
 import {
   BrowserRouter as Router,
@@ -25,10 +28,13 @@ import {
 
 function App() {
   const [isLogin, setLogin] = useState(false);
-  console.log("I m here :: ", isLogin);
+  const [userToken, setToken] = useState();
+  const [product, setProduct] = useState({name: "Dummy"});
+
   return (
-    <LoginContext.Provider value={{isLogin, setLogin}}> 
-    <Router>      
+    <LoginContext.Provider value={{isLogin, setLogin, userToken , setToken}}> 
+    <ProductContext.Provider value={{product, setProduct}}> 
+    <Router>       
       <div className='App'>
       <NavBar />
       <section>
@@ -46,10 +52,13 @@ function App() {
         </Route>  
         <Route path = "/user/cart" element={<Cart />} />
         <Route path = "/product" element={<Product />} /> 
+        <Route path = "/productlist" element={<ProductList />} /> 
+
       </Routes>
       </section>
       </div>
     </Router>
+    </ProductContext.Provider>
     </LoginContext.Provider>  
   );
 }
