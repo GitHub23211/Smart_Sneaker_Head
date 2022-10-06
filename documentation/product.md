@@ -5,7 +5,9 @@
 Structure axios.get function like this:
 ```json
 const headers = {
-  name: "search keywords here"
+  params {
+    name: "search keywords here"
+  }
 }
 
 axios.get("/api/product", headers)
