@@ -2,7 +2,7 @@ import React , {useContext , useState} from "react";
 import '../Styles/homepageproduct.css';
 import ProductContext from '../ProductContext';
 import { Navigate } from "react-router-dom";
-const HomePageProduct = ({data:{name, price, seller,description,quantity}}) => {
+const HomePageProduct = ({data:{name, price, seller,description,quantity, picture}}) => {
     const {setProduct} = useContext(ProductContext);
     const [productNavgn, setProductNavgn] = useState(false);
 
@@ -14,7 +14,8 @@ const HomePageProduct = ({data:{name, price, seller,description,quantity}}) => {
             price: price,
             description: description, 
             quantity: quantity,
-            seller: seller
+            seller: seller,
+            picture: picture
         });
         setProductNavgn(true);
     }
@@ -27,7 +28,7 @@ const HomePageProduct = ({data:{name, price, seller,description,quantity}}) => {
         return(
             <section className="card-container">
                 <section className="image-container">
-                   <img  className="product-img"  src="/images/iphone.png" alt=''></img>
+                   <img  className="product-img"  src={`/product/image/${picture}`} alt=''></img>
                 </section>
                 <section className="card-title">
                  <h3>{name}</h3>

@@ -24,7 +24,7 @@ const Product =()=>{
      return(
      <section className="product-container">
       <section className="product-img-section">
-           <img className="product-img" src="/images/iphone.png" alt=''></img>
+           <img className="product-img" src={`/product/image/${product.picture}`} alt=''></img>
       </section>
 
       <section className="product-details-section">

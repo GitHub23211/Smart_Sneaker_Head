@@ -24,7 +24,8 @@ const ProductList =()=>{
                     price={p.price} 
                     description={p.description} 
                     quantity={p.quantity}
-                    seller={p.seller}/>
+                    seller={p.seller}
+                    picture={p.picture}/>
                 )
 
             )

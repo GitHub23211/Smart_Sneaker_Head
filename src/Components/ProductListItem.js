@@ -4,7 +4,7 @@ import { Paper , Grid , Typography , Button } from "@mui/material";
 import ProductContext from '../ProductContext';
 import { Navigate } from "react-router-dom";
 
-const ProductListItem = ({name , price , description , quantity , seller}) =>{
+const ProductListItem = ({name , price , description , quantity , seller, picture}) =>{
 
     const {setProduct} = useContext(ProductContext);
     const [productNavgn, setProductNavgn] = useState(false);
@@ -16,6 +16,7 @@ const ProductListItem = ({name , price , description , quantity , seller}) =>{
             price: price,
             description: description, 
             quantity:quantity,
+            picture: picture,
             seller: seller
         });
         setProductNavgn(true);
@@ -31,7 +32,7 @@ const ProductListItem = ({name , price , description , quantity , seller}) =>{
                      direction = "row" 
                      alignItems="center">
                     <Grid item sm={6}>
-                      <img className="product-list-img" src="/images/iphone.png" alt='' ></img>
+                      <img className="product-list-img" src={`/product/image/${picture}`} alt='' ></img>
                     </Grid>
                     
                     <Grid item sm={2}>

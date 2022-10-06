@@ -38,12 +38,13 @@ const createProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
         try {
-            const {name, price, description, quantity} = request.body
+            const {name, price, description, quantity, picture} = request.body
             const newProduct = new models.Product({
                 name: name,
                 price: price,
                 description: description,
                 quantity: quantity,
+                picture: picture,
                 seller: seller
             })
     
