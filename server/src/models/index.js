@@ -11,7 +11,8 @@ const sessionSchema = new mongoose.Schema({
             productid: {type: mongoose.Types.ObjectId, ref: "Product"},
             quantity: Number
         }
-    ]
+    ],
+    avatar: String
 })
 
 sessionSchema.set('toJSON' , {
@@ -29,7 +30,8 @@ const productSchema = new mongoose.Schema({
     price: Number,
     description: String,
     quantity: Number,
-    seller: {type: mongoose.Types.ObjectId, ref: "Session"}
+    seller: {type: mongoose.Types.ObjectId, ref: "Session"},
+    picture: String
 })
 
 productSchema.set('toJSON' , {

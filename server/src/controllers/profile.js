@@ -1,6 +1,12 @@
 const models = require('../models')
 const bcrypt = require('bcrypt')
 
+/**
+ * Updates user information in databse
+ * @param {Object} request Contains JSON object with four keys: username, password, email, address
+ * @param {Object} response Object for returning json responses 
+ * @returns 200 status on success with the users cart, else 40x codes on errors
+ */
 const updateProfile = async (request, response) => {
     const user = request.user
     if(user) {
@@ -14,14 +20,18 @@ const updateProfile = async (request, response) => {
             }
 
             if(password) {
-                await bcrypt.hash(password, 10)
-                            .then(response => updatedInfo.password = response)
+                updatedInfo.password = await bcrypt.hash(password, 10)
             }
 
             const userToUpdate = await models.Session.findByIdAndUpdate(user, updatedInfo)
 
             if(userToUpdate) {
-                return response.status(200).json({status: "successfully updated user profile", updatedInfo: updatedInfo})
+                const info = {
+                    username: username,
+                    email:email,
+                    address: address
+                }
+                return response.status(200).json({status: "successfully updated user profile", updatedInfo: info})
             }
             
             throw new Error("User profile does not exist")

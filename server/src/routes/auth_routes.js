@@ -1,7 +1,7 @@
 const express = require('express')
-const product = require('./controllers/product')
-const cart = require('./controllers/cart')
-const profile = require('./controllers/profile')
+const product = require('../controllers/product')
+const cart = require('../controllers/cart')
+const profile = require('../controllers/profile')
 
 const router = express.Router()
 
