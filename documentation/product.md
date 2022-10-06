@@ -38,10 +38,11 @@ Returns a JSON object on success that contains the status code and list of all p
 JSON object to send:
 ```json
 {
-  "name": "Name of product to sell"
+  "name": "Name of product to sell",
   "price": "Product price",
-  "description": "Product Description"
-  "quantity": "Amount of product to be sold"
+  "description": "Product Description",
+  "quantity": "Amount of product to be sold",
+  "picture": "Name of the picture file"
 }
 ```
 Returns 201 status code with JSON object if successful:
@@ -53,6 +54,7 @@ Returns 201 status code with JSON object if successful:
       "price": "product price",
       "description": "product description",
       "quantity": "product quantity on hand",
+      "picture": "Name of the picture file",
       "seller": "id of user who put product up for sale",
       "id": "id of product in databse"
     }
@@ -70,7 +72,8 @@ JSON object to send:
   "name": "Updated product name (optional)",
   "price": "Updated product price (optional)",
   "description": "Updated product description (optional)",
-  "quantity": "Updated product quantity (optional)"
+  "quantity": "Updated product quantity (optional)",
+  "picture": "Name of the updated picture file"
 }
 ```
 All fields are optional i.e. if you only need to update name then send a JSON object only with a name field. if want to update price and quantity, then send a JSON object only with price and quantity fields and etc.
