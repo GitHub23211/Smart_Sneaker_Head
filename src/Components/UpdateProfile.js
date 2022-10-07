@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Grid,TextField, Typography,Button } from "@mui/material";
+import { Grid,TextField, Typography,Button,Input } from "@mui/material";
 import axios from "axios";
 import LoginContext from '../LoginContext';  
 import {Link} from 'react-router-dom';
@@ -29,6 +29,18 @@ const UpdateProfile = ()=>{
         handler(event.target.value)
     }
 
+    const grabAvatar = (event) => {
+      const file = event.target.files[0]
+      if(file.type === "image/jpeg" || file.type === "image/jpg") {
+        const filename = Date.now() + file.name
+        const imageData = new FormData()
+        imageData.append("avatar", file)
+        axios.post("/api/upload/avatar", imageData, options)
+             .then(response => console.log(response))
+             .catch(error => console.log(error.toString()))
+      }
+    }
+
     const handleUpdate = ()=>{
         
 
@@ -45,7 +57,7 @@ const UpdateProfile = ()=>{
           delete obj.password
         }
         if(obj.email===null) {
-          delete obj.usemailername
+          delete obj.email
         }
         if(obj.address===null) {
           delete obj.address
@@ -53,9 +65,7 @@ const UpdateProfile = ()=>{
 
         axios.put('/api/profile/update',obj,options)
         .then(response =>{
-              if(response.data.status === "successfully updated user profile"){
-                console.log("updated")
-              }
+          console.log(response)
         }).catch(error => {
           console.log(error)
         })
@@ -83,6 +93,8 @@ const UpdateProfile = ()=>{
 
       <TextField label='Address' placeholder='Update Address' fullWidth  style={margin} 
        input value={userAddress} onChange={(event) => handleOnChange(event, setUserAddress)}></TextField> 
+
+       <Input type="file" onChange={grabAvatar}/>
 
       <Grid align='center'>
         <Link to = "/user">
