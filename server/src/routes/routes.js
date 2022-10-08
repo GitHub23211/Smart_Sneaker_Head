@@ -7,9 +7,6 @@ const router = express.Router()
 /* GET request to get all products */
 router.get("/api/product", product.getProducts)
 
-/* GET request that returns currently logged in user */
-router.get('/auth', auth.getUser)
-
 /* POST request that registers user to website */
 router.post('/auth/register', auth.createUser)
 
