@@ -15,6 +15,7 @@ const UpdateProfile = ()=>{
     const [userEmail,setUserEmail] = useState(null)
     const [userPhone,setUserPhone] = useState(null)
     const [userAddress,setUserAddress] = useState(null)
+    const [avatar, setAvatar] = useState(null)
 
     const {isLogin, setLogin , userToken , setToken} = useContext(LoginContext);
 
@@ -32,11 +33,10 @@ const UpdateProfile = ()=>{
     const grabAvatar = (event) => {
       const file = event.target.files[0]
       if(file.type === "image/jpeg" || file.type === "image/jpg") {
-        const filename = Date.now() + file.name
         const imageData = new FormData()
         imageData.append("avatar", file)
         axios.post("/api/upload/avatar", imageData, options)
-             .then(response => console.log(response))
+             .then(response => setAvatar(response.data.filename))
              .catch(error => console.log(error.toString()))
       }
     }
@@ -48,7 +48,8 @@ const UpdateProfile = ()=>{
            username : userName,
            password : Passcode,
            email : userEmail,
-           address : userAddress
+           address : userAddress,
+           avatar: avatar
         }
         if(obj.username===null) {
           delete obj.username
@@ -61,6 +62,9 @@ const UpdateProfile = ()=>{
         }
         if(obj.address===null) {
           delete obj.address
+        }
+        if(obj.avatar===null) {
+          delete obj.avatar
         }
 
         axios.put('/api/profile/update',obj,options)
