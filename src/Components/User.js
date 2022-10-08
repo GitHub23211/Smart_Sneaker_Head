@@ -1,20 +1,21 @@
-import React from "react";
+import { React, useContext } from "react";
+import LoginContext from '../LoginContext';
+import { Link, Outlet } from 'react-router-dom';
 
 import {ListItemButton, ListItemIcon,List , ListItem , ListItemText,Grid, Paper} from "@mui/material";
-
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import MenuIcon from '@mui/icons-material/Menu';
 
-import {Link} from 'react-router-dom';
-import {Outlet } from "react-router-dom";
+
 const User = () =>{
 
   const paperStyle = {height:'100vh'}
-  const outletStyle = {margin:'auto' , height:'80vh'}
+  const outletStyle = {margin:'50px' , height:'80vh', alignItems:"center",
+  justifyContent:"center"}
+  const {setLogin} = useContext(LoginContext);
   
     return( 
     <> 
@@ -67,10 +68,21 @@ const User = () =>{
       </List>
       </Link>
 
+      <Link style={{color:"black" , textDecoration: 'none'}}  to = "/">
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick={ () => { setLogin(false)} } > 
+              <ListItemIcon>< RestoreFromTrashIcon/></ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+         </List>
+      </Link>
+
       <Link style={{color:"black" , textDecoration: 'none'}}  to = "/user/delete">
         <List>
           <ListItem disablePadding>
-            <ListItemButton href="/user/delete"> 
+            <ListItemButton> 
               <ListItemIcon>< RestoreFromTrashIcon/></ListItemIcon>
               <ListItemText primary="Delete my Account" />
             </ListItemButton>
@@ -84,8 +96,10 @@ const User = () =>{
     <Grid item xs={0} sm={1} />
     <Grid item xs={12} sm={7} align='center'>
          <Paper style={outletStyle}>
-            <Outlet />
-        </Paper>
+         <Outlet />
+         </Paper>
+            
+       
     </Grid>
   </Grid>
   </>

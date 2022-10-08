@@ -1,6 +1,19 @@
 # Product
-## Route: **api/product**
+## Route: **/api/product**
 ## Request Type: **GET**
+
+Structure axios.get function like this:
+```json
+const headers = {
+  params {
+    name: "search keywords here"
+  }
+}
+
+axios.get("/api/product", headers)
+     .then(response => ...)
+```
+
 Returns a JSON object on success that contains the status code and list of all products:
 ```json
 {
@@ -20,15 +33,16 @@ Returns a JSON object on success that contains the status code and list of all p
 }
 ```
 
-## Route: **api/product/register**
+## Route: **/api/product/register**
 ## Request Type: **POST**
 JSON object to send:
 ```json
 {
-  "name": "Name of product to sell"
+  "name": "Name of product to sell",
   "price": "Product price",
-  "description": "Product Description"
-  "quantity": "Amount of product to be sold"
+  "description": "Product Description",
+  "quantity": "Amount of product to be sold",
+  "picture": "Name of the picture file"
 }
 ```
 Returns 201 status code with JSON object if successful:
@@ -40,6 +54,7 @@ Returns 201 status code with JSON object if successful:
       "price": "product price",
       "description": "product description",
       "quantity": "product quantity on hand",
+      "picture": "Name of the picture file",
       "seller": "id of user who put product up for sale",
       "id": "id of product in databse"
     }
@@ -49,18 +64,19 @@ or an error if:
 * Product name is already taken.
 * Invalid user tries to create a product.
 
-## Route: **api/product/update/:productid**
+## Route: **/api/product/update/:productid**
 ## Request Type: **PUT**
 JSON object to send:
 ```json
 {
-  "name": "Updated product name"
-  "price": "Updated product price",
-  "description": "Updated product description"
-  "quantity": "Updated product quantity"
+  "name": "Updated product name (optional)",
+  "price": "Updated product price (optional)",
+  "description": "Updated product description (optional)",
+  "quantity": "Updated product quantity (optional)",
+  "picture": "Name of the updated picture file"
 }
 ```
-If only certain fields need to be updated, leave the other fields the same.
+All fields are optional i.e. if you only need to update name then send a JSON object only with a name field. if want to update price and quantity, then send a JSON object only with price and quantity fields and etc.
 Returns 200 status code with JSON object if successful:
 ```json
 {
@@ -76,7 +92,7 @@ Returns 200 status code with JSON object if successful:
 * 401: Product no longer exists.
 * 401: Invalid user tries to update a product.
 
-## Route: **api/product/delete/:productid**
+## Route: **/api/product/delete/:productid**
 ## Request Type: **DELETE**
 No need to send a JSON object. Axios call URL needs to have the corrct productid.
 
