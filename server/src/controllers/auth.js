@@ -36,7 +36,7 @@ const encodeToken = (id, username) => {
  * @returns {Object} JSON object containing status and registered user's token if successful, otherwise a JSON containing an error.
  */
 const createUser = async (request, response) => {
-    const {username, password, email, address, avatar} = request.body
+    const {username, password, email, address} = request.body
 
     const hashedPassword = await bcrypt.hash(password, 10)
     
@@ -45,7 +45,7 @@ const createUser = async (request, response) => {
         password: hashedPassword,
         email: email,
         address: address,
-        avatar: avatar
+        avatar: ""
     })
 
     try {
@@ -86,7 +86,8 @@ const getUser = async (request, response) => {
                         username: user.username,
                         email: user.email,
                         address: user.address,
-                        cart: user.cart
+                        cart: user.cart,
+                        avatar: user.avatar
                     }
                 })
             }
