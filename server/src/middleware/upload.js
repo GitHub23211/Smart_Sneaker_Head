@@ -11,7 +11,7 @@ const createStorage = (dest) => {
             cb(null, dest)
         },
         filename: function(req, file, cb) {
-            const newFileName = req.body.filename
+            const newFileName = Date.now() + "-" + file.originalname
             cb(null, newFileName)
         },
     })
