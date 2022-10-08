@@ -11,12 +11,13 @@ const updateProfile = async (request, response) => {
     const user = request.user
     if(user) {
         try{
-            const {username, password, email, address} = request.body
+            const {username, password, email, address, avatar} = request.body
             const updatedInfo = {
                 username: username,
                 password: password,
                 email:email,
-                address: address
+                address: address,
+                avatar: avatar
             }
 
             if(password) {
