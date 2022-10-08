@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import "../Styles/home.css";
 import axios from "axios";
 import HomePageProduct from "./HomePageProduct";
+import Carousel from 'react-material-ui-carousel';
 
 const Home = () => {
 
@@ -30,14 +31,14 @@ const Home = () => {
         </section>
 
         <section className="home-products">
-                {tmpProdList.map( (p) => {
+                <Carousel>{tmpProdList.map( (p) => {
                     return (
                       <section className="item">  
                             <HomePageProduct data={p}/>
                       </section>
                     )
                     }
-                 )}
+                 )}</Carousel>
         </section>
 
         <section className="home-about-us">
