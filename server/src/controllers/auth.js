@@ -21,14 +21,6 @@ const encodeToken = (id, username) => {
 }
 
 /**
- * Helper function to encode a token from user information
- * @function
- * @param {String} password - plain text password to hash
- * @returns {String} hashed password
- */
-
-
-/**
  * Creates user to post to database
  * @function
  * @param {Object} request - Object containing a body field that is a JSON object with two keys: username and password.
