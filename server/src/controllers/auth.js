@@ -23,7 +23,7 @@ const encodeToken = (id, username) => {
 /**
  * Creates user to post to database
  * @function
- * @param {Object} request - Object containing a body field that is a JSON object with two keys: username and password.
+ * @param {Object} request - Object containing a body field that is a JSON object with the required keys
  * @param {Object} response - Object used to send a json response.
  * @returns {Object} JSON object containing status and registered user's token if successful, otherwise a JSON containing an error.
  */
@@ -52,6 +52,47 @@ const createUser = async (request, response) => {
     } catch(e) {
         if(e.keyValue.username) {
             return response.status(400).json({error:"username already taken"})
+        }
+        return response.status(400).json({error: "email already taken"})
+    }
+}
+
+/**
+ * Creates seller to post to database
+ * @function
+ * @param {Object} request - Object containing a body field that is a JSON object with the required keys
+ * @param {Object} response - Object used to send a json response.
+ * @returns {Object} JSON object containing status and registered seller's token if successful, otherwise a JSON containing an error.
+ */
+ const createSeller = async (request, response) => {
+    const {username, password, email, address, name} = request.body
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+    
+    const seller = new models.Seller({
+        username: username,
+        password: hashedPassword,
+        email: email,
+        address: address,
+        name: name,
+        logo: ""
+    })
+
+    try {
+        const saveSeller = await seller.save()
+    
+        if(saveSeller) {
+            if(seller._id) {
+                const token = encodeToken(seller._id, saveSeller.username)
+                return response.status(201).json({status: "success", token: token})
+            }
+        }
+    } catch(e) {
+        if(e.keyValue.username) {
+            return response.status(400).json({error:"username already taken"})
+        }
+        if(e.keyValue.name) {
+            return response.status(400).json({error:"company name already taken"})
         }
         return response.status(400).json({error: "email already taken"})
     }
@@ -130,4 +171,4 @@ const validateUser = async (request) => {
     return false
 }
 
-module.exports = {getUser, createUser, loginUser, validateUser}
+module.exports = {getUser, createUser, loginUser, validateUser, createSeller}
