@@ -1,4 +1,6 @@
 # Product
+# Preface
+Adding, updating and deleting a product assume that the user signed in is a seller. If they are not a seller, you will get a 401 "invalid seller" error
 ## Route: **/api/product**
 ## Request Type: **GET**
 
@@ -63,6 +65,7 @@ Returns 201 status code with JSON object if successful:
 ```
 or an error if:
 * Product name is already taken.
+* Non-seller tries to create a product.
 * Invalid user tries to create a product.
 
 ## Route: **/api/product/update/:productid**
@@ -91,6 +94,7 @@ Returns 200 status code with JSON object if successful:
 * 400: Invalid productid
 * 401: The user trying to update the product is not the original seller
 * 401: Product no longer exists.
+* 401: Non-seller tries to update a product.
 * 401: Invalid user tries to update a product.
 
 ## Route: **/api/product/delete/:productid**
@@ -108,4 +112,5 @@ or an error if:
 * 400: Invalid productid.
 * 401: The user trying to delete the product is not the original seller
 * 401: Product no longer exists.
+* 401: Non-seller tries to delete a product.
 * 401: Invalid user tries to delete a product.
