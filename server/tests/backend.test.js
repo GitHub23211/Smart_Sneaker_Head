@@ -115,7 +115,7 @@ describe("Testing auth API endpoints", () => {
             
                 expect(response.status).toBe(201)
                 expect(response.body.status).toBe('success')
-                expect(response.body.token).toBeUndefined()
+                expect(response.body.token).not.toBeNull()
             })
 
             test("register seller with taken username", async () => {
