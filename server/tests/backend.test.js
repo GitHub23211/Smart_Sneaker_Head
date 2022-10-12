@@ -91,7 +91,54 @@ describe("Testing auth API endpoints", () => {
                 }
                 const response = await api.post("/auth/login").send(data)
                 expect(response.status).toBe(200)
+                expect(response.body.status).toBe("success")
                 expect(response.body.token).not.toBeNull()
+
+            })
+
+            test("Wrong password", async () => {
+                const data = {
+                    username: "test",
+                    password: "1234"
+                }
+                const response = await api.post("/auth/login").send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.token).toBeUndefined()
+
+            })
+
+            test("Wrong username", async () => {
+                const data = {
+                    username: "testwrongwrongwrong",
+                    password: "123"
+                }
+                const response = await api.post("/auth/login").send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.token).toBeUndefined()
+
+            })
+
+            test("Missing username", async () => {
+                const data = {
+                    password: "123"
+                }
+                const response = await api.post("/auth/login").send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.token).toBeUndefined()
+
+            })
+
+            test("Missing password", async () => {
+                const data = {
+                    username: "testwrongwrongwrong"
+                }
+                const response = await api.post("/auth/login").send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.token).toBeUndefined()
 
             })
         })
@@ -200,8 +247,6 @@ describe("Testing auth API endpoints", () => {
             
         })
     })
-
-
 })
 
 describe("Testing product API endpoints", () => {

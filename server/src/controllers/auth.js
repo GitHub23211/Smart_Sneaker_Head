@@ -181,14 +181,14 @@ const loginUser = async (request, response) => {
     const {username, password} = request.body
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(401).json({status: "invalid username or password"})
+        return response.status(401).json({error: "invalid username or password"})
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.status(401).json({status: "invalid username or password"})
+    return response.status(401).json({error: "invalid username or password"})
 }
 
 /**
