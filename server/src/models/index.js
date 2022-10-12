@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const config = require('../config')
 
 const userSchema = new mongoose.Schema({
-    username: {type: String, unique: true},
-    password: String,
-    email: {type: String, unique: true},
+    username: {type: String, unique: true, required: true},
+    password: {type: String, required: true},
+    email: {type: String, unique: true, required: true},
     address: String,
     cart: [ 
         {
@@ -26,10 +26,10 @@ userSchema.set('toJSON' , {
 const Session = mongoose.model("Session", userSchema)
 
 const sellerSchema = new mongoose.Schema({
-    username: {type: String, unique: true},
-    password: String,
-    name: {type: String, unique: true},
-    email: {type: String, unique: true},
+    username: {type: String, unique: true, required: true},
+    password: {type: String, required: true},
+    name: {type: String, unique: true, required: true},
+    email: {type: String, unique: true, required: true},
     address: String,
     logo: String
 })
@@ -45,12 +45,12 @@ sellerSchema.set('toJSON' , {
 const Seller = mongoose.model("Seller", sellerSchema)
 
 const productSchema = new mongoose.Schema({
-    name: {type: String, unique: true},
-    price: Number,
+    name: {type: String, unique: true, required: true},
+    price: {type: Number, required: true},
     description: String,
-    quantity: Number,
+    quantity: {type: Number, required: true},
     picture: String,
-    seller: {type: mongoose.Types.ObjectId, ref: "Seller"},
+    seller: {type: mongoose.Types.ObjectId, ref: "Seller", required: true},
 })
 
 productSchema.set('toJSON' , {
