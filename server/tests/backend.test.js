@@ -16,28 +16,48 @@ beforeAll(async () => {
         console.log("Resetting database....")
         await models.Session.deleteMany({})
         console.log("Deleted all users")
+        await models.Seller.deleteMany({})
+        console.log("Deleted all sellers")
+        await models.Product.deleteMany({})
+        console.log("Deleted all products")
     } catch(e) {console.log("error occured", e.toString())}
 
 })
 
-test("register user", async () => {
-    const data = {
-        username: "test",
-        password: "123",
-        email: "test@test"
-    }
+describe("Testing auth API endpoints", () => {
 
-    const response = await api.post("/auth/register/user")
-                              .send(data)
+    test("register user", async () => {
+        const data = {
+            username: "test",
+            password: "123",
+            email: "test@test"
+        }
+    
+        const response = await api.post("/auth/register/user")
+                                  .send(data)
+    
+        expect(response.status).toBe(201)
+        expect(response.body.status).toBe('success')
+        expect(response.body.token).not.toBeNull()
+    })
 
-    expect(response.status).toBe(201)
-    expect(response.body.status).toBe('success')
-    expect(response.body.token).not.toBeNull()
 })
 
-test("get product returns 200 even without query", async () => {
-    await api.get('/api/product')
-             .expect(200)
+describe("Testing product API endpoints", () => {
+
+    test("get product returns 200 even without query", async () => {
+        await api.get('/api/product')
+                .expect(200)
+    })
+
+})
+
+describe("Testing cart API endpoints", () => {
+
+})
+
+describe("Testing user API endpoints", () => {
+    
 })
 
 afterAll(async () => {
