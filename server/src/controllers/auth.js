@@ -65,7 +65,7 @@ const createUser = async (request, response) => {
  * @returns {Object} JSON object containing status and registered seller's token if successful, otherwise a JSON containing an error.
  */
  const createSeller = async (request, response) => {
-    const {username, password, email, address, name} = request.body
+    const {username, password, email, address, companyName} = request.body
 
     const hashedPassword = await bcrypt.hash(password, 10)
     
@@ -74,7 +74,7 @@ const createUser = async (request, response) => {
         password: hashedPassword,
         email: email,
         address: address,
-        name: name,
+        companyName: companyName,
         logo: ""
     })
 
@@ -89,10 +89,10 @@ const createUser = async (request, response) => {
         }
     } catch(e) {
         if(e.keyValue.username) {
-            return response.status(400).json({error:"username already taken"})
+            return response.status(400).json({error: "username already taken"})
         }
         if(e.keyValue.name) {
-            return response.status(400).json({error:"company name already taken"})
+            return response.status(400).json({error: "company name already taken"})
         }
         return response.status(400).json({error: "email already taken"})
     }
@@ -121,6 +121,38 @@ const getUser = async (request, response) => {
                         address: user.address,
                         cart: user.cart,
                         avatar: user.avatar
+                    }
+                })
+            }
+        }
+        catch {return response.status(401).json({error: "missing or invalid token"})}
+    }
+    return response.status(400).json({error: "unregistered"})
+}
+
+/**
+ * Gets user information from database using seller token
+ * @param {Object} request - JSON Object containing headers with the seller's token
+ * @param {Object} response - Object used to send a json response.
+ * @returns {Object} JSON object with seller's information if successful, otherwise errors
+ */
+ const getSeller = async (request, response) => {
+    const authHeader = request.get('Authorization')
+    if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
+        const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
+        try {
+            const userid = decodedToken.id
+            const seller = await models.Seller.findById(userid)
+            if(seller) {
+                return response.status(200).json({
+                    status: "success",
+                    user: {
+                        id: seller._id,
+                        username: seller.username,
+                        email: seller.email,
+                        address: seller.address,
+                        companyName: seller.cart,
+                        logo: seller.logo
                     }
                 })
             }
@@ -171,4 +203,4 @@ const validateUser = async (request) => {
     return false
 }
 
-module.exports = {getUser, createUser, loginUser, validateUser, createSeller}
+module.exports = {getUser, createUser, loginUser, validateUser, createSeller, getSeller}
