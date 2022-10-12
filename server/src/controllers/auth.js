@@ -50,6 +50,9 @@ const createUser = async (request, response) => {
             }
         }
     } catch(e) {
+        if(e.name.toLowerCase() === "validationerror") {
+            return response.status(400).json({error: e.message})
+        }
         if(e.keyValue.username) {
             return response.status(400).json({error:"username already taken"})
         }
@@ -88,13 +91,16 @@ const createUser = async (request, response) => {
             }
         }
     } catch(e) {
+        if(e.name.toLowerCase() === "validationerror") {
+            return response.status(400).json({error: e.message})
+        }
         if(e.keyValue.username) {
             return response.status(400).json({error: "username already taken"})
         }
-        if(e.keyValue.name) {
+        if(e.keyValue.companyName) {
             return response.status(400).json({error: "company name already taken"})
         }
-        return response.status(400).json({error: "email already taken"})
+        return response.status(400).json({error: "email already taken", e: e, string:e.toString()})
     }
 }
 
