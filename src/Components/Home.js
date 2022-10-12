@@ -35,9 +35,11 @@ const Home = () => {
                 <Carousel slide={false}>
                   {tmpProdList.map( (p) => {
                     return (
+                      <section ClassName="item">
                       <Carousel.Item>
                         <HomePageProduct data={p}/>
                       </Carousel.Item>
+                      </section>
                     )
                     }
                  )}
