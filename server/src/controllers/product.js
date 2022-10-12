@@ -24,7 +24,7 @@ const getProducts = async (request, response) => {
         const products = await models.Product.find({
             name: {$regex: query, $options: 'i'}
         })
-        return response.status(404).json({status: "success", products: products, query: request.query})
+        return response.status(200).json({status: "success", products: products, query: request.query})
     } catch(e) {return response.status(401).json({error: e.toString()})}
 }
 
