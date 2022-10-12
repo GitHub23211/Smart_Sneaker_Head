@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const config = require('../config')
 
-const sessionSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {type: String, unique: true},
     password: String,
     email: {type: String, unique: true},
@@ -15,7 +15,7 @@ const sessionSchema = new mongoose.Schema({
     avatar: String
 })
 
-sessionSchema.set('toJSON' , {
+userSchema.set('toJSON' , {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
@@ -23,15 +23,34 @@ sessionSchema.set('toJSON' , {
     }
 })
 
-const Session = mongoose.model("Session", sessionSchema)
+const Session = mongoose.model("Session", userSchema)
+
+const sellerSchema = new mongoose.Schema({
+    username: {type: String, unique: true},
+    password: String,
+    name: {type: String, unique: true},
+    email: {type: String, unique: true},
+    address: String,
+    logo: String
+})
+
+sellerSchema.set('toJSON' , {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
+const Seller = mongoose.model("Seller", sellerSchema)
 
 const productSchema = new mongoose.Schema({
     name: {type: String, unique: true},
     price: Number,
     description: String,
     quantity: Number,
-    seller: {type: mongoose.Types.ObjectId, ref: "Session"},
-    picture: String
+    picture: String,
+    seller: {type: mongoose.Types.ObjectId, ref: "Seller"},
 })
 
 productSchema.set('toJSON' , {
@@ -58,6 +77,7 @@ const startDb = () => {
 
 module.exports = {
     Session,
+    Seller,
     Product,
     startDb
 }

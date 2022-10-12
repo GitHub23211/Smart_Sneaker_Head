@@ -5,8 +5,9 @@
 Structure axios.get function like this:
 ```json
 const headers = {
-  params {
-    name: "search keywords here"
+  "Authorization": "user's token",
+  "params": {
+    "name": "search keywords here"
   }
 }
 
