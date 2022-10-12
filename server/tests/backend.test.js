@@ -162,6 +162,22 @@ describe("Testing auth API endpoints", () => {
                 expect(response.body.token).not.toBeNull()
             })
 
+            test("register seller with email already taken by a user", async () => {
+                const data = {
+                    username: "testcompany1",
+                    password: "123",
+                    email: "test@test",
+                    companyName: "Sneaker Company3"
+                }
+            
+                const response = await api.post("/auth/register/seller")
+                                        .send(data)
+            
+                expect(response.status).toBe(400)
+                expect(response.body.error).toBe('email already taken')
+                expect(response.body.token).not.toBeNull()
+            })
+
             test("register seller without required info", async () => {
                 const data = {
                     password: "123",
