@@ -10,7 +10,8 @@ Returns a JSON object on success:
   "username": "user's name",
   "email": "user's email address",
   "address": "user's postal address",
-  "cart": "user's current cart contents"
+  "cart": "user's current cart contents",
+  "avatar": "String containing filename of user avatar stored in backend"
 }
 ```
 else returns two errors:

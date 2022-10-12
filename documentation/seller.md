@@ -11,7 +11,7 @@ Returns a JSON object on success:
   "email": "seller's email address",
   "address": "seller's postal address",
   "companyName": "seller's company name",
-  "logo": "seller's logo"
+  "logo": "String containing filename of company logo stored in backend"
 }
 ```
 else returns two errors:
