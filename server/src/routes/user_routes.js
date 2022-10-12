@@ -8,9 +8,6 @@ const router = express.Router()
 /* GET request that returns currently logged in user */
 router.get('/auth/user', auth.getUser)
 
-/* GET request that returns currently logged in user */
-router.get('/auth/seller', auth.getSeller)
-
 /* PUT request to add products to cart */
 router.put(`/api/cart/add/:productid`, cart.addToCart)
 
