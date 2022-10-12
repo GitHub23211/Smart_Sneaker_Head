@@ -239,10 +239,6 @@ describe("Testing auth API endpoints", () => {
             })
         })
 
-        describe("Test seller login", () => {
-
-        })
-
         describe("Test get seller", () => {
             
         })
