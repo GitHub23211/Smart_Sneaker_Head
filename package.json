@@ -35,6 +35,7 @@
     "start": "cross-env PORT=3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-backend": "jest --verbose --coverage --detectOpenHandles --runInBand --testPathPattern server",
     "eject": "react-scripts eject",
     "server": "nodemon server/src/index.js"
   },
