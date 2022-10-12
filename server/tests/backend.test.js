@@ -35,8 +35,7 @@ describe("Testing auth API endpoints", () => {
                     email: "test@test"
                 }
             
-                const response = await api.post("/auth/register/user")
-                                          .send(data)
+                const response = await api.post("/auth/register/user").send(data)
             
                 expect(response.status).toBe(201)
                 expect(response.body.status).toBe('success')
@@ -50,12 +49,11 @@ describe("Testing auth API endpoints", () => {
                     email: "test@test1"
                 }
             
-                const response = await api.post("/auth/register/user")
-                                        .send(data)
+                const response = await api.post("/auth/register/user").send(data)
             
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe('username already taken')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("register user with taken email", async () => {
@@ -65,12 +63,11 @@ describe("Testing auth API endpoints", () => {
                     email: "test@test"
                 }
             
-                const response = await api.post("/auth/register/user")
-                                        .send(data)
+                const response = await api.post("/auth/register/user").send(data)
             
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe('email already taken')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("missing required info", async () => {
@@ -79,16 +76,24 @@ describe("Testing auth API endpoints", () => {
                     email: "test@test"
                 }
             
-                const response = await api.post("/auth/register/user")
-                                        .send(data)
+                const response = await api.post("/auth/register/user").send(data)
             
                 expect(response.status).toBe(400)
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
         })
 
         describe("Test user login", () => {
+            test("Successfully login user", async () => {
+                const data = {
+                    username: "test",
+                    password: "123"
+                }
+                const response = await api.post("/auth/login").send(data)
+                expect(response.status).toBe(200)
+                expect(response.body.token).not.toBeNull()
 
+            })
         })
 
         describe("Test get user", () => {
@@ -106,12 +111,11 @@ describe("Testing auth API endpoints", () => {
                     companyName: "Sneaker Company"
                 }
             
-                const response = await api.post("/auth/register/seller")
-                                          .send(data)
+                const response = await api.post("/auth/register/seller").send(data)
             
                 expect(response.status).toBe(201)
                 expect(response.body.status).toBe('success')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("register seller with taken username", async () => {
@@ -122,12 +126,11 @@ describe("Testing auth API endpoints", () => {
                     companyName: "Sneaker Company 2"
                 }
             
-                const response = await api.post("/auth/register/seller")
-                                        .send(data)
+                const response = await api.post("/auth/register/seller").send(data)
             
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe('username already taken')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("register seller with taken email", async () => {
@@ -138,12 +141,11 @@ describe("Testing auth API endpoints", () => {
                     companyName: "Sneaker Company 2"
                 }
             
-                const response = await api.post("/auth/register/seller")
-                                        .send(data)
+                const response = await api.post("/auth/register/seller").send(data)
             
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe('email already taken')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("register seller with taken company name", async () => {
@@ -154,12 +156,11 @@ describe("Testing auth API endpoints", () => {
                     companyName: "Sneaker Company"
                 }
             
-                const response = await api.post("/auth/register/seller")
-                                        .send(data)
+                const response = await api.post("/auth/register/seller").send(data)
             
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe('company name already taken')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("register seller with email already taken by a user", async () => {
@@ -170,12 +171,11 @@ describe("Testing auth API endpoints", () => {
                     companyName: "Sneaker Company3"
                 }
             
-                const response = await api.post("/auth/register/seller")
-                                        .send(data)
+                const response = await api.post("/auth/register/seller").send(data)
             
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe('email already taken')
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
 
             test("register seller without required info", async () => {
@@ -185,11 +185,10 @@ describe("Testing auth API endpoints", () => {
                     companyName: "Sneaker Company"
                 }
             
-                const response = await api.post("/auth/register/seller")
-                                        .send(data)
+                const response = await api.post("/auth/register/seller").send(data)
             
                 expect(response.status).toBe(400)
-                expect(response.body.token).not.toBeNull()
+                expect(response.body.token).toBeUndefined()
             })
         })
 
