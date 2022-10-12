@@ -75,21 +75,9 @@ const startDb = () => {
             })
 }
 
-const startTestDb = () => {
-    mongoose.connect(config.mongoDBUrlTest)
-            .then(result => {
-                console.log('connected to testing database on port:', config.port)
-                console.log("on mongoURL", config.mongoDBUrlTest)
-            })
-            .catch(error => {
-                console.log('error connecting to database:', error.message)
-            })
-}
-
 module.exports = {
     Session,
     Seller,
     Product,
-    startDb,
-    startTestDb
+    startDb
 }
