@@ -12,7 +12,7 @@ const registerSeller = async () => {
     }
 
     const response = await api.post("/auth/register/seller").send(data)
-    expect(response.status).tobe(200)
+    expect(response.status).toBe(201)
 }
 
 const getSellerToken = async () => {
@@ -210,6 +210,14 @@ describe("Testing product API endpoints", () => {
             expect(response.body.products[0].description).toBe("Some sneakers")
             expect(response.body.products[0].quantity).toBe(20)
                                       
+        })
+
+        test("get product returns 200 with bad query", async () => {
+            const response = await api.get('/api/product').query({name: "klasoashfo23h4"})
+
+            expect(response.status).toBe(200)
+            expect(response.body.status).toBe("success")
+            expect(response.body.products).toHaveLength(0)                                      
         })
     })
 
