@@ -50,6 +50,9 @@ const createUser = async (request, response) => {
             }
         }
     } catch(e) {
+        if(e.name.toLowerCase() === "validationerror") {
+            return response.status(400).json({error: e.message})
+        }
         if(e.keyValue.username) {
             return response.status(400).json({error:"username already taken"})
         }
@@ -68,34 +71,40 @@ const createUser = async (request, response) => {
     const {username, password, email, address, companyName} = request.body
 
     const hashedPassword = await bcrypt.hash(password, 10)
+    const checkEmail = await models.Session.find({email: {$regex: `^${email}$`, $options: 'im'}})
+    if(checkEmail.length === 0) {
+        const seller = new models.Seller({
+            username: username,
+            password: hashedPassword,
+            email: email,
+            address: address,
+            companyName: companyName,
+            logo: ""
+        })
     
-    const seller = new models.Seller({
-        username: username,
-        password: hashedPassword,
-        email: email,
-        address: address,
-        companyName: companyName,
-        logo: ""
-    })
-
-    try {
-        const saveSeller = await seller.save()
-    
-        if(saveSeller) {
-            if(seller._id) {
-                const token = encodeToken(seller._id, saveSeller.username)
-                return response.status(201).json({status: "success", token: token})
+        try {
+            const saveSeller = await seller.save()
+        
+            if(saveSeller) {
+                if(seller._id) {
+                    const token = encodeToken(seller._id, saveSeller.username)
+                    return response.status(201).json({status: "success", token: token})
+                }
             }
+        } catch(e) {
+            if(e.name.toLowerCase() === "validationerror") {
+                return response.status(400).json({error: e.message})
+            }
+            if(e.keyValue.username) {
+                return response.status(400).json({error: "username already taken"})
+            }
+            if(e.keyValue.companyName) {
+                return response.status(400).json({error: "company name already taken"})
+            }
+            return response.status(400).json({error: "email already taken"})
         }
-    } catch(e) {
-        if(e.keyValue.username) {
-            return response.status(400).json({error: "username already taken"})
-        }
-        if(e.keyValue.name) {
-            return response.status(400).json({error: "company name already taken"})
-        }
-        return response.status(400).json({error: "email already taken"})
     }
+    return response.status(400).json({error: "email already taken"})
 }
 
 /**
@@ -172,14 +181,14 @@ const loginUser = async (request, response) => {
     const {username, password} = request.body
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(401).json({status: "invalid username or password"})
+        return response.status(401).json({error: "invalid username or password"})
     }
 
     if(await bcrypt.compare(password, user.password)) {
         const token = encodeToken(user._id, user.username)
         return response.status(200).json({status: "success", token: token})
     }
-    return response.status(401).json({status: "invalid username or password"})
+    return response.status(401).json({error: "invalid username or password"})
 }
 
 /**
