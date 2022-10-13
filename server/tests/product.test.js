@@ -34,34 +34,36 @@ beforeAll(async () => {
     await registerSeller()
     const token = await getSellerToken()
 
-    const product1 = {
-        name: "Sneakers",
-        price: 300,
-        description: "Some sneakers",
-        quantity: 20
-    }
-    const product2 = {
-        name: "Shoes",
-        price: 300,
-        description: "Some shoes",
-        quantity: 20
-    }
-    const product3 = {
-        name: "Rapid Force Anti Shoe",
-        price: 300,
-        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Vestibulum consequat tempor fringilla. Integer dignissim ac erat a malesuada.
-                        Vivamus porttitor aliquam erat. Sed efficitur finibus orci ut consequat. 
-                        Ut et placerat ligula, quis sodales mauris. Aenean tincidunt lectus ornare, cursus ex et, 
-                        maximus dolor. Suspendisse faucibus tincidunt magna at pretium. Integer vitae convallis quam. 
-                        Vestibulum euismod vehicula augue ac venenatis.`,
-        quantity: 20
-    }
+    const products =[ 
+        {
+            name: "Sneakers",
+            price: 300,
+            description: "Some sneakers",
+            quantity: 20
+        },
+
+        {
+            name: "Shoes",
+            price: 300,
+            description: "Some shoes",
+            quantity: 20
+        },
+
+        {
+            name: "Rapid Force Anti Shoe",
+            price: 300,
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Vestibulum consequat tempor fringilla. Integer dignissim ac erat a malesuada.
+                            Vivamus porttitor aliquam erat. Sed efficitur finibus orci ut consequat. 
+                            Ut et placerat ligula, quis sodales mauris. Aenean tincidunt lectus ornare, cursus ex et, 
+                            maximus dolor. Suspendisse faucibus tincidunt magna at pretium. Integer vitae convallis quam. 
+                            Vestibulum euismod vehicula augue ac venenatis.`,
+            quantity: 20
+        }
+    ]
 
     try {
-        await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product1)
-        await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product2)
-        await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product3)
+        products.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
 })
