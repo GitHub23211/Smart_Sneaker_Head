@@ -212,7 +212,7 @@ describe("Testing product API endpoints", () => {
                                       
         })
 
-        test("get product returns 200 with bad query", async () => {
+        test("get product returns 200 with no-match query", async () => {
             const response = await api.get('/api/product').query({name: "klasoashfo23h4"})
 
             expect(response.status).toBe(200)
