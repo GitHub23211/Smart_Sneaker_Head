@@ -1,0 +1,31 @@
+
+
+.register-container{
+    background-color: #f2c988;
+    display: flex;
+    height: 700px;
+    margin-top: 20px;
+  
+
+}
+
+.register-left{
+    width: 50%;
+    background-image: url("register.png");
+    background-repeat: no-repeat;
+}
+
+.register-right{
+    width: 50%;
+   
+}
+
+h1{
+    font-family: "Lucida Console", "Courier New" , monospace;
+    font-size:xx-large;
+}
+
+.register-text{
+    font-family: "Lucida Console", "Courier New" , monospace;
+    font-size:large
+}
