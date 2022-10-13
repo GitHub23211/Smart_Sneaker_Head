@@ -4,17 +4,15 @@ const app = require('../src/app')
 const api = supertest(app)
 
 const registerSeller = async () => {
-    try {
-        const data = {
-            username: "testproductcompany",
-            password: "123",
-            email: "company@product",
-            companyName: "Company Product Test"
-        }
-    
-        const response = await api.post("/auth/register/seller").send(data).expect(200)
+    const data = {
+        username: "testproductcompany",
+        password: "123",
+        email: "company@product",
+        companyName: "Company Product Test"
     }
-    catch(e) {console.log("error occurred", e.toString())}
+
+    const response = await api.post("/auth/register/seller").send(data)
+    expect(response.status).tobe(200)
 }
 
 const getSellerToken = async () => {
@@ -191,20 +189,27 @@ describe("Testing product API endpoints", () => {
 
     describe("Test get product", () => {
 
-        test("get product returns 200 even without query", async () => {
+        test("get product returns 200 without query", async () => {
             const response = await api.get('/api/product')
 
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
-            expect(response.body.products).not.toBeUndefined()
+            expect(response.body.products).toHaveLength(4)
             expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
             expect(response.body.products[3].name).toBe("test")
         })
 
-        test("get product returns 200 even with query", async () => {
-            const response = await api.get('/api/product')
-                                      .set('params', {"name": "Sneakers"})
-                                      .expect(200)
+        test("get product returns 200 with query", async () => {
+            const response = await api.get('/api/product').query({name: "Sneakers"})
+
+            expect(response.status).toBe(200)
+            expect(response.body.status).toBe("success")
+            expect(response.body.products).toHaveLength(1)
+            expect(response.body.products[0].name).toBe("Sneakers")
+            expect(response.body.products[0].price).toBe(300)
+            expect(response.body.products[0].description).toBe("Some sneakers")
+            expect(response.body.products[0].quantity).toBe(20)
+                                      
         })
     })
 
