@@ -127,7 +127,7 @@ const getUser = async (request, response) => {
         }
         catch {return response.status(401).json({error: "missing or invalid token"})}
     }
-    return response.status(400).json({error: "unregistered"})
+    return response.status(400).json({error: "unregistered or accessing user info with seller account"})
 }
 
 /**
@@ -146,12 +146,12 @@ const getUser = async (request, response) => {
             if(seller) {
                 return response.status(200).json({
                     status: "success",
-                    user: {
+                    seller: {
                         id: seller._id,
                         username: seller.username,
                         email: seller.email,
                         address: seller.address,
-                        companyName: seller.cart,
+                        companyName: seller.companyName,
                         logo: seller.logo
                     }
                 })
@@ -192,10 +192,16 @@ const validateUser = async (request) => {
     if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
         try {
             const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
-            const userid = decodedToken.id     
+            const userid = decodedToken.id
             const user = await models.Session.findOne({_id: userid})
             if (user) {
                 return user._id
+            }
+            else {
+                const seller = await models.Seller.findOne({_id: userid})
+                if (seller) {
+                    return seller._id
+                }
             }
         }
         catch {return false}
