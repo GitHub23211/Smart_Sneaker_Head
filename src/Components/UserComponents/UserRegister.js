@@ -38,7 +38,7 @@ const UserRegister= ()=>{
            address : address
         }        
         //post request to register user 
-       axios.post("auth/register/user", userObj)
+       axios.post("/auth/register/user", userObj)
        .then(response => {
               console.log(response.data)
               setMessageTitle("Thank you for Registering!")
