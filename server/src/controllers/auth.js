@@ -190,7 +190,7 @@ const loginUser = async (request, response) => {
             return response.status(200).json({status: "success", token: token})
         }
     }
-    return response.status(401).json({error: "invalid username or password"})
+    return response.status(401).json({error: "username or password missing or invalid"})
 }
 
 /**
