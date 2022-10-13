@@ -123,14 +123,12 @@ const getUser = async (request, response) => {
             if(user) {
                 return response.status(200).json({
                     status: "success",
-                    user: {
-                        id: user._id,
-                        username: user.username,
-                        email: user.email,
-                        address: user.address,
-                        cart: user.cart,
-                        avatar: user.avatar
-                    }
+                    id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    address: user.address,
+                    cart: user.cart,
+                    avatar: user.avatar
                 })
             }
         }
@@ -155,14 +153,12 @@ const getUser = async (request, response) => {
             if(seller) {
                 return response.status(200).json({
                     status: "success",
-                    seller: {
-                        id: seller._id,
-                        username: seller.username,
-                        email: seller.email,
-                        address: seller.address,
-                        companyName: seller.companyName,
-                        logo: seller.logo
-                    }
+                    id: seller._id,
+                    username: seller.username,
+                    email: seller.email,
+                    address: seller.address,
+                    companyName: seller.companyName,
+                    logo: seller.logo
                 })
             }
         }
