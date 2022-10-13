@@ -3,36 +3,78 @@ const app = require('../src/app')
 
 const api = supertest(app)
 
+const registerSeller = async () => {
+    try {
+        const data = {
+            username: "testproductcompany",
+            password: "123",
+            email: "company@product",
+            companyName: "Company Product Test"
+        }
+    
+        const response = await api.post("/auth/register/seller").send(data).expect(200)
+    }
+    catch(e) {console.log("error occurred", e.toString())}
+}
+
+const getSellerToken = async () => {
+    const data = {
+        username: "testproductcompany",
+        password: "123"
+    }
+    const response = await api.post("/auth/login").send(data)
+    return response.body.token
+}
+
+const getSellerID = async (token) => {
+    const response = await api.get('/auth/seller').set('Authorization', `Bearer ${token}`)
+    return response.body.id
+}
+
+beforeAll(async () => {
+
+    await registerSeller()
+    const token = await getSellerToken()
+
+    const product1 = {
+        name: "Sneakers",
+        price: 300,
+        description: "Some sneakers",
+        quantity: 20
+    }
+    const product2 = {
+        name: "Shoes",
+        price: 300,
+        description: "Some shoes",
+        quantity: 20
+    }
+    const product3 = {
+        name: "Rapid Force Anti Shoe",
+        price: 300,
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Vestibulum consequat tempor fringilla. Integer dignissim ac erat a malesuada.
+                        Vivamus porttitor aliquam erat. Sed efficitur finibus orci ut consequat. 
+                        Ut et placerat ligula, quis sodales mauris. Aenean tincidunt lectus ornare, cursus ex et, 
+                        maximus dolor. Suspendisse faucibus tincidunt magna at pretium. Integer vitae convallis quam. 
+                        Vestibulum euismod vehicula augue ac venenatis.`,
+        quantity: 20
+    }
+
+    try {
+        await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product1)
+        await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product2)
+        await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product3)
+    }
+    catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
+})
+
 describe("Testing product API endpoints", () => {
 
     describe("Test create product", () => {
 
         test("create a product", async () => {
-            let token = ""
-            let sellerid = ""
-            const data = {
-                username: "testcompany",
-                password: "123"
-            }
-
-            await api.post("/auth/login")
-            .send(data)
-            .expect(200)
-            .expect(response => {
-                expect(response.body.status).toBe("success")
-                expect(response.body.token).not.toBeNull()
-                expect(response.body.token).not.toBeUndefined()
-                token = response.body.token
-            })
-
-            await api.get('/auth/seller').set('Authorization', `Bearer ${token}`)
-                     .expect(200)
-                     .expect(response => {
-                        expect(response.body.status).toBe("success")
-                        expect(response.body.id).not.toBeNull()
-                        expect(response.body.id).not.toBeUndefined()
-                        sellerid = response.body.id
-                     })
+            const token = await getSellerToken()
+            const sellerid = await getSellerID(token)
 
             const product = {
                 name: "test",
@@ -58,22 +100,7 @@ describe("Testing product API endpoints", () => {
         })
 
         test("create a product with bad token", async () => {
-            let token = ""
-            const data = {
-                username: "testcompany",
-                password: "123"
-            }
-
-            await api.post("/auth/login")
-            .send(data)
-            .expect(200)
-            .expect(response => {
-                expect(response.body.status).toBe("success")
-                expect(response.body.token).not.toBeNull()
-                expect(response.body.token).not.toBeUndefined()
-                token = response.body.token + "bad token data"
-            })
-
+            const token = await getSellerToken()
             const product = {
                 name: "test1",
                 price: "250",
@@ -82,7 +109,7 @@ describe("Testing product API endpoints", () => {
             }
 
             const response = await api.post('/api/product/register')
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Authorization', `Bearer ${token}bad token data`)
                                       .send(product)
             
             expect(response.status).toBe(401)
@@ -110,13 +137,14 @@ describe("Testing product API endpoints", () => {
             let token = ""
 
             const data = {
-                username: "test",
-                password: "123"
+                username: "testproduct",
+                password: "123",
+                email: "product@testuser"
             }
 
-            await api.post("/auth/login")
+            await api.post("/auth/register/user")
             .send(data)
-            .expect(200)
+            .expect(201)
             .expect(response => {
                 expect(response.body.status).toBe("success")
                 expect(response.body.token).not.toBeNull()
@@ -142,21 +170,7 @@ describe("Testing product API endpoints", () => {
 
         test("Create a duplicate product", async () => {
 
-            let token = ""
-            const data = {
-                username: "testcompany",
-                password: "123"
-            }
-
-            await api.post("/auth/login")
-            .send(data)
-            .expect(200)
-            .expect(response => {
-                expect(response.body.status).toBe("success")
-                expect(response.body.token).not.toBeNull()
-                expect(response.body.token).not.toBeUndefined()
-                token = response.body.token
-            })
+            let token = await getSellerToken()
 
             const product = {
                 name: "test",
@@ -176,16 +190,21 @@ describe("Testing product API endpoints", () => {
     })
 
     describe("Test get product", () => {
+
         test("get product returns 200 even without query", async () => {
             const response = await api.get('/api/product')
+
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
             expect(response.body.products).not.toBeUndefined()
+            expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
+            expect(response.body.products[3].name).toBe("test")
         })
 
         test("get product returns 200 even with query", async () => {
-            await api.get('/api/product')
-                    .expect(200)
+            const response = await api.get('/api/product')
+                                      .set('params', {"name": "Sneakers"})
+                                      .expect(200)
         })
     })
 
@@ -198,5 +217,3 @@ describe("Testing product API endpoints", () => {
     })
 
 })
-
-
