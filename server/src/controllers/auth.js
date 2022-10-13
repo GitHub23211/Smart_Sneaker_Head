@@ -179,7 +179,7 @@ const getUser = async (request, response) => {
  */
 const loginUser = async (request, response) => {
     const {username, password} = request.body
-    const user = await models.Session.findOne({username: username})
+    const user = await loginHelper(username)
     if(!user) {
         return response.status(401).json({error: "invalid username or password"})
     }
@@ -189,6 +189,23 @@ const loginUser = async (request, response) => {
         return response.status(200).json({status: "success", token: token})
     }
     return response.status(401).json({error: "invalid username or password"})
+}
+
+/**
+ * Figures out whether the given credentials are for a user, a seller, or if they are invalid.
+ * @param {String} username username of user or seller
+ * @returns the user or seller in the database or false if cannot be found/are invalid.
+ */
+const loginHelper = async (username) => {
+    const user = await models.Session.findOne({username: username})
+    if(!user) {
+        const seller = await models.Seller.findOne({username: username})
+        if(!seller) {
+            return false
+        }
+        return seller
+    }
+    return user
 }
 
 /**
