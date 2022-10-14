@@ -10,6 +10,7 @@ const SellerRegister= ()=>{
 
     const [userName , setUserName] = useState("")
     const [companyName, setCompanyName] = useState("")
+    const [abn, setABN] = useState("")
     const [email , setEmail] = useState("")
     const [address, setAddress] = useState("") 
     const [Passcode , setPassword] = useState("")
@@ -36,6 +37,7 @@ const SellerRegister= ()=>{
            username : userName ,
            password : Passcode ,
            companyName: companyName,
+           abn: abn,
            email : email,
            address : address
         }        
@@ -76,6 +78,7 @@ const SellerRegister= ()=>{
             </Grid>    
             <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={(event) => handleOnChange(event, setUserName)}></TextField>
             <TextField label='Company Name' placeholder='Enter company name' fullWidth required style={margin} input value={companyName} onChange={(event) => handleOnChange(event, setCompanyName)}></TextField>
+            <TextField label='ABN' placeholder='Enter ABN' fullWidth required style={margin} input value={abn} onChange={(event) => handleOnChange(event, setABN)}></TextField>
             <TextField label='Email' placeholder='Enter email' fullWidth required style={margin} input value = {email} onChange={(event) => handleOnChange(event, setEmail)}></TextField>
             <TextField label='Address' placeholder='Enter postal address' fullWidth required style={margin} input value = {address} onChange={(event) => handleOnChange(event, setAddress)}></TextField>
             <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin} input value={Passcode} onChange={(event) => handleOnChange(event, setPassword)}></TextField>
