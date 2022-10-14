@@ -109,7 +109,7 @@ const UpdateProfile = ()=>{
        input value={userAddress} onChange={(event) => handleOnChange(event, setUserAddress)}></TextField> 
 
       <p>Add Profile Image</p>
-        <Input type="file" onChange={grabAvatar} alt="avatar"/>
+      <Input type="file" onChange={grabAvatar} alt="avatar"/>
       
       
 

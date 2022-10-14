@@ -3,15 +3,18 @@ import '../Styles/homepageproduct.css';
 import ProductContext from '../ProductContext';
 import { Navigate } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
+import {Button} from  "@mui/material";
 
-const HomePageProduct = ({data:{name, price, seller,description,quantity, picture}}) => {
+const HomePageProduct = ({data:{id,name, price,seller,description,quantity,picture}}) => {
     const {setProduct} = useContext(ProductContext);
     const [productNavgn, setProductNavgn] = useState(false);
 
     const handleView = (event) => {
         event.preventDefault()
         console.log("handleview")
+        console.log("id",id)
         setProduct({
+            id : id,
             name: name,
             price: price,
             description: description, 
@@ -28,6 +31,7 @@ const HomePageProduct = ({data:{name, price, seller,description,quantity, pictur
        )
     }else{
         return(
+            
             <section className="card-container">
                 <section className="image-container">
                    <img  className="product-img"  src={`/product/image/${picture}`} alt='unable to find' />
@@ -37,10 +41,11 @@ const HomePageProduct = ({data:{name, price, seller,description,quantity, pictur
                 </section>
                 <section className="card-button">
                 <Carousel.Caption>
-                    <button onClick = {handleView}>View Product</button>
+                    <Button variant="outlined" onClick = {handleView}>View Product</Button>
                 </Carousel.Caption>
                 </section>
             </section>
+            
         )
     }
 

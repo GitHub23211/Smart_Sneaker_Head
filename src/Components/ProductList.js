@@ -20,6 +20,7 @@ const ProductList =()=>{
             <> {
                 productlist.map(p =>
                 ( <ProductListItem 
+                    id={p.id}
                     name={p.name} 
                     price={p.price} 
                     description={p.description} 

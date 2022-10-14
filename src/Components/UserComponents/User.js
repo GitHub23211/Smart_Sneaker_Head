@@ -8,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const User = () =>{
@@ -28,7 +29,7 @@ const User = () =>{
         <List>
           <ListItem disablePadding><ListItemButton >
             <ListItemIcon>< AccountBoxIcon/></ListItemIcon>
-              <ListItemText primary="My Profile" />
+              <ListItemText primary="PROFILE" />
             </ListItemButton>
             </ListItem>
         </List>
@@ -39,7 +40,7 @@ const User = () =>{
           <ListItem disablePadding>
             <ListItemButton > 
               <ListItemIcon><EditIcon /></ListItemIcon>
-              <ListItemText primary="Update Profile" />
+              <ListItemText primary="UPDATE PROFILE" />
             </ListItemButton>
           </ListItem>
         </List>
@@ -50,7 +51,7 @@ const User = () =>{
           <ListItem disablePadding>
             <ListItemButton> 
               <ListItemIcon>< ShoppingBasketIcon /></ListItemIcon>
-              <ListItemText primary="Orders" />
+              <ListItemText primary="ORDERS" />
             </ListItemButton>
           </ListItem>
         </List>
@@ -61,7 +62,7 @@ const User = () =>{
           <ListItem disablePadding>
             <ListItemButton> 
             <ListItemIcon><SellIcon /></ListItemIcon>
-              <ListItemText primary="My Wishlist" />
+              <ListItemText primary="WISHLIST" />
             </ListItemButton>
           </ListItem>
       </List>
@@ -71,8 +72,8 @@ const User = () =>{
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={ () => { setLogin(false)} } > 
-              <ListItemIcon>< RestoreFromTrashIcon/></ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemIcon>< LogoutIcon/></ListItemIcon>
+              <ListItemText primary="LOGOUT" />
             </ListItemButton>
           </ListItem>
          </List>
@@ -83,7 +84,7 @@ const User = () =>{
           <ListItem disablePadding>
             <ListItemButton> 
               <ListItemIcon>< RestoreFromTrashIcon/></ListItemIcon>
-              <ListItemText primary="Delete my Account" />
+              <ListItemText primary="DELETE ACCOUNT" />
             </ListItemButton>
           </ListItem>
          </List>

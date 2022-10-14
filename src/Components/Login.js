@@ -1,9 +1,11 @@
 import { React, useState, useContext } from "react";
 import { Navigate , Link } from 'react-router-dom';
 import axios from "axios";
-import { Avatar, Grid, Paper, TextField, Button, Typography, FormControl, FormControlLabel, RadioGroup, Radio } from "@mui/material";
+import { Avatar, Grid, Paper, TextField, Button, Typography, FormControl, FormControlLabel, RadioGroup, Radio , Divider,Box } from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { spacing } from '@mui/system';
+
 
 import LoginContext from '../LoginContext';
 
@@ -60,7 +62,6 @@ const Login=()=>{
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
     const buttonStyle ={margin:'20px auto'}
-
         if(flag === false){
             return (
             <Grid>
@@ -75,7 +76,7 @@ const Login=()=>{
                 fullWidth required input value={Passcode} onChange={(event)=> handleOnChange(event,setPassword)}></TextField>
                 
                 <FormControl>
-                    <RadioGroup defaultValue="user" onChange={(event)=> handleOnChange(event,setType)}>
+                    <RadioGroup defaultValue="user" value={loginType} onChange={(event)=> handleOnChange(event,setType)}>
                         <FormControlLabel value="user" control={<Radio />} label="Login as User" />
                          <FormControlLabel value="seller" control={<Radio />} label="Login as Seller" />
                     </RadioGroup>
@@ -102,6 +103,14 @@ const Login=()=>{
                 </Dialog>
 
                 </Paper>
+            <Box sx={{mt:"350px"}}>
+            <Divider>
+            <Typography>
+                 © Smart Sneaker Head, 2022. All Rights Reserved.
+            </Typography>
+            </Divider>
+            </Box>    
+
             </Grid>
         )} else if(flag === true && loginType === "user"){
                 return(
