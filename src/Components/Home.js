@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Typography,Divider } from "@mui/material";
 import "../Styles/home.css";
 import axios from "axios";
 import HomePageProduct from "./HomePageProduct";
@@ -15,6 +15,7 @@ const Home = () => {
          let tmpList = [];
         axios.get('/api/product')
         .then(response =>{
+            console.log(response)
             const size = response.data.products.length;
             for(let i=0; i<3; i++) {
              const index = Math.floor(Math.random() * size);
@@ -28,7 +29,11 @@ const Home = () => {
     return(  
     <section className="home-container">
         <section className="home-banner">
-           <h1>Banner</h1>
+           <h1>Welcome to Smart Sneaker Head!</h1>
+           <Divider>
+           <p> Bring power to your steps</p>
+            </Divider>
+          
         </section>
 
         <section className="home-products">
@@ -47,12 +52,14 @@ const Home = () => {
         </section>
 
         <section className="home-about-us">
-          <h3>about</h3>
+          <h2>ABOUT</h2>
         </section>
         <section className="home-footer">
+            <Divider>
             <Typography>
-                Copyright © SmartShopper
+                 © Smart Sneaker Head, 2022. All Rights Reserved.
             </Typography>
+            </Divider>
         </section>
     </section>
     )
