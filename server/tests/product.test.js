@@ -3,24 +3,12 @@ const app = require('../src/app')
 
 const api = supertest(app)
 
-const registerSeller = async () => {
-    const data = {
-        username: "testproductcompany",
-        password: "123",
-        email: "company@product",
-        companyName: "Company Product Test",
-        abn: "0987654321"
-    }
-
+const registerSeller = async (data) => {
     const response = await api.post("/auth/register/seller").send(data)
     expect(response.status).toBe(201)
 }
 
-const getSellerToken = async () => {
-    const data = {
-        username: "testproductcompany",
-        password: "123"
-    }
+const getSellerToken = async (data) => {
     const response = await api.post("/auth/login").send(data)
     return response.body.token
 }
@@ -31,9 +19,36 @@ const getSellerID = async (token) => {
 }
 
 beforeAll(async () => {
+    const seller1 = {
+        username: "testproductcompany",
+        password: "123",
+        email: "company@product",
+        companyName: "Company Product Test",
+        abn: "0987654321"
+    }
 
-    await registerSeller()
-    const token = await getSellerToken()
+    const seller1login = {
+        username: "testproductcompany",
+        password: "123"
+    }
+
+    const seller2 = {
+        username: "testproductcompany2",
+        password: "123",
+        email: "company@product2",
+        companyName: "Company Product Test 2",
+        abn: "09876543212"
+    }
+
+    const seller2login = {
+        username: "testproductcompany2",
+        password: "123"
+    }
+
+    await registerSeller(seller1)
+    await registerSeller(seller2)
+    const token1 = await getSellerToken(seller1login)
+    const token2 = await getSellerToken(seller2login)
 
     const products =[ 
         {
@@ -64,9 +79,31 @@ beforeAll(async () => {
     ]
 
     try {
-        products.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token}`).send(product))
+        products.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token1}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
+
+    const otherProducts = [
+        {
+            name: "Other Sneakers",
+            price: 100,
+            description: "Some other sneakers",
+            quantity: 5
+        },
+
+        {
+            name: "Other Shoes",
+            price: 2,
+            description: "Some other shoes",
+            quantity: 1
+        },
+    ]
+        
+    try {
+        otherProducts.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token2}`).send(product))
+    }
+    catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
+    
 })
 
 describe("Testing product API endpoints", () => {
@@ -74,7 +111,11 @@ describe("Testing product API endpoints", () => {
     describe("Test create product", () => {
 
         test("create a product", async () => {
-            const token = await getSellerToken()
+            const seller1login = {
+                username: "testproductcompany",
+                password: "123"
+            }
+            const token = await getSellerToken(seller1login)
             const sellerid = await getSellerID(token)
 
             const product = {
@@ -101,7 +142,11 @@ describe("Testing product API endpoints", () => {
         })
 
         test("create a product with bad token", async () => {
-            const token = await getSellerToken()
+            const seller1login = {
+                username: "testproductcompany",
+                password: "123"
+            }
+            const token = await getSellerToken(seller1login)
             const product = {
                 name: "test1",
                 price: "250",
@@ -170,8 +215,11 @@ describe("Testing product API endpoints", () => {
         })
 
         test("Create a duplicate product", async () => {
-
-            let token = await getSellerToken()
+            const seller1login = {
+                username: "testproductcompany",
+                password: "123"
+            }
+            const token = await getSellerToken(seller1login)
 
             const product = {
                 name: "test",
@@ -197,9 +245,9 @@ describe("Testing product API endpoints", () => {
 
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
-            expect(response.body.products).toHaveLength(4)
-            expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
-            expect(response.body.products[3].name).toBe("test")
+            expect(response.body.products).toHaveLength(6)
+            expect(response.body.products[0].name).toBe("Other Shoes")
+            expect(response.body.products[3].name).toBe("Shoes")
         })
 
         test("get product returns 200 with query", async () => {
@@ -207,11 +255,11 @@ describe("Testing product API endpoints", () => {
 
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
-            expect(response.body.products).toHaveLength(1)
-            expect(response.body.products[0].name).toBe("Sneakers")
-            expect(response.body.products[0].price).toBe(300)
-            expect(response.body.products[0].description).toBe("Some sneakers")
-            expect(response.body.products[0].quantity).toBe(20)
+            expect(response.body.products).toHaveLength(2)
+            expect(response.body.products[1].name).toBe("Sneakers")
+            expect(response.body.products[1].price).toBe(300)
+            expect(response.body.products[1].description).toBe("Some sneakers")
+            expect(response.body.products[1].quantity).toBe(20)
                                       
         })
 
