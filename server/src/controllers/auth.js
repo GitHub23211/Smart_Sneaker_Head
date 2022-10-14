@@ -68,7 +68,7 @@ const createUser = async (request, response) => {
  * @returns {Object} JSON object containing status and registered seller's token if successful, otherwise a JSON containing an error.
  */
  const createSeller = async (request, response) => {
-    const {username, password, email, address, companyName} = request.body
+    const {username, password, email, address, companyName, abn} = request.body
 
     const hashedPassword = await bcrypt.hash(password, 10)
     const checkEmail = await models.Session.find({email: {$regex: `^${email}$`, $options: 'im'}})
@@ -79,6 +79,7 @@ const createUser = async (request, response) => {
             email: email,
             address: address,
             companyName: companyName,
+            abn: abn,
             logo: ""
         })
     
@@ -100,6 +101,9 @@ const createUser = async (request, response) => {
             }
             if(e.keyValue.companyName) {
                 return response.status(400).json({error: "company name already taken"})
+            }
+            if(e.keyValue.abn) {
+                return response.status(400).json({error: "abn already taken"}) 
             }
             return response.status(400).json({error: "email already taken"})
         }
@@ -158,6 +162,7 @@ const getUser = async (request, response) => {
                     email: seller.email,
                     address: seller.address,
                     companyName: seller.companyName,
+                    abn: seller.abn,
                     logo: seller.logo
                 })
             }
