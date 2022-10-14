@@ -77,7 +77,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany",
                     password: "123",
                     email: "company@test",
-                    companyName: "Sneaker Company"
+                    companyName: "Sneaker Company",
+                    abn: "1234567890"
                 }
             
                 const response = await api.post(route).send(data)
@@ -93,7 +94,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany",
                     password: "123",
                     email: "company@test1",
-                    companyName: "Sneaker Company 2"
+                    companyName: "Sneaker Company 2",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -108,7 +110,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany1",
                     password: "123",
                     email: "company@test",
-                    companyName: "Sneaker Company 2"
+                    companyName: "Sneaker Company 2",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -123,7 +126,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany1",
                     password: "123",
                     email: "company@test1",
-                    companyName: "Sneaker Company"
+                    companyName: "Sneaker Company",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -133,12 +137,29 @@ describe("Testing auth API endpoints", () => {
                 expect(response.body.token).toBeUndefined()
             })
 
+            test("register seller with taken abn", async () => {
+                const data = {
+                    username: "testcompany1",
+                    password: "123",
+                    email: "company@test1",
+                    companyName: "Sneaker Company1",
+                    abn: "1234567890"
+                }
+            
+                const response = await api.post(route).send(data)
+            
+                expect(response.status).toBe(400)
+                expect(response.body.error).toBe('abn already taken')
+                expect(response.body.token).toBeUndefined()
+            })
+
             test("register seller with email already taken by a user", async () => {
                 const data = {
                     username: "testcompany1",
                     password: "123",
                     email: "test@test",
-                    companyName: "Sneaker Company3"
+                    companyName: "Sneaker Company3",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -152,7 +173,8 @@ describe("Testing auth API endpoints", () => {
                 const data = {
                     password: "123",
                     email: "company@test1",
-                    companyName: "Sneaker Company"
+                    companyName: "Sneaker Company",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
