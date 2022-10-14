@@ -1,8 +1,7 @@
 import { React, useState, useContext } from "react";
-import axios from "axios";
 import { Navigate , Link } from 'react-router-dom';
-
-import { Avatar, Grid, Paper, TextField, Button, Typography} from "@mui/material";
+import axios from "axios";
+import { Avatar, Grid, Paper, TextField, Button, Typography, FormControl, FormControlLabel, RadioGroup, Radio } from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
@@ -11,6 +10,7 @@ import LoginContext from '../LoginContext';
 const Login=()=>{
 
     const {setLogin, setToken} = useContext(LoginContext);
+    const [loginType , setType] = useState("")
   
     const [userName, setUserName] = useState("")
     const [Passcode, setPassword] = useState("")
@@ -54,7 +54,9 @@ const Login=()=>{
           })
 
     }
-    const paperStyle = {padding:20, height:'70vh', width:'50vh', margin:'20px auto'}
+
+    
+    const paperStyle = {padding:20, height:'auto', width:'50vh', margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
     const buttonStyle ={margin:'20px auto'}
@@ -71,7 +73,14 @@ const Login=()=>{
     
                 <TextField label='Password' placeholder='Enter password' type = 'password' 
                 fullWidth required input value={Passcode} onChange={(event)=> handleOnChange(event,setPassword)}></TextField>
-    
+                
+                <FormControl>
+                    <RadioGroup defaultValue="user" onChange={(event)=> handleOnChange(event,setType)}>
+                        <FormControlLabel value="user" control={<Radio />} label="Login as User" />
+                         <FormControlLabel value="seller" control={<Radio />} label="Login as Seller" />
+                    </RadioGroup>
+                </FormControl>
+
                 <Grid align='center'>
                     <Link to = "/" style={{color:"black" , textDecoration: 'none'}}>
                       <Button onClick={handleLogin} type='submit' color='primary' variant="contained" 
@@ -91,12 +100,16 @@ const Login=()=>{
                         <Button onClick={()=>setOpen(false)}>Okay</Button>
                     </DialogActions>
                 </Dialog>
+
                 </Paper>
             </Grid>
-          )} else if(flag === true){
-               return(
-                <Navigate to='/'/>
-               )}
-} 
+        )} else if(flag === true && loginType === "user"){
+                return(
+                    <Navigate to='/'/>
+        )}else if(flag === true && loginType === "seller"){
+                return(
+                   <Navigate to='/seller'/>
+           )} 
+}
 
 export default Login;
