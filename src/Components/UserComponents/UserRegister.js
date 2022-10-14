@@ -38,7 +38,7 @@ const UserRegister= ()=>{
            address : address
         }        
         //post request to register user 
-       axios.post("/auth/register/user", userObj)
+       axios.post("/auth/register/user",userObj)
        .then(response => {
               console.log(response.data)
               setMessageTitle("Thank you for Registering!")
@@ -53,6 +53,7 @@ const UserRegister= ()=>{
            }
          ).catch(error => {
             console.log(error)
+            
             setMessageTitle("Username Already Taken!")
             setMessageContent("Please enter another username.") 
             openDialog();
@@ -60,7 +61,7 @@ const UserRegister= ()=>{
 
     }
 
-    const paperStyle = {padding:20, height:'80vh',width:'70vh',margin:'20px auto'}
+    const paperStyle = {padding:20, height:'auto',width:'70vh',margin:'20px auto'}
     const avatarStyle = {backgroundColor:'grey', width:'70px', height:'70px'}
     const margin={margin:'20px auto'}
     const buttonStyle ={margin:'20px auto'}
