@@ -68,7 +68,7 @@ const createUser = async (request, response) => {
  * @returns {Object} JSON object containing status and registered seller's token if successful, otherwise a JSON containing an error.
  */
  const createSeller = async (request, response) => {
-    const {username, password, email, address, companyName} = request.body
+    const {username, password, email, address, companyName, abn} = request.body
 
     const hashedPassword = await bcrypt.hash(password, 10)
     const checkEmail = await models.Session.find({email: {$regex: `^${email}$`, $options: 'im'}})
@@ -79,6 +79,7 @@ const createUser = async (request, response) => {
             email: email,
             address: address,
             companyName: companyName,
+            abn: abn,
             logo: ""
         })
     
@@ -100,6 +101,9 @@ const createUser = async (request, response) => {
             }
             if(e.keyValue.companyName) {
                 return response.status(400).json({error: "company name already taken"})
+            }
+            if(e.keyValue.abn) {
+                return response.status(400).json({error: "abn already taken"}) 
             }
             return response.status(400).json({error: "email already taken"})
         }
@@ -123,14 +127,12 @@ const getUser = async (request, response) => {
             if(user) {
                 return response.status(200).json({
                     status: "success",
-                    user: {
-                        id: user._id,
-                        username: user.username,
-                        email: user.email,
-                        address: user.address,
-                        cart: user.cart,
-                        avatar: user.avatar
-                    }
+                    id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    address: user.address,
+                    cart: user.cart,
+                    avatar: user.avatar
                 })
             }
         }
@@ -155,14 +157,13 @@ const getUser = async (request, response) => {
             if(seller) {
                 return response.status(200).json({
                     status: "success",
-                    seller: {
-                        id: seller._id,
-                        username: seller.username,
-                        email: seller.email,
-                        address: seller.address,
-                        companyName: seller.companyName,
-                        logo: seller.logo
-                    }
+                    id: seller._id,
+                    username: seller.username,
+                    email: seller.email,
+                    address: seller.address,
+                    companyName: seller.companyName,
+                    abn: seller.abn,
+                    logo: seller.logo
                 })
             }
         }
