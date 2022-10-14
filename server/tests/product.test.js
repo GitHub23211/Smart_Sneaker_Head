@@ -8,7 +8,20 @@ const registerSeller = async (data) => {
     expect(response.status).toBe(201)
 }
 
-const getSellerToken = async (data) => {
+const getSeller1Token = async () => {
+    const data = {
+        username: "testproductcompany",
+        password: "123"
+    }
+    const response = await api.post("/auth/login").send(data)
+    return response.body.token
+}
+
+const getSeller2Token = async () => {
+    const data = {
+        username: "testproductcompany2",
+        password: "123"
+    }
     const response = await api.post("/auth/login").send(data)
     return response.body.token
 }
@@ -27,11 +40,6 @@ beforeAll(async () => {
         abn: "0987654321"
     }
 
-    const seller1login = {
-        username: "testproductcompany",
-        password: "123"
-    }
-
     const seller2 = {
         username: "testproductcompany2",
         password: "123",
@@ -40,15 +48,10 @@ beforeAll(async () => {
         abn: "09876543212"
     }
 
-    const seller2login = {
-        username: "testproductcompany2",
-        password: "123"
-    }
-
     await registerSeller(seller1)
     await registerSeller(seller2)
-    const token1 = await getSellerToken(seller1login)
-    const token2 = await getSellerToken(seller2login)
+    const token1 = await getSeller1Token()
+    const token2 = await getSeller2Token()
 
     const products =[ 
         {
@@ -111,11 +114,7 @@ describe("Testing product API endpoints", () => {
     describe("Test create product", () => {
 
         test("create a product", async () => {
-            const seller1login = {
-                username: "testproductcompany",
-                password: "123"
-            }
-            const token = await getSellerToken(seller1login)
+            const token = await getSeller1Token()
             const sellerid = await getSellerID(token)
 
             const product = {
@@ -142,11 +141,7 @@ describe("Testing product API endpoints", () => {
         })
 
         test("create a product with bad token", async () => {
-            const seller1login = {
-                username: "testproductcompany",
-                password: "123"
-            }
-            const token = await getSellerToken(seller1login)
+            const token = await getSeller1Token()
             const product = {
                 name: "test1",
                 price: "250",
@@ -215,11 +210,7 @@ describe("Testing product API endpoints", () => {
         })
 
         test("Create a duplicate product", async () => {
-            const seller1login = {
-                username: "testproductcompany",
-                password: "123"
-            }
-            const token = await getSellerToken(seller1login)
+            const token = await getSeller1Token()
 
             const product = {
                 name: "test",
