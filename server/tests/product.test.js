@@ -8,7 +8,8 @@ const registerSeller = async () => {
         username: "testproductcompany",
         password: "123",
         email: "company@product",
-        companyName: "Company Product Test"
+        companyName: "Company Product Test",
+        abn: "0987654321"
     }
 
     const response = await api.post("/auth/register/seller").send(data)
