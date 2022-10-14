@@ -52,7 +52,6 @@ function App() {
       <section>
       <Routes>
         <Route path = "/" element={<Home />} />
-
         <Route path = "/login" element={<Login />} />
         <Route path = "/register" element={<Register />} />
         <Route  path = "/register/seller" element={<SellerRegister />} />
