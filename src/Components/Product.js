@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import '../Styles/product.css';
 import ProductContext from '../ProductContext';
+import axios from "axios"
 
 const Product =()=>{
 
@@ -19,6 +20,22 @@ const Product =()=>{
       setCount(0);
     }
   };
+
+  const ProdObj = {
+    productid : product.id,
+    quantity : count
+  }
+
+  const handleAddToCart = ()=>{
+    console.log("id",product.id)
+    console.log(count)
+    axios.put(`/api/cart/add/${product.id}`,ProdObj)
+    .then(response =>{
+      console.log(response)
+    }).catch(error=>{
+        console.log(error)
+    })
+  }
 
   //axios call to get product details
      return(
@@ -41,7 +58,7 @@ const Product =()=>{
             <Button style={{backgroundColor:"white", color: 'black', margin:'auto 10px'}}  variant="contained" onClick={DecNum}><RemoveIcon /></Button>
          </section>
          <section>
-         <Button variant="contained" style={{backgroundColor:"white",color:"black"}}>Add to Cart</Button>
+         <Button onClick={handleAddToCart} variant="contained" style={{backgroundColor:"white",color:"black"}}>Add to Cart</Button>
          </section>
         
 
