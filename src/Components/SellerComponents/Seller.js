@@ -4,17 +4,17 @@ import { Link, Outlet } from 'react-router-dom';
 
 import {ListItemButton, ListItemIcon,List , ListItem , ListItemText,Grid, Paper} from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-//import EditIcon from '@mui/icons-material/Edit';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Seller = () =>{
 
   const paperStyle = {height:'100vh'}
-  const outletStyle = {margin:'50px' , height:'80vh', alignItems:"center",
-  justifyContent:"center"}
+  const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
+
   const {setLogin} = useContext(LoginContext);
   
     return( 
@@ -61,7 +61,7 @@ const Seller = () =>{
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={ () => { setLogin(false)} } > 
-              <ListItemIcon>< RestoreFromTrashIcon/></ListItemIcon>
+              <ListItemIcon>< LogoutIcon/></ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
