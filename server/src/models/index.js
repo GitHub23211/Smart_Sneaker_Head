@@ -29,6 +29,7 @@ const sellerSchema = new mongoose.Schema({
     username: {type: String, unique: true, required: true},
     password: {type: String, required: true},
     companyName: {type: String, unique: true, required: true},
+    abn: {type: String, unique: true, required: true},
     email: {type: String, unique: true, required: true},
     address: String,
     logo: String
