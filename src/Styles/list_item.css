@@ -12,7 +12,7 @@
 }
 
 .product-list-img{
-   width:auto;
+   width: max-width;
    height:290px;
 }
 
