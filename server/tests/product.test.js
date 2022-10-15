@@ -71,7 +71,7 @@ beforeAll(async () => {
         password: "123",
         email: "company@product",
         companyName: "Company Product Test",
-        abn: "0987654321"
+        abn: "44000019796"
     }
 
     const seller2 = {
@@ -79,7 +79,7 @@ beforeAll(async () => {
         password: "123",
         email: "company@product2",
         companyName: "Company Product Test 2",
-        abn: "09876543212"
+        abn: "98724451651"
     }
 
     await registerSeller(seller1)
