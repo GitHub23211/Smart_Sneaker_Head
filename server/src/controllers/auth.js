@@ -180,16 +180,35 @@ const getUser = async (request, response) => {
  */
 const loginUser = async (request, response) => {
     const {username, password} = request.body
+    if(username && password) {
+        const user = await loginHelper(username)
+        if(!user) {
+            return response.status(401).json({error: "invalid username or password"})
+        }
+    
+        if(await bcrypt.compare(password, user.password)) {
+            const token = encodeToken(user._id, user.username)
+            return response.status(200).json({status: "success", token: token})
+        }
+    }
+    return response.status(401).json({error: "username or password missing or invalid"})
+}
+
+/**
+ * Figures out whether the given credentials are for a user, a seller, or if they are invalid.
+ * @param {String} username username of user or seller
+ * @returns the user or seller in the database or false if cannot be found/are invalid.
+ */
+const loginHelper = async (username) => {
     const user = await models.Session.findOne({username: username})
     if(!user) {
-        return response.status(401).json({error: "invalid username or password"})
+        const seller = await models.Seller.findOne({username: username})
+        if(!seller) {
+            return false
+        }
+        return seller
     }
-
-    if(await bcrypt.compare(password, user.password)) {
-        const token = encodeToken(user._id, user.username)
-        return response.status(200).json({status: "success", token: token})
-    }
-    return response.status(401).json({error: "invalid username or password"})
+    return user
 }
 
 /**

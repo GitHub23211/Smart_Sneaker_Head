@@ -1,28 +1,7 @@
 const supertest = require('supertest')
-const mongoose = require('mongoose')
 const app = require('../src/app')
-const models = require('../src/models')
-const config = require('../src/config')
-
 
 const api = supertest(app)
-
-beforeAll(async () => {
-    try {
-        await mongoose.disconnect()
-        await mongoose.connect(config.mongoDBUrlTest)
-        console.log('connected to database on port:', config.port)
-        console.log("on mongoURL", config.mongoDBUrlTest)
-        console.log("Resetting database....")
-        await models.Session.deleteMany({})
-        console.log("Deleted all users")
-        await models.Seller.deleteMany({})
-        console.log("Deleted all sellers")
-        await models.Product.deleteMany({})
-        console.log("Deleted all products")
-    } catch(e) {console.log("error occured", e.toString())}
-
-})
 
 describe("Testing auth API endpoints", () => {
     let userToken = ""
@@ -98,7 +77,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany",
                     password: "123",
                     email: "company@test",
-                    companyName: "Sneaker Company"
+                    companyName: "Sneaker Company",
+                    abn: "1234567890"
                 }
             
                 const response = await api.post(route).send(data)
@@ -114,7 +94,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany",
                     password: "123",
                     email: "company@test1",
-                    companyName: "Sneaker Company 2"
+                    companyName: "Sneaker Company 2",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -129,7 +110,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany1",
                     password: "123",
                     email: "company@test",
-                    companyName: "Sneaker Company 2"
+                    companyName: "Sneaker Company 2",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -144,7 +126,8 @@ describe("Testing auth API endpoints", () => {
                     username: "testcompany1",
                     password: "123",
                     email: "company@test1",
-                    companyName: "Sneaker Company"
+                    companyName: "Sneaker Company",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -154,12 +137,29 @@ describe("Testing auth API endpoints", () => {
                 expect(response.body.token).toBeUndefined()
             })
 
+            test("register seller with taken abn", async () => {
+                const data = {
+                    username: "testcompany1",
+                    password: "123",
+                    email: "company@test1",
+                    companyName: "Sneaker Company1",
+                    abn: "1234567890"
+                }
+            
+                const response = await api.post(route).send(data)
+            
+                expect(response.status).toBe(400)
+                expect(response.body.error).toBe('abn already taken')
+                expect(response.body.token).toBeUndefined()
+            })
+
             test("register seller with email already taken by a user", async () => {
                 const data = {
                     username: "testcompany1",
                     password: "123",
                     email: "test@test",
-                    companyName: "Sneaker Company3"
+                    companyName: "Sneaker Company3",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -173,7 +173,8 @@ describe("Testing auth API endpoints", () => {
                 const data = {
                     password: "123",
                     email: "company@test1",
-                    companyName: "Sneaker Company"
+                    companyName: "Sneaker Company",
+                    abn: "123456789"
                 }
             
                 const response = await api.post(route).send(data)
@@ -207,7 +208,7 @@ describe("Testing auth API endpoints", () => {
                 }
                 const response = await api.post(route).send(data)
                 expect(response.status).toBe(401)
-                expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.error).toBe("username or password missing or invalid")
                 expect(response.body.token).toBeUndefined()
 
             })
@@ -230,18 +231,77 @@ describe("Testing auth API endpoints", () => {
                 }
                 const response = await api.post(route).send(data)
                 expect(response.status).toBe(401)
-                expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.error).toBe("username or password missing or invalid")
                 expect(response.body.token).toBeUndefined()
 
             })
 
             test("Missing password", async () => {
                 const data = {
-                    username: "testwrongwrongwrong"
+                    username: "test"
+                }
+                const response = await api.post(route).send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("username or password missing or invalid")
+                expect(response.body.token).toBeUndefined()
+
+            })
+        })
+
+        describe("test seller login", () => {
+            test("Successfully login seller", async () => {
+                const data = {
+                    username: "testcompany",
+                    password: "123"
+                }
+                const response = await api.post(route).send(data)
+                expect(response.status).toBe(200)
+                expect(response.body.status).toBe("success")
+                expect(response.body.token).not.toBeNull()
+            })
+
+            test("Wrong password", async () => {
+                const data = {
+                    username: "testcompany",
+                    password: "1234"
+                }
+                const response = await api.post(route).send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("username or password missing or invalid")
+                expect(response.body.token).toBeUndefined()
+
+            })
+
+            test("Wrong username", async () => {
+                const data = {
+                    username: "testcompanywrongwrong",
+                    password: "123"
                 }
                 const response = await api.post(route).send(data)
                 expect(response.status).toBe(401)
                 expect(response.body.error).toBe("invalid username or password")
+                expect(response.body.token).toBeUndefined()
+
+            })
+
+            test("Missing username", async () => {
+                const data = {
+                    password: "123"
+                }
+                const response = await api.post(route).send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("username or password missing or invalid")
+                expect(response.body.token).toBeUndefined()
+
+            })
+
+            test("Missing password", async () => {
+                const data = {
+                    username: "testcompany"
+                }
+                const response = await api.post(route).send(data)
+                expect(response.status).toBe(401)
+                expect(response.body.error).toBe("username or password missing or invalid")
                 expect(response.body.token).toBeUndefined()
 
             })
@@ -258,9 +318,9 @@ describe("Testing auth API endpoints", () => {
 
                 expect(response.status).toBe(200)
                 expect(response.body.status).toBe("success")
-                expect(response.body.user.username).toBe("test")
-                expect(response.body.user.email).toBe("test@test")
-                expect(response.body.user.password).toBeUndefined()
+                expect(response.body.username).toBe("test")
+                expect(response.body.email).toBe("test@test")
+                expect(response.body.password).toBeUndefined()
             })
 
             test("get user information with no token", async () => {
@@ -294,10 +354,10 @@ describe("Testing auth API endpoints", () => {
 
                 expect(response.status).toBe(200)
                 expect(response.body.status).toBe("success")
-                expect(response.body.seller.username).toBe("testcompany")
-                expect(response.body.seller.email).toBe("company@test")
-                expect(response.body.seller.companyName).toBe("Sneaker Company")
-                expect(response.body.seller.password).toBeUndefined()
+                expect(response.body.username).toBe("testcompany")
+                expect(response.body.email).toBe("company@test")
+                expect(response.body.companyName).toBe("Sneaker Company")
+                expect(response.body.password).toBeUndefined()
             })
 
             test("get seller information with no token", async () => {
@@ -322,25 +382,4 @@ describe("Testing auth API endpoints", () => {
             })
         })
     })
-})
-
-describe("Testing product API endpoints", () => {
-
-    test("get product returns 200 even without query", async () => {
-        await api.get('/api/product')
-                .expect(200)
-    })
-
-})
-
-describe("Testing cart API endpoints", () => {
-
-})
-
-describe("Testing user API endpoints", () => {
-    
-})
-
-afterAll(async () => {
-    await mongoose.connection.close()
 })
