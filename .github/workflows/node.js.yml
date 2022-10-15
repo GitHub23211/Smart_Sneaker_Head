@@ -35,7 +35,7 @@ jobs:
     - run: npm run test-backend
       env:
         CI: true
-        MONGODB_URL_TEST: mongodb+srv://project_tester:project_tester_123@cluster0.lpmewey.mongodb.net/GroupProjectTesting?retryWrites=true&w=majority
-        PORT: 5001
-        SECRET_TOKEN: testingsecret
-        GUID: 051d32d3-2629-4916-b318-6acfb596cf11
+        MONGODB_URL_TEST: ${{secrets.MONGODB_URL_TEST}}
+        PORT: ${{{secrets.PORT}}
+        SECRET_TOKEN: ${{{secrets.SECRET_TOKEN}}
+        GUID: ${{{secrets.GUID}}
