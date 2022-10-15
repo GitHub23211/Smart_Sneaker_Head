@@ -14,6 +14,7 @@ const SellerRegister= ()=>{
     const [Passcode , setPassword] = useState("")
     const [confirmpassword , setConfirmPassword] = useState("") 
     const [companyName , setCompanyName] = useState("") 
+    const [abn, setABN] = useState("")
 
     const [open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -37,29 +38,31 @@ const SellerRegister= ()=>{
            password : Passcode ,
            email : email,
            address : address,
-           name : companyName
-        }        
-        //post request to register user 
-       axios.post('/auth/register/seller', userObj)
-       .then(response => {
-              console.log(response.data)
-              setMessageTitle("Thank you for Registering!")
-              setMessageContent("Please proceed to Login to start Selling!")
-              //resert the form
-              setUserName("")
-              setEmail("")
-              setAddress("")        
-              setPassword("")
-              setConfirmPassword("")
-              openDialog();
-           }
-         ).catch(error => {
-            console.log(error)
-            setMessageTitle("Username Already Taken!")
-            setMessageContent("Please enter another username.") 
-            openDialog();
-          })
-
+           name : companyName,
+           abn: abn
+        }     
+        //post request to register user
+        axios.post('/auth/register/seller', userObj)
+        .then(response => {
+               console.log(response.data)
+               setMessageTitle("Thank you for Registering!")
+               setMessageContent("Please proceed to Login to start Selling!")
+               //resert the form
+               setUserName("")
+               setEmail("")
+               setAddress("")        
+               setPassword("")
+               setConfirmPassword("")
+               setCompanyName("")
+               setABN("")
+               openDialog();
+            }
+          ).catch(error => {
+             console.log(error)
+             setMessageTitle("Username Already Taken!")
+             setMessageContent("Please enter another username.") 
+             openDialog();
+           })
     }
 
     const paperStyle = {padding:20, height:'auto',width:'70vh',margin:'20px auto'}
@@ -77,8 +80,8 @@ const SellerRegister= ()=>{
             <TextField label='Username' placeholder='Enter username' fullWidth required style={margin} input value={userName} onChange={(event) => handleOnChange(event, setUserName)}></TextField>
             <TextField label='Email' placeholder='Enter email' fullWidth required style={margin} input value = {email} onChange={(event) => handleOnChange(event, setEmail)}></TextField>
             <TextField label='Address' placeholder='Enter postal address' fullWidth required style={margin} input value = {address} onChange={(event) => handleOnChange(event, setAddress)}></TextField>
-            <TextField label='Company Name' placeholder='Enter company name' fullWidth required style={margin} input value = {address} onChange={(event) => handleOnChange(event, setCompanyName)}></TextField>
-
+            <TextField label='Company Name' placeholder='Enter company name' fullWidth required style={margin} input value = {companyName} onChange={(event) => handleOnChange(event, setCompanyName)}></TextField>
+            <TextField label='ABN' placeholder='Enter ABN' fullWidth required style={margin} input value = {abn} onChange={(event) => handleOnChange(event, setABN)}></TextField>
             <TextField label='Password' placeholder='Enter password' type = 'password' fullWidth required style={margin} input value={Passcode} onChange={(event) => handleOnChange(event, setPassword)}></TextField>
             <TextField label='Confirm Password' placeholder='Enter password again' type = 'password' fullWidth required style={margin} input value={confirmpassword} onChange={(event) => handleOnChange(event, setConfirmPassword)}></TextField>
              
