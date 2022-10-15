@@ -1,6 +1,5 @@
 const supertest = require('supertest')
 const app = require('../src/app')
-const { getUser } = require('../src/controllers/auth')
 
 const api = supertest(app)
 
