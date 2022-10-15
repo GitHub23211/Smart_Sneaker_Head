@@ -1,5 +1,6 @@
 const supertest = require('supertest')
 const app = require('../src/app')
+const { getUser } = require('../src/controllers/auth')
 
 const api = supertest(app)
 
@@ -505,10 +506,9 @@ describe("Testing product API endpoints", () => {
             const token = await getSeller1Token()
             let productid = ""
             await api.get('/api/product')
-                     .query({name: "Other Sneakers"})
+                     .query({name: "Sneakers updated"})
                      .expect(response => {
-                        expect(response.body.products).toHaveLength(1)
-                        expect(response.body.products[0].name).toBe("Other Sneakers")
+                        expect(response.body.products[0].name).toBe("Sneakers updated")
                         productid = response.body.products[0].id
                      })
             
@@ -516,7 +516,7 @@ describe("Testing product API endpoints", () => {
 
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
-            expect(response.body.product.name).toBe("Other Sneakers")
+            expect(response.body.product.name).toBe("Sneakers updated")
             expect(response.body.product.id).toBe(productid)
         })
 
@@ -524,23 +524,137 @@ describe("Testing product API endpoints", () => {
             const token = await getSeller2Token()
             let productid = ""
             await api.get('/api/product')
-                     .query({name: "Other Sneakers"})
+                     .query({name: "Shoes"})
                      .expect(response => {
-                        expect(response.body.products).toHaveLength(1)
-                        expect(response.body.products[0].name).toBe("Other Sneakers")
-                        productid = response.body.products[0].id
+                        expect(response.body.products).toHaveLength(2)
+                        expect(response.body.products[1].name).toBe("Shoes")
+                        productid = response.body.products[1].id
+                     })
+            
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            expect(response.status).toBe(401)
+            expect(response.body.error).toBe("Error: Not the original seller or product no longer exists")
+            expect(response.body.product).toBeUndefined()
+        })
+
+        test("delete with invalid product id", async () => {
+            const token = await getSeller1Token()
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Shoes"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(2)
+                        expect(response.body.products[1].name).toBe("Shoes")
+                        productid = response.body.products[1].id + "bad product id"
                      })
             
             const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
 
-            expect(response.status).toBe(401)
-            expect(response.body.status).toBe("invalid seller")
-            expect(response.body.product.name).toBe("Other Sneakers")
-            expect(response.body.product.id).toBe(productid)
+            expect(response.status).toBe(400)
+            expect(response.body.error).toBe("invalid productid")
+            expect(response.body.product).toBeUndefined()
         })
 
-        test("try to update deleted product", async () => {
+        test("delete product that no longer exists", async () => {
+            const token = await getSeller1Token()
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Shoes"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(2)
+                        expect(response.body.products[1].name).toBe("Shoes")
+                        productid = response.body.products[1].id
+                     })
             
+            await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`).expect(200)
+
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+
+            expect(response.status).toBe(401)
+            expect(response.body.error).toBe("Error: Not the original seller or product no longer exists")
+            expect(response.body.product).toBeUndefined()
+        })
+
+        test("user tries to delete product", async () => {
+            const token = await getUserToken()
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Rapid Force Anti Shoe"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(1)
+                        expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
+                        productid = response.body.products[0].id
+                     })
+
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+
+            expect(response.status).toBe(401)
+            expect(response.body.error).toBe("invalid seller")
+            expect(response.body.product).toBeUndefined()
+        })
+
+        test("delete product with bad token", async () => {
+            const token = await getSeller1Token() + "bad token"
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Rapid Force Anti Shoe"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(1)
+                        expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
+                        productid = response.body.products[0].id
+                     })
+
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+
+            expect(response.status).toBe(401)
+            expect(response.body.error).toBe("invalid user")
+            expect(response.body.product).toBeUndefined()
+        })
+
+        test("delete product with no token", async () => {
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Rapid Force Anti Shoe"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(1)
+                        expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
+                        productid = response.body.products[0].id
+                     })
+
+            const response = await api.delete(`/api/product/delete/${productid}`)
+
+            expect(response.status).toBe(401)
+            expect(response.body.error).toBe("invalid user")
+            expect(response.body.product).toBeUndefined()
+        })
+
+
+        test("try to update a deleted product", async () => {
+            const token = await getSeller1Token()
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Rapid Force Anti Shoe"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(1)
+                        expect(response.body.products[0].name).toBe("Rapid Force Anti Shoe")
+                        productid = response.body.products[0].id
+                     })
+
+            await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`).expect(200)
+
+            const updatedInfo = {
+                name: "Rapid Updated",
+                price: 9299,
+                description: "updated",
+                quantity: 10
+                
+            }
+            const response = await api.put(`/api/product/update/${productid}`)
+                                      .set('Authorization', `Bearer ${token}`)
+                                      .send(updatedInfo)
+            
+            expect(response.status).toBe(401)
+            expect(response.body.error).toBe("Error: Not the original seller or product no longer exists")
         })
         
     })
