@@ -95,7 +95,7 @@ describe("Testing auth API endpoints", () => {
                     password: "123",
                     email: "company@test1",
                     companyName: "Sneaker Company 2",
-                    abn: "74172177893"
+                    abn: "95316916607"
                 }
             
                 const response = await api.post(route).send(data)
@@ -111,7 +111,7 @@ describe("Testing auth API endpoints", () => {
                     password: "123",
                     email: "company@test",
                     companyName: "Sneaker Company 2",
-                    abn: "74172177893"
+                    abn: "95316916607"
                 }
             
                 const response = await api.post(route).send(data)
@@ -127,7 +127,7 @@ describe("Testing auth API endpoints", () => {
                     password: "123",
                     email: "company@test1",
                     companyName: "Sneaker Company",
-                    abn: "74172177893"
+                    abn: "95316916607"
                 }
             
                 const response = await api.post(route).send(data)
@@ -159,7 +159,7 @@ describe("Testing auth API endpoints", () => {
                     password: "123",
                     email: "test@test",
                     companyName: "Sneaker Company3",
-                    abn: "74172177893"
+                    abn: "95316916607"
                 }
             
                 const response = await api.post(route).send(data)
@@ -174,7 +174,7 @@ describe("Testing auth API endpoints", () => {
                     password: "123",
                     email: "company@test1",
                     companyName: "Sneaker Company",
-                    abn: "74172177893"
+                    abn: "95316916607"
                 }
             
                 const response = await api.post(route).send(data)
