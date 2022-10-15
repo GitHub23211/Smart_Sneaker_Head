@@ -116,6 +116,11 @@ const createUser = async (request, response) => {
     return response.status(400).json({error: "invalid ABN"})
 }
 
+/**
+ * Validates ABN given from seller register request
+ * @param {String} abn ABN found in request body
+ * @returns true if ABN is valid, false otherwise
+ */
 const validateABN = async (abn) => {
     const headers = {
         params: {
@@ -130,7 +135,6 @@ const validateABN = async (abn) => {
         return true
     }
     return false
-
 }
 
 /**
