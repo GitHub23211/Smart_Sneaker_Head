@@ -2,6 +2,7 @@ const models = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require(`jsonwebtoken`)
 const config = require('../config')
+const axios = require('axios')
 
 const SECRET = config.secret
 
@@ -69,46 +70,67 @@ const createUser = async (request, response) => {
  */
  const createSeller = async (request, response) => {
     const {username, password, email, address, companyName, abn} = request.body
-
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const checkEmail = await models.Session.find({email: {$regex: `^${email}$`, $options: 'im'}})
-    if(checkEmail.length === 0) {
-        const seller = new models.Seller({
-            username: username,
-            password: hashedPassword,
-            email: email,
-            address: address,
-            companyName: companyName,
-            abn: abn,
-            logo: ""
-        })
+    const validABN = await validateABN(abn)
     
-        try {
-            const saveSeller = await seller.save()
+    if(validABN) {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const checkEmail = await models.Session.find({email: {$regex: `^${email}$`, $options: 'im'}})
+        if(checkEmail.length === 0) {
+            const seller = new models.Seller({
+                username: username,
+                password: hashedPassword,
+                email: email,
+                address: address,
+                companyName: companyName,
+                abn: abn,
+                logo: ""
+            })
         
-            if(saveSeller) {
-                if(seller._id) {
-                    const token = encodeToken(seller._id, saveSeller.username)
-                    return response.status(201).json({status: "success", token: token})
+            try {
+                const saveSeller = await seller.save()
+            
+                if(saveSeller) {
+                    if(seller._id) {
+                        const token = encodeToken(seller._id, saveSeller.username)
+                        return response.status(201).json({status: "success", token: token})
+                    }
                 }
+            } catch(e) {
+                if(e.name.toLowerCase() === "validationerror") {
+                    return response.status(400).json({error: e.message})
+                }
+                if(e.keyValue.username) {
+                    return response.status(400).json({error: "username already taken"})
+                }
+                if(e.keyValue.companyName) {
+                    return response.status(400).json({error: "company name already taken"})
+                }
+                if(e.keyValue.abn) {
+                    return response.status(400).json({error: "abn already taken"}) 
+                }
+                return response.status(400).json({error: "email already taken"})
             }
-        } catch(e) {
-            if(e.name.toLowerCase() === "validationerror") {
-                return response.status(400).json({error: e.message})
-            }
-            if(e.keyValue.username) {
-                return response.status(400).json({error: "username already taken"})
-            }
-            if(e.keyValue.companyName) {
-                return response.status(400).json({error: "company name already taken"})
-            }
-            if(e.keyValue.abn) {
-                return response.status(400).json({error: "abn already taken"}) 
-            }
-            return response.status(400).json({error: "email already taken"})
+        }
+        return response.status(400).json({error: "email already taken"})
+    }
+    return response.status(400).json({error: "invalid ABN"})
+}
+
+const validateABN = async (abn) => {
+    const headers = {
+        params: {
+            abn: abn,
+            guid: config.guid
         }
     }
-    return response.status(400).json({error: "email already taken"})
+    const response = await axios.get('https://abr.business.gov.au/json/AbnDetails.aspx', headers)
+    const jsonString = response.data.slice(9, response.data.length - 1)
+    const data = JSON.parse(jsonString)
+    if(data.Message === '') {
+        return true
+    }
+    return false
+
 }
 
 /**
