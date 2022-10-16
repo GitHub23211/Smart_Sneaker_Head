@@ -11,7 +11,7 @@ Returns 200 status code with JSON object if successful:
 ```json
 {
   "status": "success",
-  "newCart": [
+  "cart": [
     {
       "productid": "productid of items in cart",
       "quantity": "quantity of item",
@@ -36,7 +36,7 @@ Returns 200 status code with JSON object if successful:
 ```json
 {
   "status": "success",
-  "newCart": [
+  "cart": [
     {
       "productid": "productid of items in cart",
       "quantity": "quantity of item",
@@ -59,7 +59,7 @@ Returns 200 status code with JSON object if successful:
 ```json
 {
   "status": "success",
-  "newCart": [
+  "cart": [
     {
       "productid": "productid of items in cart",
       "quantity": "quantity of item",
