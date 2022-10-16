@@ -4,7 +4,7 @@ import { Paper , Grid , Typography , Button } from "@mui/material";
 import ProductContext from '../ProductContext';
 import { Navigate } from "react-router-dom";
 
-const ProductListItem = ({name , price , description , quantity , seller, picture}) =>{
+const ProductListItem = ({id , name , price , description , quantity , seller, picture}) =>{
 
     const {setProduct} = useContext(ProductContext);
     const [productNavgn, setProductNavgn] = useState(false);
@@ -12,6 +12,7 @@ const ProductListItem = ({name , price , description , quantity , seller, pictur
     const handleView = () => {
         console.log("handleview")
         setProduct({
+            id:id,
             name: name,
             price: price,
             description: description, 
