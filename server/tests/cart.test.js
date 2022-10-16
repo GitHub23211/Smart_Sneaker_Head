@@ -1,12 +1,9 @@
 const supertest = require('supertest')
-const mongoose = require('mongoose')
-const models = require('../src/models')
-const config = require('../src/config')
 const app = require('../src/app')
 
 const api = supertest(app)
 
-jest.setTimeout(30000)
+jest.setTimeout(600000)
 
 const registerUser = async () => {
     const data = {
@@ -15,9 +12,7 @@ const registerUser = async () => {
         email: "product@testuser"
     }
 
-    await api.post("/auth/register/user")
-    .send(data)
-    .expect(201)
+    await api.post("/auth/register/user").send(data)
 }
 
 const registerSeller = async (data) => {
