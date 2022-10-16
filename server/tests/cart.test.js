@@ -122,8 +122,6 @@ describe("Testing cart API endpoints", () => {
                                 .send(data)
 
             expect(response.status).toBe(200)
-            expect(response.body.cart[0].productid).toBe(productid)
-            expect(response.body.cart[0].quantity).toBe(200)
         })
 
         test("add item to cart that is already in cart", async () => {
@@ -150,6 +148,7 @@ describe("Testing cart API endpoints", () => {
             expect(response.status).toBe(400)
             expect(response.body.error).toBe("item already in cart")
         })
+
 
         test("add item to cart with bad productid", async () => {
 
