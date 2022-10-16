@@ -127,7 +127,7 @@ describe("Testing cart API endpoints", () => {
 
             expect(response.status).toBe(200)
             expect(response.body.cart[0].productid).toBe(productid)
-            expect((await response).body.cart[0].quantity).toBe(200)
+            expect(response.body.cart[0].quantity).toBe(200)
         })
 
         test("add item to cart that is already in cart", async () => {
