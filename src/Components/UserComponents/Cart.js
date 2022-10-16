@@ -1,12 +1,16 @@
-import React,{useContext} from "react";
+import React,{useContext, useEffect, useState} from "react";
 import CartItem from "../UserComponents/CartItem";
 import axios from "axios";
 import{ Paper,Box,Divider} from "@mui/material";
 import LoginContext from '../../LoginContext';
+           
 
 const Cart = ()=>{
- 
+    console.log('Rendering Cart');
     const {userToken} = useContext(LoginContext);
+    const [cartList,setCartList] = useState([]);
+    const [newCartList,setNewCartList] = useState([])
+    const [refreshCart,setRefreshCart] = useState(false)
 
     const options = {
         headers: {
@@ -14,26 +18,63 @@ const Cart = ()=>{
         }
     };
 
-    // axios call for items in cart
-    axios.get(`/auth`,options)
-    .then(response =>{
-        console.log(response)
-    }).catch(error => {
-         console.log(error)
-    })
+    const updateCart = () => {
+        console.log('referesh cart called');
+        if(refreshCart) {
+            setRefreshCart(false);
+        } else {
+            setRefreshCart(true);
+        }
+    }
+
+    useEffect(()=>{
+        axios.get(`/auth/user`,options)
+        .then(response =>{
+            console.log(response.data.cart)
+            setCartList(response.data.cart)
+        }).catch(error => {
+            console.log(error)
+        }) 
+    }, [refreshCart]);
+      
+    useEffect(()=>{
+        let item_list= [];
+        axios.get('/api/product')
+        .then(response=>{
+          // console.log(response)
+          const size = response.data.products.length;
+         
+          for(let i = 0 ; i <cartList.length ;i++){
+            const cart_prod_id = cartList[i].productid;
+            for(let j=0; j<size; j++) {
+                let product = {
+                    ...response.data.products[j],
+                };
+                if(cart_prod_id === product.id){
+                    product.quantity = cartList[i].quantity;
+                    item_list.push(product);
+                }
+            }}
+            setNewCartList(item_list)
+        }).catch(error=>{
+          console.log(error)
+        })
+    }, [cartList]);
 
     return(
         <>
         <h1>Shopping Cart</h1>
         <Box sx={{ display: 'inline-flex' }}>
             <Box >
-                < CartItem />
+            { newCartList.map(p => 
+                (  < CartItem data={{...p, "refereshCartHook": updateCart}}/>   )
+                 )
+            }
             </Box>    
             <Box>
                 <Paper elevation={1} style={{width:"400px" , height:"400px"}}>
                     <Divider>Checkout</Divider>
                      Total number of Items:
-
                 </Paper>
             </Box>
         </Box>
