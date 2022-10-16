@@ -6,6 +6,8 @@ const app = require('../src/app')
 
 const api = supertest(app)
 
+jest.setTimeout(30000)
+
 const registerUser = async () => {
     const data = {
         username: "testproduct",
@@ -54,47 +56,46 @@ const getSeller1Token = async () => {
 }
 
 beforeAll(async () => {
-    const seller1 = {
-        username: "testproductcompany",
-        password: "123",
-        email: "company@product",
-        companyName: "Company Product Test",
-        abn: "44000019796"
-    }
-
-    await registerSeller(seller1)
-    await registerUser()
-    const token1 = await getSeller1Token()
-
-    const products =[ 
-        {
-            name: "Sneakers",
-            price: 300,
-            description: "Some sneakers",
-            quantity: 20
-        },
-
-        {
-            name: "Shoes",
-            price: 300,
-            description: "Some shoes",
-            quantity: 20
-        },
-
-        {
-            name: "Rapid Force Anti Shoe",
-            price: 300,
-            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Vestibulum consequat tempor fringilla. Integer dignissim ac erat a malesuada.
-                            Vivamus porttitor aliquam erat. Sed efficitur finibus orci ut consequat. 
-                            Ut et placerat ligula, quis sodales mauris. Aenean tincidunt lectus ornare, cursus ex et, 
-                            maximus dolor. Suspendisse faucibus tincidunt magna at pretium. Integer vitae convallis quam. 
-                            Vestibulum euismod vehicula augue ac venenatis.`,
-            quantity: 20
+    try{
+        const seller1 = {
+            username: "testproductcompany",
+            password: "123",
+            email: "company@product",
+            companyName: "Company Product Test",
+            abn: "44000019796"
         }
-    ]
 
-    try {
+        await registerSeller(seller1)
+        await registerUser()
+        const token1 = await getSeller1Token()
+
+        const products =[ 
+            {
+                name: "Sneakers",
+                price: 300,
+                description: "Some sneakers",
+                quantity: 20
+            },
+
+            {
+                name: "Shoes",
+                price: 300,
+                description: "Some shoes",
+                quantity: 20
+            },
+
+            {
+                name: "Rapid Force Anti Shoe",
+                price: 300,
+                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Vestibulum consequat tempor fringilla. Integer dignissim ac erat a malesuada.
+                                Vivamus porttitor aliquam erat. Sed efficitur finibus orci ut consequat. 
+                                Ut et placerat ligula, quis sodales mauris. Aenean tincidunt lectus ornare, cursus ex et, 
+                                maximus dolor. Suspendisse faucibus tincidunt magna at pretium. Integer vitae convallis quam. 
+                                Vestibulum euismod vehicula augue ac venenatis.`,
+                quantity: 20
+            }
+        ]
         products.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token1}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}    
@@ -283,8 +284,7 @@ describe("Testing cart API endpoints", () => {
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("Error: product not in cart or invalid productid")
         })
-
-        
+  
         test("delete item from cart with bad token", async () => {
             const token = await getUserToken() + "bad token"
             let productid = ""
