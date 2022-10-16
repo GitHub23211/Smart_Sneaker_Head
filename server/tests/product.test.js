@@ -355,6 +355,42 @@ describe("Testing product API endpoints", () => {
         
 
         })
+
+        test("Update product with name of existing product", async () => {
+
+            const token = await getSeller1Token()
+            let productid = ""
+            await api.get('/api/product')
+                     .query({name: "Shoes"})
+                     .expect(response => {
+                        expect(response.body.products).toHaveLength(2)
+                        expect(response.body.products[1].name).toBe("Shoes")
+                        productid = response.body.products[1].id
+                     })
+            
+            const updatedInfo = {
+                name: "Rapid Force Anti Shoe",
+                description: "updated"
+            }
+            const response = await api.put(`/api/product/update/${productid}`)
+                                      .set('Authorization', `Bearer ${token}`)
+                                      .send(updatedInfo)
+            
+            expect(response.status).toBe(400)
+            expect(response.body.error).toBe("product with that name already exists")
+
+            await api.get('/api/product')
+            .query({name: "Shoes"})
+            .expect(response => {
+               expect(response.body.products).toHaveLength(2)
+               expect(response.body.products[1].name).toBe("Shoes")
+               expect(response.body.products[1].price).toBe(999)
+               expect(response.body.products[1].description).toBe("updated")
+               expect(response.body.products[1].quantity).toBe(20)
+            })
+        
+
+        })
         
         test("Update product with bad token", async () => {
 
