@@ -11,14 +11,7 @@ import LoginContext from '../../LoginContext';
 
 const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refereshCartHook}})=>{
     const {setProduct} = useContext(ProductContext);
-    const {userToken} = useContext(LoginContext);
     const [count, setCount] = useState(quantity);
-
-    const options = {
-      headers: {
-          'Authorization': `bearer ${userToken}`
-      }
-    };
 
     const IncNum = () => {
       setCount( count + 1);
@@ -45,7 +38,7 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
     };
 
     const handleDeleteItem = () =>{
-      axios.delete(`/api/cart/delete/${id}`,options)
+      axios.delete(`/api/cart/delete/${id}`)
       .then(response=>{
         refereshCartHook();
       }).catch(error=>{
@@ -54,7 +47,7 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
     };
  
     const handleUpdateItem = (prodObj) => {   
-      axios.put(`/api/cart/update/${id}`,prodObj,options)
+      axios.put(`/api/cart/update/${id}`,prodObj)
       .then(response=>{
         refereshCartHook();
       }).catch(error=>{

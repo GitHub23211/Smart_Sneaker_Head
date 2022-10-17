@@ -17,14 +17,6 @@ const UpdateProfile = ()=>{
     const [userAddress,setUserAddress] = useState(null)
     const [avatar, setAvatar] = useState(null)
 
-    const {userToken} = useContext(LoginContext);
-
-    const options = {
-        headers: {
-            'Authorization': `bearer ${userToken}`
-        }
-    };
-
     const handleOnChange = (event, handler) => {
         console.log(event.target.value)
         handler(event.target.value)
@@ -41,7 +33,7 @@ const UpdateProfile = ()=>{
         if(avatar) {
           const imageData = new FormData()
           imageData.append("avatar", avatar)
-          axios.post("/api/upload/avatar", imageData, options)
+          axios.post("/api/upload/avatar", imageData)
           .then(response => response.data.filename)
           .then(response => sendInfo(response))
           .catch(error => console.log(error.toString()))
@@ -76,7 +68,7 @@ const UpdateProfile = ()=>{
         delete obj.avatar
       }
 
-      axios.put('/api/profile/update',obj,options)
+      axios.put('/api/profile/update',obj)
       .then(response =>{
         console.log(response)
       })

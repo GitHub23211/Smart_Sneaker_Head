@@ -17,24 +17,17 @@ const UserProfile = ()=>{
     const [userAddress,setUserAddress] = useState("")
     const [avatar, setAvatar] = useState("")
 
-    const {userToken} = useContext(LoginContext);
-
-    const options = {
-        headers: {
-            'Authorization': `bearer ${userToken}`
-        }
-    };
-
-    axios.get('/auth',options)
+    axios.get('/auth/user')
     .then(response => {
         console.log(response.data)
         if(response.data.status === "success"){
             console.log("userToken 1")
-            setUserName(response.data.user.username)
-            setUserEmail(response.data.user.email)
-            setUserPhone(response.data.user.phone)
-            setUserAddress(response.data.user.address)
-            setAvatar(response.data.user.avatar)
+            setUserName(response.data.username)
+            setUserEmail(response.data.email)
+            setUserPhone(response.data.phone)
+            setUserAddress(response.data.address)
+            setAvatar(response.data.avatar)
+            console.log(avatar)
             console.log("userToken 2")
 
         }
