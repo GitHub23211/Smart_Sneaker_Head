@@ -9,7 +9,8 @@ const models = require('../models')
  * @returns Passes control to next pieces of middleware user_routes and upload which require a verified user, else returns error.
  */
 const verifyUser = async (request, response, next) => {
-    const user = await auth.validateUser(request)
+    const token = request.cookies.token
+    const user = await auth.validateUser(token)
     if(user) {
         request.user = user
         next()

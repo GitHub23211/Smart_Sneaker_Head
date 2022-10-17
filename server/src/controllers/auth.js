@@ -47,6 +47,7 @@ const createUser = async (request, response) => {
         if(saveUser) {
             if(user._id) {
                 const token = encodeToken(user._id, saveUser.username)
+                response.cookie(('token', token, {httpOnly: true}))
                 return response.status(201).json({status: "success", token: token})
             }
         }
@@ -92,6 +93,7 @@ const createUser = async (request, response) => {
                 if(saveSeller) {
                     if(seller._id) {
                         const token = encodeToken(seller._id, saveSeller.username)
+                        response.cookie(('token', token, {httpOnly: true}))
                         return response.status(201).json({status: "success", token: token})
                     }
                 }
@@ -144,27 +146,23 @@ const validateABN = async (abn) => {
  * @returns {Object} JSON object with user's information if successful, otherwise errors
  */
 const getUser = async (request, response) => {
-    const authHeader = request.get('Authorization')
-    if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
-        const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
-        try {
-            const userid = decodedToken.id
-            const user = await models.Session.findById(userid)
-            if(user) {
-                return response.status(200).json({
-                    status: "success",
-                    id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    address: user.address,
-                    cart: user.cart,
-                    avatar: user.avatar
-                })
-            }
+    try {
+        const userid = request.user
+        const user = await models.Session.findById(userid)
+        if(user) {
+            return response.status(200).json({
+                status: "success",
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                address: user.address,
+                cart: user.cart,
+                avatar: user.avatar
+            })
         }
-        catch {return response.status(401).json({error: "missing or invalid token"})}
     }
-    return response.status(400).json({error: "unregistered or accessing user info with seller account"})
+    catch {return response.status(401).json({error: "missing or invalid token"})}
+    return response.status(400).json({error: 'unregistered or accessing user info with seller account'})
 }
 
 /**
@@ -174,27 +172,23 @@ const getUser = async (request, response) => {
  * @returns {Object} JSON object with seller's information if successful, otherwise errors
  */
  const getSeller = async (request, response) => {
-    const authHeader = request.get('Authorization')
-    if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
-        const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
-        try {
-            const userid = decodedToken.id
-            const seller = await models.Seller.findById(userid)
-            if(seller) {
-                return response.status(200).json({
-                    status: "success",
-                    id: seller._id,
-                    username: seller.username,
-                    email: seller.email,
-                    address: seller.address,
-                    companyName: seller.companyName,
-                    abn: seller.abn,
-                    logo: seller.logo
-                })
-            }
+    try {
+        const sellerid = request.user
+        const seller = await models.Seller.findById(sellerid)
+        if(seller) {
+            return response.status(200).json({
+                status: "success",
+                id: seller._id,
+                username: seller.username,
+                email: seller.email,
+                address: seller.address,
+                companyName: seller.companyName,
+                abn: seller.abn,
+                logo: seller.logo
+            })
         }
-        catch {return response.status(401).json({error: "missing or invalid token"})}
     }
+    catch {return response.status(401).json({error: "missing or invalid token"})}
     return response.status(400).json({error: "unregistered"})
 }
 
@@ -214,6 +208,7 @@ const loginUser = async (request, response) => {
     
         if(await bcrypt.compare(password, user.password)) {
             const token = encodeToken(user._id, user.username)
+            response.cookie('token', token, {httpOnly: true})
             return response.status(200).json({status: "success", token: token})
         }
     }
@@ -242,26 +237,22 @@ const loginHelper = async (username) => {
  * @param {Object} request - JSON Object containing headers with the user's token
  * @returns {Boolean} returns user's id if valid user which is equivalent to true, otherwise returns false
  */
-const validateUser = async (request) => {
-    const authHeader = request.get('Authorization')
-    if(authHeader && authHeader.toLowerCase().startsWith('bearer ')) {
-        try {
-            const decodedToken = jwt.verify(authHeader.substring(7), SECRET)
-            const userid = decodedToken.id
-            const user = await models.Session.findOne({_id: userid})
-            if (user) {
-                return user._id
-            }
-            else {
-                const seller = await models.Seller.findOne({_id: userid})
-                if (seller) {
-                    return seller._id
-                }
+const validateUser = async (token) => {
+    try {
+        const decodedToken = jwt.verify(token, SECRET)
+        const userid = decodedToken.id
+        const user = await models.Session.findOne({_id: userid})
+        if (user) {
+            return user._id
+        }
+        else {
+            const seller = await models.Seller.findOne({_id: userid})
+            if (seller) {
+                return seller._id
             }
         }
-        catch {return false}
     }
-    return false
+    catch {return false}
 }
 
 module.exports = {getUser, createUser, loginUser, validateUser, createSeller, getSeller}
