@@ -11,7 +11,6 @@ const Product =()=>{
 
   const [count, setCount] = useState(0)
   const {product} = useContext(ProductContext);
-  const {userToken} = useContext(LoginContext);
 
   const IncNum = () => {
     setCount(count + 1);
@@ -27,16 +26,11 @@ const Product =()=>{
     productid : product.id,
     quantity : count
   }
-  const options = {
-    headers: {
-        'Authorization': `bearer ${userToken}`
-    }
-};
 
   const handleAddToCart = ()=>{
     console.log("id",product.id)
     console.log(count)
-    axios.put(`/api/cart/add/${product.id}`,ProdObj,options)
+    axios.put(`/api/cart/add/${product.id}`,ProdObj)
     .then(response =>{
       console.log(response)
     }).catch(error=>{
