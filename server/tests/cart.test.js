@@ -77,7 +77,7 @@ beforeAll(async () => {
         }
     ]
     try {
-        products.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token1}`).send(product))
+        products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}    
 })
@@ -104,7 +104,7 @@ describe("Testing cart API endpoints", () => {
             }
             
             const response = await api.put(`/api/cart/add/${productid}`)
-                                .set('Authorization', `Bearer ${token}`)
+                                .set('Cookie', `token=${token}`)
                                 .send(data)
 
             expect(response.status).toBe(200)
@@ -130,7 +130,7 @@ describe("Testing cart API endpoints", () => {
             }
             
             const response = await api.put(`/api/cart/add/${productid}`)
-                                .set('Authorization', `Bearer ${token}`)
+                                .set('Cookie', `token=${token}`)
                                 .send(data)
 
             expect(response.status).toBe(400)
@@ -155,7 +155,7 @@ describe("Testing cart API endpoints", () => {
             }
             
             const response = await api.put(`/api/cart/add/${productid}`)
-                                .set('Authorization', `Bearer ${token}`)
+                                .set('Cookie', `token=${token}`)
                                 .send(data)
 
             expect(response.status).toBe(400)
@@ -179,7 +179,7 @@ describe("Testing cart API endpoints", () => {
             }
             
             const response = await api.put(`/api/cart/add/${productid}`)
-                                .set('Authorization', `Bearer ${token}`)
+                                .set('Cookie', `token=${token}`)
                                 .send(data)
 
             expect(response.status).toBe(401)
@@ -224,7 +224,7 @@ describe("Testing cart API endpoints", () => {
                         productid = response.body.products[2].id
                     })
             
-            const response = await api.delete(`/api/cart/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/cart/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(200)
             expect(response.body.cart).toHaveLength(0)
@@ -242,7 +242,7 @@ describe("Testing cart API endpoints", () => {
                         productid = response.body.products[1].id
                     })
             
-            const response = await api.delete(`/api/cart/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/cart/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("Error: product not in cart or invalid productid")
@@ -260,7 +260,7 @@ describe("Testing cart API endpoints", () => {
                         productid = response.body.products[1].id + "wrong prductid"
                     })
             
-            const response = await api.delete(`/api/cart/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/cart/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("Error: product not in cart or invalid productid")
@@ -278,7 +278,7 @@ describe("Testing cart API endpoints", () => {
                         productid = response.body.products[1].id
                     })
             
-            const response = await api.delete(`/api/cart/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/cart/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("invalid user")
