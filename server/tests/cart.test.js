@@ -82,18 +82,10 @@ beforeAll(async () => {
 
 
 describe("Testing cart API endpoints", () => {
+
     describe("Test add cart", () => {
 
-        test("buffer test", async () => {
-           await api.get('/api/product')
-                    .expect(200)
-                    .expect(response => {
-                        expect(response.data).toBeUndefined()
-
-                    })
-        })
-
-        test("add item to cart", async () => {
+        test("add item to cart that is already in cart", async () => {
 
             const token = await getUserToken()
             let productid = ""
@@ -117,31 +109,6 @@ describe("Testing cart API endpoints", () => {
             expect(response.status).toBe(200)
             expect(response.body.cart[0].productid).toBe(productid)
             expect(response.body.cart[0].quantity).toBe(200)
-        })
-
-        test("add item to cart that is already in cart", async () => {
-
-            const token = await getUserToken()
-            let productid = ""
-
-           await api.get('/api/product')
-                    .expect(200)
-                    .expect(response => {
-                        expect(response.body.products[2].name).toBe("Sneakers")
-                        expect(response.body.products[2].id).not.toBeNull()
-                        productid = response.body.products[2].id
-                    })
-            
-            const data = {
-                quantity: 200
-            }
-            
-            const response = await api.put(`/api/cart/add/${productid}`)
-                                .set('Cookie', `token=${token}`)
-                                .send(data)
-
-            expect(response.status).toBe(400)
-            expect(response.body.error).toBe("item already in cart")
         })
 
         test("add item to cart with bad productid", async () => {
