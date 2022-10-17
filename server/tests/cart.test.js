@@ -74,7 +74,7 @@ beforeAll(async () => {
         }
     ]
     try {
-        products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
+        await products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}    
 })
