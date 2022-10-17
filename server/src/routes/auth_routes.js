@@ -16,4 +16,7 @@ router.post('/auth/register/seller', auth.createSeller)
 /* POST request to log user into website */
 router.post(`/auth/login`, auth.loginUser)
 
+/* GET request to log user out of website */
+router.get(`/auth/logout`, auth.logoutUser)
+
 module.exports = router

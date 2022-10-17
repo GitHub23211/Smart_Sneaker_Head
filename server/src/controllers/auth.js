@@ -47,7 +47,7 @@ const createUser = async (request, response) => {
         if(saveUser) {
             if(user._id) {
                 const token = encodeToken(user._id, saveUser.username)
-                response.cookie(('token', token, {httpOnly: true}))
+                response.cookie('token', token, {httpOnly: true, maxAge: 3600000})
                 return response.status(201).json({status: "success", token: token})
             }
         }
@@ -93,7 +93,7 @@ const createUser = async (request, response) => {
                 if(saveSeller) {
                     if(seller._id) {
                         const token = encodeToken(seller._id, saveSeller.username)
-                        response.cookie(('token', token, {httpOnly: true}))
+                        response.cookie('token', token, {httpOnly: true, maxAge: 3600000})
                         return response.status(201).json({status: "success", token: token})
                     }
                 }
@@ -208,7 +208,7 @@ const loginUser = async (request, response) => {
     
         if(await bcrypt.compare(password, user.password)) {
             const token = encodeToken(user._id, user.username)
-            response.cookie('token', token, {httpOnly: true})
+            response.cookie('token', token, {httpOnly: true, maxAge: 3600000})
             return response.status(200).json({status: "success", token: token})
         }
     }
@@ -230,6 +230,17 @@ const loginHelper = async (username) => {
         return seller
     }
     return user
+}
+
+/**
+ * Sets cookies to none with a max life of 5 seconds to log out user from site
+ * @param {Object} request contains Cookie header
+ * @param {Object} response - Object used to send a json response.
+ * @returns 200 status code
+ */
+const logoutUser = async (request, response) => {
+    response.cookie('token', 'none', {maxAge: 5000, httpOnly: true})
+    return response.status(200).json({status: 'success'})
 }
 
 /**
@@ -255,4 +266,4 @@ const validateUser = async (token) => {
     catch {return false}
 }
 
-module.exports = {getUser, createUser, loginUser, validateUser, createSeller, getSeller}
+module.exports = {getUser, createUser, loginUser, validateUser, logoutUser, createSeller, getSeller}
