@@ -60,7 +60,7 @@ const getSeller2Token = async () => {
 }
 
 const getSellerID = async (token) => {
-    const response = await api.get('/auth/seller').set('Authorization', `Bearer ${token}`)
+    const response = await api.get('/auth/seller').set('Cookie', `token=${token}`)
     return response.body.id
 }
 
@@ -116,7 +116,7 @@ beforeAll(async () => {
     ]
 
     try {
-        products.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token1}`).send(product))
+        products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
 
@@ -137,7 +137,7 @@ beforeAll(async () => {
     ]
         
     try {
-        otherProducts.forEach(async product => await api.post('/api/product/register').set('Authorization', `Bearer ${token2}`).send(product))
+        otherProducts.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token2}`).send(product))
     }
     catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
     
@@ -159,7 +159,7 @@ describe("Testing product API endpoints", () => {
             }
 
             const response = await api.post('/api/product/register')
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(product)
             
             expect(response.status).toBe(201)
@@ -184,7 +184,7 @@ describe("Testing product API endpoints", () => {
             }
 
             const response = await api.post('/api/product/register')
-                                      .set('Authorization', `Bearer ${token}bad token data`)
+                                      .set('Cookie', `token=${token}bad token`)
                                       .send(product)
             
             expect(response.status).toBe(401)
@@ -220,7 +220,7 @@ describe("Testing product API endpoints", () => {
             }
 
             const response = await api.post('/api/product/register')
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(product)
 
             expect(response.status).toBe(401)
@@ -239,7 +239,7 @@ describe("Testing product API endpoints", () => {
             }
 
             const response = await api.post('/api/product/register')
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(product)
             
             expect(response.status).toBe(401)
@@ -303,7 +303,7 @@ describe("Testing product API endpoints", () => {
                 quantity: 0
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(200)
@@ -338,7 +338,7 @@ describe("Testing product API endpoints", () => {
                 description: "updated"
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(200)
@@ -373,7 +373,7 @@ describe("Testing product API endpoints", () => {
                 description: "updated"
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(400)
@@ -411,7 +411,7 @@ describe("Testing product API endpoints", () => {
                 quantity: 0
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(401)
@@ -481,7 +481,7 @@ describe("Testing product API endpoints", () => {
                 quantity: 0
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(401)
@@ -517,7 +517,7 @@ describe("Testing product API endpoints", () => {
                 quantity: 0
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(401)
@@ -547,7 +547,7 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[0].id
                      })
             
-            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
@@ -566,7 +566,7 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[1].id
                      })
             
-            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`)
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("Error: Not the original seller or product no longer exists")
             expect(response.body.product).toBeUndefined()
@@ -583,7 +583,7 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[1].id + "bad product id"
                      })
             
-            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(400)
             expect(response.body.error).toBe("invalid productid")
@@ -601,9 +601,9 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[1].id
                      })
             
-            await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`).expect(200)
+            await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`).expect(200)
 
-            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("Error: Not the original seller or product no longer exists")
@@ -621,7 +621,7 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[0].id
                      })
 
-            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("invalid seller")
@@ -639,7 +639,7 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[0].id
                      })
 
-            const response = await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`)
+            const response = await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`)
 
             expect(response.status).toBe(401)
             expect(response.body.error).toBe("invalid user")
@@ -675,7 +675,7 @@ describe("Testing product API endpoints", () => {
                         productid = response.body.products[0].id
                      })
 
-            await api.delete(`/api/product/delete/${productid}`).set('Authorization', `Bearer ${token}`).expect(200)
+            await api.delete(`/api/product/delete/${productid}`).set('Cookie', `token=${token}`).expect(200)
 
             const updatedInfo = {
                 name: "Rapid Updated",
@@ -685,7 +685,7 @@ describe("Testing product API endpoints", () => {
                 
             }
             const response = await api.put(`/api/product/update/${productid}`)
-                                      .set('Authorization', `Bearer ${token}`)
+                                      .set('Cookie', `token=${token}`)
                                       .send(updatedInfo)
             
             expect(response.status).toBe(401)

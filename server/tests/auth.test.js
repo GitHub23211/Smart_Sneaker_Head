@@ -330,7 +330,7 @@ describe("Testing auth API endpoints", () => {
             const route = "/auth/user"
 
             test("get user information", async () => {
-                const response = await api.get(route).set("Authorization", 'Bearer ' + userToken)
+                const response = await api.get(route).set("Cookie", `token=${userToken}`)
 
                 expect(response.status).toBe(200)
                 expect(response.body.status).toBe("success")
@@ -347,14 +347,14 @@ describe("Testing auth API endpoints", () => {
             })
 
             test("get user information with bad token", async () => {
-                const response = await api.get(route).set("Authorization", 'Bearer ' + userToken + '123')
+                const response = await api.get(route).set("Cookie", `token=${userToken}123`)
 
                 expect(response.status).toBe(401)
                 expect(response.body.error).toBe("invalid user")
             })
 
             test("get user information with seller token", async () => {
-                const response = await api.get(route).set("Authorization", 'Bearer ' + sellerToken)
+                const response = await api.get(route).set("Cookie", `token=${sellerToken}`)
 
                 expect(response.status).toBe(400)
                 expect(response.body.error).toBe("unregistered or accessing user info with seller account")
@@ -366,7 +366,7 @@ describe("Testing auth API endpoints", () => {
             const route = "/auth/seller"
 
             test("get seller information", async () => {
-                const response = await api.get(route).set("Authorization", 'Bearer ' + sellerToken)
+                const response = await api.get(route).set("Cookie", `token=${sellerToken}`)
 
                 expect(response.status).toBe(200)
                 expect(response.body.status).toBe("success")
@@ -384,14 +384,14 @@ describe("Testing auth API endpoints", () => {
             })
 
             test("get seller information with bad token", async () => {
-                const response = await api.get(route).set("Authorization", 'Bearer ' + sellerToken + '123')
+                const response = await api.get(route).set("Cookie", `token=${sellerToken}123`)
 
                 expect(response.status).toBe(401)
                 expect(response.body.error).toBe("invalid user")
             })
 
             test("get seller information with user token", async () => {
-                const response = await api.get(route).set("Authorization", 'Bearer ' + userToken)
+                const response = await api.get(route).set("Cookie", `token=${userToken}`)
 
                 expect(response.status).toBe(401)
                 expect(response.body.error).toBe("invalid seller")
