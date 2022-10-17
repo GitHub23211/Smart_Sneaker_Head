@@ -88,7 +88,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[2].name).toBeUndefined()
+                        expect(response.data).toBeUndefined()
 
                     })
         })
