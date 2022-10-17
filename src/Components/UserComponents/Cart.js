@@ -7,16 +7,9 @@ import LoginContext from '../../LoginContext';
 
 const Cart = ()=>{
     console.log('Rendering Cart');
-    const {userToken} = useContext(LoginContext);
     const [cartList,setCartList] = useState([]);
     const [newCartList,setNewCartList] = useState([])
     const [refreshCart,setRefreshCart] = useState(false)
-
-    const options = {
-        headers: {
-            'Authorization': `bearer ${userToken}`
-        }
-    };
 
     const updateCart = () => {
         console.log('referesh cart called');
@@ -28,7 +21,7 @@ const Cart = ()=>{
     }
 
     useEffect(()=>{
-        axios.get(`/auth/user`,options)
+        axios.get(`/auth/user`)
         .then(response =>{
             console.log(response.data.cart)
             setCartList(response.data.cart)

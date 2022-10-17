@@ -47,7 +47,6 @@ const Login=()=>{
               setPassword("")
               setFlag(true);
               setLogin(true);
-              setToken(response.data.token)
            }
          }).catch(error => {
             setMessageTitle("Error");
