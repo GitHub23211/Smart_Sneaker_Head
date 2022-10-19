@@ -17,10 +17,20 @@ const Home = () => {
         .then(response =>{
             console.log(response)
             const size = response.data.products.length;
+            let range = []
+            for (let i=0; i< size; i++){
+                range.push(i)
+            }
+            console.log("here is the range"+range)
+            for (let i =range.length -1; i > 0; i--) {  //Fisher–Yates Shuffle
+                let j = Math.floor(Math.random() * i)
+                let k = range[i]
+                range[i] = range[j]
+                range[j] = k
+              }
             for(let i=0; i<3; i++) {
-             const index = Math.floor(Math.random() * size);
-             console.log("index:" + index);
-             tmpList.push( response.data.products[index]);
+             console.log("index:" + range[i]);
+             tmpList.push( response.data.products[range[i]]);
            }
            setTmpProdList(tmpList);
         })
@@ -41,8 +51,8 @@ const Home = () => {
                   {tmpProdList.map( (p) => {
                     return (
                       <Carousel.Item>
-                        <section ClassName="item">
-                        <HomePageProduct data={p}/>
+                        <section className="item">
+                        <HomePageProduct key={p.id} data={p}/>
                         </section>
                       </Carousel.Item>
                     )
