@@ -1,5 +1,6 @@
 {
     "globalSetup": "./server/tests/globalSetup.js",
     "globalTeardown": "./server/tests/globalTeardown.js",
-    "setupFilesAfterEnv": ["./server/tests/setupFilesAfterEnv.js"]
+    "setupFilesAfterEnv": ["./server/tests/setupFilesAfterEnv.js"],
+    "testRunner": "jest-jasmine2"
 }

@@ -87,7 +87,7 @@ beforeAll(async () => {
     const token1 = await getSeller1Token()
     const token2 = await getSeller2Token()
 
-    const products =[ 
+    const products = [ 
         {
             name: "Sneakers",
             price: 300,

@@ -42,11 +42,12 @@ const getSeller1Token = async () => {
     return response.body.token
 }
 
-beforeAll(async () => {
+beforeAll(async (done) => {
     await registerSeller()
+    await registerUser()
     const token1 = await getSeller1Token()
 
-    const products =[ 
+    const products = [ 
         {
             name: "Sneakers",
             price: 300,
@@ -74,9 +75,10 @@ beforeAll(async () => {
         }
     ]
     try {
-        await products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
+        products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
     }
-    catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}    
+    catch (e) {console.log("error occurred setting up products for tests in cart.test.js", e.toString())}
+    done()
 })
 
 
@@ -85,16 +87,13 @@ describe("Testing cart API endpoints", () => {
     describe("Test add cart", () => {
 
         test("add item to cart", async () => {
-            
-            await registerUser()
+        
             const token = await getUserToken()
             let productid = ""
 
            await api.get('/api/product')
-                    .expect(200)
                     .expect(response => {
                         expect(response.body.products[2].name).toBe("Sneakers")
-                        expect(response.body.products[2].id).not.toBeNull()
                         productid = response.body.products[2].id
                     })
             
