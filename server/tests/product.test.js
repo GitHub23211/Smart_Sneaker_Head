@@ -3,23 +3,6 @@ const app = require('../src/app')
 
 const api = supertest(app)
 
-const registerUser = async () => {
-    const data = {
-        username: "testproduct",
-        password: "123",
-        email: "product@testuser"
-    }
-
-    await api.post("/auth/register/user")
-    .send(data)
-    .expect(201)
-}
-
-const registerSeller = async (data) => {
-    const response = await api.post("/auth/register/seller").send(data)
-    expect(response.status).toBe(201)
-}
-
 const getUserToken = async () => {
     let token = ""
 
@@ -64,84 +47,6 @@ const getSellerID = async (token) => {
     return response.body.id
 }
 
-beforeAll(async () => {
-    const seller1 = {
-        username: "testproductcompany",
-        password: "123",
-        email: "company@product",
-        companyName: "Company Product Test",
-        abn: "44000019796"
-    }
-
-    const seller2 = {
-        username: "testproductcompany2",
-        password: "123",
-        email: "company@product2",
-        companyName: "Company Product Test 2",
-        abn: "98724451651"
-    }
-
-    await registerSeller(seller1)
-    await registerSeller(seller2)
-    await registerUser()
-    const token1 = await getSeller1Token()
-    const token2 = await getSeller2Token()
-
-    const products = [ 
-        {
-            name: "Sneakers",
-            price: 300,
-            description: "Some sneakers",
-            quantity: 20
-        },
-
-        {
-            name: "Shoes",
-            price: 300,
-            description: "Some shoes",
-            quantity: 20
-        },
-
-        {
-            name: "Rapid Force Anti Shoe",
-            price: 300,
-            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Vestibulum consequat tempor fringilla. Integer dignissim ac erat a malesuada.
-                            Vivamus porttitor aliquam erat. Sed efficitur finibus orci ut consequat. 
-                            Ut et placerat ligula, quis sodales mauris. Aenean tincidunt lectus ornare, cursus ex et, 
-                            maximus dolor. Suspendisse faucibus tincidunt magna at pretium. Integer vitae convallis quam. 
-                            Vestibulum euismod vehicula augue ac venenatis.`,
-            quantity: 20
-        }
-    ]
-
-    try {
-        products.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token1}`).send(product))
-    }
-    catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
-
-    const otherProducts = [
-        {
-            name: "Other Sneakers",
-            price: 100,
-            description: "Some other sneakers",
-            quantity: 5
-        },
-
-        {
-            name: "Other Shoes",
-            price: 2,
-            description: "Some other shoes",
-            quantity: 1
-        },
-    ]
-        
-    try {
-        otherProducts.forEach(async product => await api.post('/api/product/register').set('Cookie', `token=${token2}`).send(product))
-    }
-    catch (e) {console.log("error occurred setting up products for tests in product.test.js", e.toString())}
-    
-})
 
 describe("Testing product API endpoints", () => {
 
