@@ -19,7 +19,7 @@ const ProductList =()=>{
   
     return(
         <section className="all-products-page"> 
-        <p>fake blank space</p>
+        <br></br>
         <p>Feel free to browse our selection of sneakers and shoes. Make sure to check out our weekly deals!!</p>
         <h1>All Products</h1>
             <section className="all-products">
