@@ -17,6 +17,7 @@ import Wishlist from './Components/UserComponents/Wishlist';
 import UserProfile from './Components/UserComponents/UserProfile';
 import UpdateProfile from './Components/UserComponents/UpdateProfile';
 import Cart  from './Components/UserComponents/Cart';
+import Payment  from './Components/UserComponents/Payment';
 import DeleteAccount  from './Components/UserComponents/DeleteAccount';
 
 import Seller from './Components/SellerComponents/Seller';
@@ -66,6 +67,7 @@ function App() {
                <Route path = "/user/delete" element={<DeleteAccount />} />
         </Route>  
         <Route path = "/user/cart" element={<Cart />} />
+        <Route path = "/user/checkout" element={<Payment />} />
 
         <Route path = "/seller" element={<Seller />}>
                <Route index element={<SellerProfile />} />
