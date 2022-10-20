@@ -1,6 +1,6 @@
 import React from "react";
-import { Avatar, Grid , Paper, TextField , Button , FormGroup , FormControlLabel ,Checkbox} from "@mui/material";
-import {Dialog , DialogTitle , DialogContent , DialogContentText , DialogActions}  from "@mui/material";
+import { Avatar, Grid, Paper, TextField, Button, FormGroup, FormControlLabel, Checkbox} from "@mui/material";
+import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions}  from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useState } from "react";
 import axios from "axios";
@@ -29,7 +29,6 @@ const UserRegister= ()=>{
 
     const handleRegistration = (event)=>{
         event.preventDefault();
-        console.log("registeration called")
 
         const userObj = {
            username : userName ,
@@ -53,7 +52,7 @@ const UserRegister= ()=>{
            }
          ).catch(error => {
             console.log(error)
-            
+
             setMessageTitle("Username Already Taken!")
             setMessageContent("Please enter another username.") 
             openDialog();
