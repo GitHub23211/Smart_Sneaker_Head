@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography,Divider } from "@mui/material";
+import { Typography, Divider } from "@mui/material";
 import "../Styles/home.css";
 import axios from "axios";
 import HomePageProduct from "./HomePageProduct";
@@ -48,7 +48,13 @@ const Home = () => {
         
         <section className="home-highlight">
             <section className="home-highlight-child">
-            Sport keeps us fit. Keeps you mindful. Brings us together. Through sport we have the power to change lives. Whether it is through stories of inspiring athletes. Helping you to get up and get moving. Sporting goods featuring the latest technologies, to up your performance. Beat your PB. Our sport shop offers a home to the runner, the basketball player, the soccer kid, the fitness enthusiast. The weekend hiker that loves to escape the city. The yoga teacher that spreads the moves. The 3-Stripes are seen in the music scene. On stage, at festivals. The clothing at our sports store keeps you focused before that whistle blows. During the race. And at the finish lines. We’re here to support creators. Improve their game. Their lives. And change the world.
+            Sport keeps us fit. Keeps you mindful. Brings us together. 
+            Through sport we have the power to change lives. Whether it is through stories of inspiring athletes. 
+            Helping you to get up and get moving. Sporting goods featuring the latest technologies, to up your performance. 
+            Beat your PB. Our sport shop offers a home to the runner, the basketball player, the soccer kid, the fitness enthusiast. 
+            The weekend hiker that loves to escape the city. The yoga teacher that spreads the moves. The 3-Stripes are seen in the music scene. On stage, at festivals. 
+            The clothing at our sports store keeps you focused before that whistle blows. During the race. And at the finish lines. 
+            We’re here to support creators. Improve their game. Their lives. And change the world.
             </section>
             <section className="home-highlight-child">
                 Put some colour here or image of a logo or shoe

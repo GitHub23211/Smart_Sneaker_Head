@@ -4,14 +4,13 @@ import axios from "axios";
 import { Avatar, Grid, Paper, TextField, Button, Typography, FormControl, FormControlLabel, RadioGroup, Radio , Divider,Box } from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { spacing } from '@mui/system';
 
 
 import LoginContext from '../LoginContext';
 
 const Login=()=>{
 
-    const {setLogin, setToken} = useContext(LoginContext);
+    const {setLogin} = useContext(LoginContext);
     const [loginType , setType] = useState("")
   
     const [userName, setUserName] = useState("")

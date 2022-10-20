@@ -1,19 +1,22 @@
 .cart-container{
     display : flex;
     justify-content:space-evenly;
+
   
 }
 .cart-details{
     text-align: center;
     padding-top:35px
 }
-img{
-    max-width:100%;
-    height:auto;
-    padding-top:13px
+
+.cart-list-img{
+    width: 300px;
+    height: auto;
 }
+
 .cart-item-quantity{
     padding-top:35px
+
 }
 
 .cart-actions{
@@ -26,3 +29,4 @@ p{
     font-family: "Lucida Console", "Courier New" , monospace;
     text-align: center;
 }
+

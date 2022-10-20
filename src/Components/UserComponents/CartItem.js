@@ -2,12 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import "../../Styles/cart_item.css";
-import { Paper, Button } from "@mui/material";
+import { Paper, Button, IconButton } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductContext from '../../ProductContext';
-import LoginContext from '../../LoginContext';
 
 const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refereshCartHook}})=>{
     const {setProduct} = useContext(ProductContext);
@@ -65,30 +64,28 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
     );
 
     return(
-      // static data used 
-      //TODO replace with actual data
-      <Paper elevation={5} style={{ width:"700px", margin:"40px"}}>
+      <Paper elevation={2} style={{ width:"1000px", margin:"10px"}}>
         <section className = "cart-container">
            <section className = "cart-img">
-           <img className="product-list-img" src={`/product/image/${picture}`} alt='' ></img>
+           <img className="cart-list-img" src={`/product/image/${picture}`} alt='' width="400px" height="300px"></img>
             </section>
             <section className = "cart-details"> 
              <p>{name}</p>   
              <p>AU$ {price}</p>   
             </section>
             <section className="cart-item-quantity">
-                <p>quantity : {count}</p>
+                <p>Quantity : {count}</p>
                <section className="counter" >
-                   <Button size="small" style={{backgroundColor:"white", color: 'black',margin:'auto 10px' }} variant="contained" onClick={IncNum} ><AddIcon /></Button>
+                   <Button fontSize="5px"  style={{backgroundColor:"white", color: 'black',margin:'auto 10px' }} variant="contained" onClick={IncNum} ><AddIcon /></Button>
                    <Button size="small" style={{backgroundColor:"white", color: 'black', margin:'auto 10px'}}  variant="contained" onClick={DecNum}><RemoveIcon /></Button>
                 </section>
             </section>
             <section className = "cart-actions">
-               <Button onClick = {handleDeleteItem} startIcon={<DeleteIcon />} variant="contained" style={{backgroundColor:'white' , margin:"20px 10px",color: "black"}}>delete</Button>
-              <Link to = "/product"  style={{color:"black" , textDecoration: 'none'}} > <Button onClick = {handleView} variant="contained" style={{backgroundColor:'white' , margin:"20px 10px",color: "black"}}> view item </Button></Link>
+               <IconButton onClick = {handleDeleteItem}  variant="contained" style={{backgroundColor:'white' , margin:"20px 10px",color: "black"}}><DeleteIcon/></IconButton>
+              <Link to = "/product" fontSize="5px" style={{color:"black" , textDecoration: 'none'}} > <Button onClick = {handleView} variant="contained" style={{backgroundColor:'white' , margin:"20px 10px",color: "black"}}>View</Button></Link>
             </section>     
         </section>    
-    </Paper>
+   </Paper>
         
     )
 }

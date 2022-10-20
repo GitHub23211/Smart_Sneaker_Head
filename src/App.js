@@ -1,8 +1,8 @@
 
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
-
+import axios from 'axios';
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
@@ -30,7 +30,7 @@ import Product  from './Components/Product';
 
 import LoginContext from './LoginContext';
 import ProductContext from './ProductContext';
-
+import ProductListContext from './ProductListContext';
 
 
 import {
@@ -39,17 +39,35 @@ import {
 } from "react-router-dom"
 
 
+
 function App() {
   const [isLogin, setLogin] = useState(false);
   const [userToken, setToken] = useState();
   const [product, setProduct] = useState({name: "Dummy"});
+  const [query_params, setQuery] = useState("");
 
+  useEffect( () => {
+    axios.get('/auth/user')
+    .then(response => {
+        console.log(response.data)
+        if(response.data.status === "success"){
+            setLogin(true)
+        }
+      }).catch(error => {
+        console.log(error)
+    })
+  })
+  
+  console.log("___________",document.cookie)
   return (
     <LoginContext.Provider value={{isLogin, setLogin, userToken , setToken}}> 
     <ProductContext.Provider value={{product, setProduct}}> 
+    <ProductListContext.Provider value={{query_params, setQuery}}> 
     <Router>       
       <div className='App'>
-      <NavBar />
+        
+        <NavBar />
+     
       <section>
       <Routes>
         <Route path = "/" element={<Home />} />
@@ -83,6 +101,7 @@ function App() {
       </section>
       </div>
     </Router>
+    </ProductListContext.Provider>
     </ProductContext.Provider>
     </LoginContext.Provider>  
   );
