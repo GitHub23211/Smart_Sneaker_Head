@@ -13,3 +13,7 @@ const paymentIntent = async (request, response) => {
 
     response.send({clientSecret: paymentIntent.client_secret})
 }
+
+module.exports = {
+    paymentIntent
+}
