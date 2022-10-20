@@ -2,19 +2,26 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import { useContext } from 'react';
 
-import { AppBar, Grid, Toolbar, Typography, Button, TextField, InputAdornment, IconButton, Box,Divider} from "@mui/material";
+import { AppBar, Toolbar, TextField, InputAdornment, IconButton, Box,Divider} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import LoginContext from '../LoginContext';
+import ProductListContext from "../ProductListContext";
 
 const NavBar = () =>{
    const {isLogin} = useContext(LoginContext);
+   const {setQuery} = useContext(ProductListContext);
+
    const bg ={backgroundColor:'white',margin:'auto'};
    const navStyle = {   background: 'white'}
    const buttonStyle = {backgroundColor:"white", color: 'black' }
-    console.log("NavBar", isLogin);
+   const handleOnChange = (event, handler) => {
+      console.log(event.target.value)
+      handler(event.target.value)
+      setQuery(event.target.value)      
+  }
 
     if( isLogin === false) {
       return(
@@ -27,15 +34,16 @@ const NavBar = () =>{
                <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>
                <Box sx={{marginLeft:"20PX", width: '30%', pb:"10px",pt:"10px"}}>
-               <TextField variant="filled" fullWidth label="Search" style={bg}
+               <TextField variant="filled" fullWidth label="Search" style={bg} onChange={(event) => handleOnChange(event, setQuery)}
+
                         InputProps={{
                                      endAdornment: (
-                                      <InputAdornment>
-                                        <Link to = "/productlist">
+                                      <InputAdornment>            
                                         <IconButton>
+                                        <Link to = "/productlist">
                                              <SearchIcon />
+                                        </Link>
                                          </IconButton>
-                                         </Link>
                                      </InputAdornment>
                                      )
                                      }}
@@ -57,18 +65,18 @@ const NavBar = () =>{
                      alignItems="center"
                        justifyContent="center"
                       sx={{ pb: "10px"}}>
-                <img src="./logo.png" width="370px" height="80px"/>
+                <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>
                <Box sx={{marginLeft:"20PX", width: '30%', pb:"10px",pt:"10px"}}>
-               <TextField variant="filled" fullWidth label="Search" style={bg}
+               <TextField variant="filled" fullWidth label="Search" style={bg} onChange={(event) => handleOnChange(event, setQuery)}
                         InputProps={{
                                      endAdornment: (
                                       <InputAdornment>
-                                        <Link to = "/productlist">
-                                        <IconButton>
+                                       <IconButton>
+                                       <Link to = "/productlist">
                                              <SearchIcon />
-                                         </IconButton>
-                                         </Link>
+                                        </Link>
+                                       </IconButton>
                                      </InputAdornment>
                                      )
                                      }}
