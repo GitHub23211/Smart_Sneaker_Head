@@ -13,6 +13,16 @@
 
 .product-list-img{
    width: max-width;
-   height:290px;
+   height: 190px;
+}
+
+.all-products{
+    width: 90vw;
+    display: block;
+    margin-left: auto;
+}
+
+.all-products-individual{
+    width: 25vw;
 }
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ProductListItem from "./ProductListItem";
+import { Paper , Grid , Typography , Button } from "@mui/material";
 
 
 const ProductList =()=>{
@@ -17,9 +18,14 @@ const ProductList =()=>{
     },[])
   
     return(
-            <> {
-                productlist.map(p =>
-                ( <ProductListItem 
+        <section className="all-products-page"> 
+        <p>fake blank space</p>
+        <p>Feel free to browse our selection of sneakers and shoes. Make sure to check out our weekly deals!!</p>
+        <h1>All Products</h1>
+            <section className="all-products">
+            <Grid container direction = "row" alignItems="center">
+            {productlist.map(p => (
+                 <ProductListItem 
                     id={p.id}
                     name={p.name} 
                     price={p.price} 
@@ -27,11 +33,11 @@ const ProductList =()=>{
                     quantity={p.quantity}
                     seller={p.seller}
                     picture={p.picture}/>
-                )
-
-            )
-         }    
-       </>
+                ))
+            }
+            </Grid>
+            </section>  
+       </section>
      )
 }
 
