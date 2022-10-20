@@ -22,6 +22,11 @@ const UpdateProfile = ()=>{
         handler(event.target.value)
     }
 
+    const handleRemoveAvatar = (event) => {
+      event.preventDefault()
+      sendInfo("remove")
+    }
+
     const grabAvatar = (event) => {
       const file = event.target.files[0]
       if(file.type === "image/jpeg" || file.type === "image/jpg") {
@@ -51,6 +56,10 @@ const UpdateProfile = ()=>{
         address : userAddress,
         avatar : avatar
      }
+
+      if(avatar === "remove") {
+        obj.avatar = ""
+      }
 
       if(obj.username===null) {
         delete obj.username
@@ -101,8 +110,12 @@ const UpdateProfile = ()=>{
        input value={userAddress} onChange={(event) => handleOnChange(event, setUserAddress)}></TextField> 
 
       <p>Add Profile Image</p>
+
       <Input type="file" onChange={grabAvatar} alt="avatar"/>
-      
+      <Grid align='center'>
+        <Button onClick={handleRemoveAvatar}type='submit' color='secondary' variant="contained" 
+        style= {buttonStyle} disableElevation>Remove Profile Image</Button>
+      </Grid>
       
 
       <Grid align='center'>

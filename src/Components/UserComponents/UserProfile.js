@@ -38,7 +38,7 @@ const UserProfile = ()=>{
 
     return(
       <section className="user-card">
-          {avatar ? <img src={`/user/image/${avatar}`} style={{maxWidth:200, maxHeight:200}} alt="avatar"/> : <Avatar sx={{ width: '100px', height: '100px' }}><PersonOutlineIcon sx={{ width: '100px', height: '100px' }}/></Avatar>}
+          {avatar !== "" ? <img src={`/user/image/${avatar}`} style={{maxWidth:200, maxHeight:200}} alt="avatar"/> : <Avatar sx={{ width: '100px', height: '100px' }}><PersonOutlineIcon sx={{ width: '100px', height: '100px' }}/></Avatar>}
           <h1>Name : {userName}</h1>
           <Typography><MailOutlineIcon/>{userEmail}</Typography>
           <Typography><LocationOnIcon />{userPhone}</Typography>
