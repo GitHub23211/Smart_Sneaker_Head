@@ -1,7 +1,8 @@
 import React,{useContext, useEffect, useState} from "react";
 import CartItem from "../UserComponents/CartItem";
 import axios from "axios";
-import{ Paper,Box,Divider} from "@mui/material";
+import{ Paper,Box,Divider,Button, Grid} from "@mui/material";
+import {Link} from 'react-router-dom';
 import LoginContext from '../../LoginContext';
            
 
@@ -71,6 +72,16 @@ const Cart = ()=>{
                 </Paper>
             </Box>
         </Box>
+
+
+        <Grid align='center'>
+        <Link to = "/user/checkout">
+            <Button type='submit' color='primary' variant="contained">
+                Checkout
+            </Button>
+         </Link>
+        </Grid>
+
         </>
     )
 }
