@@ -21,10 +21,10 @@ const NavBar = () =>{
          <AppBar position="relative" style={navStyle}>
             <Toolbar>
                <Box 
-                     alignItems="center"
-                       justifyContent="center"
-                      sx={{ pb: "10px"}}>
-                <img src="./logo.png" width="370px" height="80px" alt="logo"/>
+                  alignItems="center"
+                  justifyContent="center"
+                  sx={{ pb: "10px"}}>
+               <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>
                <Box sx={{marginLeft:"20PX", width: '30%', pb:"10px",pt:"10px"}}>
                <TextField variant="filled" fullWidth label="Search" style={bg}
