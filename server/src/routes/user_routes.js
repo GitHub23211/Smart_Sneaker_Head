@@ -1,5 +1,6 @@
 const express = require('express')
 const cart = require('../controllers/cart')
+const wishlist = require('../controllers/wishlist')
 const profile = require('../controllers/profile')
 const auth = require('../controllers/auth')
 
@@ -16,6 +17,12 @@ router.put(`/api/cart/update/:productid`, cart.updateQuantity)
 
 /* DELETE request to remove a product from cart */
 router.delete(`/api/cart/delete/:productid`, cart.deleteFromCart)
+
+/* PUT request to add products to wishlist */
+router.put(`/api/wishlist/add/:productid`, wishlist.addToWishlist)
+
+/* DELETE request to remove a product from wishlist */
+router.delete(`/api/wishlist/delete/:productid`, wishlist.deleteFromWishlist)
 
 /* PUT request to update user profile information */
 router.put('/api/profile/update', profile.updateProfile)
