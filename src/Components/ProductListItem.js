@@ -1,4 +1,4 @@
-import React,{useContext,useState} from "react";
+import React, {useContext, useState } from "react";
 import "../Styles/list_item.css"
 import { Paper , Grid , Typography , Button } from "@mui/material";
 import ProductContext from '../ProductContext';
@@ -7,10 +7,9 @@ import { Navigate } from "react-router-dom";
 const ProductListItem = ({id , name , price , description , quantity , seller, picture}) =>{
 
     const {setProduct} = useContext(ProductContext);
-    const [productNavgn, setProductNavgn] = useState(false);
+    const [productNavgn, setProductNavgn] = useState(false);  
 
     const handleView = () => {
-        console.log("handleview")
         setProduct({
             id:id,
             name: name,
@@ -28,24 +27,23 @@ const ProductListItem = ({id , name , price , description , quantity , seller, p
         )
     }else{
         return(
-            <Paper elevation={5} style={{margin:'20px' ,height:'300px'}}>
-                <Grid container 
-                     direction = "row" 
-                     alignItems="center">
-                    <Grid item sm={6}>
-                      <img className="product-list-img" src={`/product/image/${picture}`} alt='' ></img>
-                    </Grid>
-                    
-                    <Grid item sm={2}>
-                        <Typography variant="h5">{name}</Typography>
+            <Grid item sm={4} className="all-products-individual" align="center">
+                <Paper elevation={5} style={{margin:'5px' ,height:'370px'}}>
+                    <img className="product-list-img" src={`/product/image/${picture}`} alt='' ></img>
+                    <Typography variant="h5">{name}</Typography>
+                    <Typography>AU${price}</Typography>
+                    <Button onClick = {handleView}>View Item</Button>
+                    <Button>Add to wishList</Button>
+                    {/* <Grid item sm={2}>
+                    <Typography variant="h5">{name}</Typography>
                     </Grid>
                     <Grid item sm={4}>
-                        <Typography>AU${price}</Typography>
-                         <Button onClick = {handleView}>View Item</Button>
-                         <Button>Add to wishList</Button>
-                    </Grid>
-                </Grid>
-            </Paper>
+                    <Typography>AU${price}</Typography>
+                        <Button onClick = {handleView}>View Item</Button>
+                        <Button>Add to wishList</Button>
+                    </Grid> */}
+                </Paper>
+            </Grid>
         )
     }
 

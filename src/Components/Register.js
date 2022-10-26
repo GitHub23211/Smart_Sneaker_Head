@@ -1,6 +1,6 @@
 import React from "react";
-import { Navigate , Link } from 'react-router-dom';
-import { Paper ,Button, Typography } from "@mui/material";
+import { Link } from 'react-router-dom';
+import { Paper, Button } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "../Styles/register.css";

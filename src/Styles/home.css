@@ -6,7 +6,6 @@
     box-shadow: 115px;
 }
 .home-container{
-    height: 200px;
     align-items: center;
     justify-content: center;
 }
@@ -21,4 +20,18 @@
 .home-footer{
     margin-top:350px;
     padding-botton:200px;
+}
+
+.home-highlight {
+    display: flex;
+    border: 2px solid rgb(242, 235, 221);
+    background-color: rgb(242, 235, 221);
+    height: 400px;
+}
+
+.home-highlight-child {
+    flex: 1;
+    border: 2px solid rgb(238, 226, 204);
+    margin: 10px;
+    padding: 70px 0;
 }

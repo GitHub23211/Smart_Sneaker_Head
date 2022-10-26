@@ -13,6 +13,8 @@
   .product-img{
     width: 400px;
     height: auto;
+    margin-top: 50%;
+    margin-bottom: 50%;
   }
 
   .product-details-section{
@@ -20,7 +22,7 @@
     width: 500px;
     height:800px;
     text-align: center;
-     
+    padding: 100px 0;
   }
 
   .counter{

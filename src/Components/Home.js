@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography,Divider } from "@mui/material";
+import { Typography, Divider } from "@mui/material";
 import "../Styles/home.css";
 import axios from "axios";
 import HomePageProduct from "./HomePageProduct";
@@ -28,7 +28,7 @@ const Home = () => {
                 range[i] = range[j]
                 range[j] = k
               }
-            for(let i=0; i<3; i++) {
+            for(let i=0; i<4; i++) {
              console.log("index:" + range[i]);
              tmpList.push( response.data.products[range[i]]);
            }
@@ -44,6 +44,22 @@ const Home = () => {
            <p> Bring power to your steps</p>
             </Divider>
           
+        </section>
+        
+        <section className="home-highlight">
+            <section className="home-highlight-child">
+            Sport keeps us fit. Keeps you mindful. Brings us together. 
+            Through sport we have the power to change lives. Whether it is through stories of inspiring athletes. 
+            Helping you to get up and get moving. Sporting goods featuring the latest technologies, to up your performance. 
+            Beat your PB. Our sport shop offers a home to the runner, the basketball player, the soccer kid, the fitness enthusiast. 
+            The weekend hiker that loves to escape the city. The yoga teacher that spreads the moves. The 3-Stripes are seen in the music scene. On stage, at festivals. 
+            The clothing at our sports store keeps you focused before that whistle blows. During the race. And at the finish lines. 
+            We’re here to support creators. Improve their game. Their lives. And change the world.
+            </section>
+            <section className="home-highlight-child">
+                Put some colour here or image of a logo or shoe
+            </section>
+
         </section>
 
         <section className="home-products">
@@ -63,6 +79,8 @@ const Home = () => {
 
         <section className="home-about-us">
           <h2>ABOUT</h2>
+          <p>Our vision </p>
+          <p>We see a world where everybody is an athlete — united in the joy of movement. Driven by our passion for sport and our instinct for innovation, we aim to bring inspiration to every athlete in the world and to make sport a daily habit.</p>
         </section>
         <section className="home-footer">
             <Divider>

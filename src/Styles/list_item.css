@@ -13,6 +13,20 @@
 
 .product-list-img{
    width: max-width;
-   height:290px;
+   height: 190px;
+   padding-top: 30px;
+   padding-bottom: 10px;
+}
+
+.all-products{
+    width: 95vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* adjust this later if we want to add filters for all products*/
+}
+
+.all-products-individual{
+    width: 25vw;
 }
 

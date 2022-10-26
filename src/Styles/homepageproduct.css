@@ -1,11 +1,11 @@
 .card-container{
-    width:700px;
+    width: 90vw;
     height: 380px;
     overflow: hidden;
     box-shadow: 0px 0px 15px -5px;
     transition: 0.3s;
     animation: ease-in-out;
-    background-color:black;
+    background-color:rgb(165, 165, 165);
    
 }
 
@@ -23,3 +23,8 @@
     color:white;
     font-family: "Lucida Console", "Courier New" , monospace;
 }
+
+.home-product-img{
+    width: 400px;
+    height: auto;
+  }
