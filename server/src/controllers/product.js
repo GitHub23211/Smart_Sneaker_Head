@@ -1,15 +1,35 @@
 const models = require('../models')
 
 /**
- * Checks if a query exists
- * @param {String} query Can be undefined or a String
- * @returns the query itself if it is not undefined, otherwise returns blank
+ * Filter product list before sending to user
+ * @param {Object} query contains product query
+ * @returns the filtered product list, or all products if query is invalid
  */
-const checkQuery = (query) => {
-    if(query) {
-        return query
+const queryProducts = async (query) => {
+    if("name" in query) {
+        return await models.Product.find({name: {$regex: query.name, $options: 'i'}})
     }
-    return ""
+    else if ("price" in query) {
+        if(query.price === "high") { 
+            return await models.Product.find({})
+                          .sort({price: -1})
+        }
+        else if(query.price === "low") {
+            return await models.Product.find({})
+                          .sort({price: 1})
+        }
+    }
+    else if ("brand" in query) {
+        if(query.brand === "high") { 
+            return await models.Product.find({})
+                          .sort({brand: -1})
+        }
+        else if(query.brand === "low") {
+            return await models.Product.find({})
+                          .sort({brand: 1})
+        }
+    }
+    return await models.Product.find({})
 }
 
 /**
@@ -20,10 +40,7 @@ const checkQuery = (query) => {
  */
 const getProducts = async (request, response) => {
     try {
-        const query = checkQuery(request.query.name)
-        const products = await models.Product.find({
-            name: {$regex: query, $options: 'i'}
-        })
+        const products = await queryProducts(request.query)
         return response.status(200).json({status: "success", products: products, query: request.query})
     } catch(e) {return response.status(401).json({error: e.toString()})}
 }
