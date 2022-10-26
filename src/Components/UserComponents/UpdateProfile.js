@@ -17,16 +17,15 @@ const UpdateProfile = ()=>{
         handler(event.target.value)
     }
 
-    const handleRemoveAvatar = (event) => {
-      event.preventDefault()
-      sendInfo("remove")
-    }
-
     const grabAvatar = (event) => {
       const file = event.target.files[0]
       if(file.type === "image/jpeg" || file.type === "image/jpg") {
         setAvatar(file)
       }
+    }
+
+    const handleRemoveAvatar = (event) => {
+      sendInfo("remove")
     }
 
     const handleUpdate = ()=>{
@@ -104,8 +103,10 @@ const UpdateProfile = ()=>{
 
       <Input type="file" onChange={grabAvatar} alt="avatar"/>
       <Grid align='center'>
-        <Button onClick={handleRemoveAvatar}type='submit' color='secondary' variant="contained" 
-        style= {buttonStyle} disableElevation>Remove Profile Image</Button>
+        <Link to = "/user">
+          <Button onClick={handleRemoveAvatar}type='submit' color='secondary' variant="contained" 
+          style= {buttonStyle} disableElevation>Remove Profile Image</Button>
+        </Link>
       </Grid>
       
 
