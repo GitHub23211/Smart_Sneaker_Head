@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
             quantity: Number
         }
     ],
+    wishlist: [ 
+        {
+            productid: {type: mongoose.Types.ObjectId, ref: "Product"}
+        }
+    ],
     avatar: String
 })
 
