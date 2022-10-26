@@ -157,12 +157,13 @@ describe("Testing product API endpoints", () => {
 
         test("get product returns 200 without query", async () => {
             const response = await api.get('/api/product')
+            console.log(response.body.products)
 
             expect(response.status).toBe(200)
             expect(response.body.status).toBe("success")
             expect(response.body.products).toHaveLength(6)
-            expect(response.body.products[0].name).toBe("Other Shoes")
-            expect(response.body.products[3].name).toBe("Shoes")
+            expect(response.body.products[0].name).toBe("Sneakers")
+            expect(response.body.products[3].name).toBe("Other Sneakers")
         })
 
         test("get product returns 200 with query", async () => {
