@@ -55,6 +55,7 @@ const productSchema = new mongoose.Schema({
     price: {type: Number, required: true},
     description: String,
     quantity: {type: Number, required: true},
+    brand: String,
     picture: String,
     seller: {type: mongoose.Types.ObjectId, ref: "Seller", required: true},
 })

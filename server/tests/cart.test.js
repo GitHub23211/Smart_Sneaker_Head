@@ -23,9 +23,10 @@ describe("Testing cart API endpoints", () => {
 
            await api.get('/api/product')
                     .expect(response => {
-                        expect(response.body.products[4].name).toBe("Sneakers")
+                        expect(response.body.products[4].name).toBe("Other Shoes")
                         expect(response.body.products[4].id).not.toBeNull()
                         productid = response.body.products[4].id
+                        console.log(response.body.products)
                     })
             
             const data = {
@@ -49,7 +50,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[4].name).toBe("Sneakers")
+                        expect(response.body.products[4].name).toBe("Other Shoes")
                         expect(response.body.products[4].id).not.toBeNull()
                         productid = response.body.products[4].id
                     })
@@ -74,7 +75,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[4].name).toBe("Sneakers")
+                        expect(response.body.products[4].name).toBe("Other Shoes")
                         expect(response.body.products[4].id).not.toBeNull()
                         productid = response.body.products[4].id + "bad product id"
                     })
@@ -98,7 +99,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[4].name).toBe("Sneakers")
+                        expect(response.body.products[4].name).toBe("Other Shoes")
                         expect(response.body.products[4].id).not.toBeNull()
                         productid = response.body.products[4].id
                     })
@@ -122,7 +123,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[4].name).toBe("Sneakers")
+                        expect(response.body.products[4].name).toBe("Other Shoes")
                         expect(response.body.products[4].id).not.toBeNull()
                         productid = response.body.products[4].id
                     })
@@ -148,7 +149,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[4].name).toBe("Sneakers")
+                        expect(response.body.products[4].name).toBe("Other Shoes")
                         expect(response.body.products[4].id).not.toBeNull()
                         productid = response.body.products[4].id
                     })
@@ -166,7 +167,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[1].name).toBe("Other Sneakers")
+                        expect(response.body.products[1].name).toBe("Shoes")
                         expect(response.body.products[1].id).not.toBeNull()
                         productid = response.body.products[1].id
                     })
@@ -184,7 +185,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[1].name).toBe("Other Sneakers")
+                        expect(response.body.products[1].name).toBe("Shoes")
                         expect(response.body.products[1].id).not.toBeNull()
                         productid = response.body.products[1].id + "wrong prductid"
                     })
@@ -202,7 +203,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[1].name).toBe("Other Sneakers")
+                        expect(response.body.products[1].name).toBe("Shoes")
                         expect(response.body.products[1].id).not.toBeNull()
                         productid = response.body.products[1].id
                     })
@@ -219,7 +220,7 @@ describe("Testing cart API endpoints", () => {
            await api.get('/api/product')
                     .expect(200)
                     .expect(response => {
-                        expect(response.body.products[1].name).toBe("Other Sneakers")
+                        expect(response.body.products[1].name).toBe("Shoes")
                         expect(response.body.products[1].id).not.toBeNull()
                         productid = response.body.products[1].id
                     })
