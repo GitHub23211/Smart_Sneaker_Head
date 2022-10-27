@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
+import { Paper } from "@mui/material"
 
 const CheckoutForm = ({}) => {
     const stripe = useStripe()
@@ -68,6 +69,8 @@ const CheckoutForm = ({}) => {
     }
 
     return (
+
+      <Paper sx={{margin:20 , height:"auto"}}>
         <form id="payment-form" onSubmit={handleSubmit}>
           <PaymentElement id="payment-element" />
           <button disabled={isLoading || !stripe || !elements} id="submit">
@@ -78,6 +81,8 @@ const CheckoutForm = ({}) => {
           {/* Show any error or success messages */}
           {message && <div id="payment-message">{message}</div>}
         </form>
+      </Paper>  
+
       )
 
   
