@@ -19,7 +19,7 @@ const UpdateProfile = ()=>{
 
     const grabAvatar = (event) => {
       const file = event.target.files[0]
-      if(file.type === "image/jpeg" || file.type === "image/jpg") {
+      if(file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png") {
         setAvatar(file)
       }
     }
