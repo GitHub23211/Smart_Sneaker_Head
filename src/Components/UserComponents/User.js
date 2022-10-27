@@ -18,12 +18,14 @@ const User = () =>{
 
   const paperStyle = {height:'100vh'}
   const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
-  const {setLogin} = useContext(LoginContext);
+  const {setLogin,setLoginType} = useContext(LoginContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
 
 
   const handleLogout = () => {
     setLogin(false)
+    setLoginType("")
+    setCookie('LoginType', undefined, { path: '/' });
     removeCookie('LoginType',{ path: '/' })
     axios.get('/auth/logout')
   }

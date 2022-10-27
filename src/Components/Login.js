@@ -50,6 +50,7 @@ const Login=()=>{
               setLogin(true);
               setLoginType(loginType)
               setCookie('LoginType', loginType, { path: '/' });
+              console.log("cokkie type" , cookies.login_type)
 
            }
          }).catch(error => {
