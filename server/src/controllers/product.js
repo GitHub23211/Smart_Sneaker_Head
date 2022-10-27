@@ -20,14 +20,7 @@ const queryProducts = async (query) => {
         }
     }
     else if ("brand" in query) {
-        if(query.brand === "high") { 
-            return await models.Product.find({})
-                          .sort({brand: -1})
-        }
-        else if(query.brand === "low") {
-            return await models.Product.find({})
-                          .sort({brand: 1})
-        }
+        return await models.Product.find({brand: {$regex: query.brand, $options: 'i'}})
     }
     return await models.Product.find({})
 }
@@ -55,13 +48,14 @@ const createProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
         try {
-            const {name, price, description, quantity, picture} = request.body
+            const {name, price, description, quantity, brand, picture} = request.body
             const newProduct = new models.Product({
                 name: name,
                 price: price,
                 description: description,
                 quantity: quantity,
                 picture: picture,
+                brand: brand,
                 seller: seller
             })
     
