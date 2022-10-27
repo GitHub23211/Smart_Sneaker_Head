@@ -3,6 +3,10 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { useState } from "react";
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
+
+
+
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
@@ -40,11 +44,17 @@ import {
 
 
 
+
 function App() {
   const [isLogin, setLogin] = useState(false);
   const [userToken, setToken] = useState();
+  const [loginType, setLoginType] = useState("");
   const [product, setProduct] = useState({name: "Dummy"});
   const [query_params, setQuery] = useState("");
+
+  const [cookies, setCookie] = useCookies(['login_type']);
+
+
 
   useEffect( () => {
     axios.get('/auth/user')
@@ -52,15 +62,30 @@ function App() {
         console.log(response.data)
         if(response.data.status === "success"){
             setLogin(true)
+            setLoginType(cookies.LoginType)
+            console.log("+++++++++++pass")
+        }
+      }).catch(error => {
+        console.log(error)
+    })
+  })
+
+  useEffect( () => {
+    axios.get('/auth/seller')
+    .then(response => {
+        console.log(response.data)
+        if(response.data.status === "success"){
+            setLogin(true)
+            setLoginType(cookies.LoginType)
+            console.log("+++++++++++pass")
         }
       }).catch(error => {
         console.log(error)
     })
   })
   
-  console.log("___________",document.cookie)
   return (
-    <LoginContext.Provider value={{isLogin, setLogin, userToken , setToken}}> 
+    <LoginContext.Provider value={{isLogin, setLogin, userToken , setToken, loginType,  setLoginType}}> 
     <ProductContext.Provider value={{product, setProduct}}> 
     <ProductListContext.Provider value={{query_params, setQuery}}> 
     <Router>       
