@@ -38,7 +38,7 @@ const SellerRegister= ()=>{
            password : Passcode ,
            email : email,
            address : address,
-           name : companyName,
+           companyName : companyName,
            abn: abn
         }     
         //post request to register user
