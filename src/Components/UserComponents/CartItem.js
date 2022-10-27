@@ -64,7 +64,7 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
     );
 
     return(
-      <Paper elevation={2} style={{ width:"1000px", margin:"10px"}}>
+      <Paper elevation={2} style={{ width:"1100px", margin:"10px"}}>
         <section className = "cart-container">
            <section className = "cart-img">
            <img className="cart-list-img" src={`/product/image/${picture}`} alt='' width="400px" height="300px"></img>
@@ -76,12 +76,12 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
             <section className="cart-item-quantity">
                 <p>Quantity : {count}</p>
                <section className="counter" >
-                   <Button fontSize="5px"  style={{backgroundColor:"white", color: 'black',margin:'auto 10px' }} variant="contained" onClick={IncNum} ><AddIcon /></Button>
-                   <Button size="small" style={{backgroundColor:"white", color: 'black', margin:'auto 10px'}}  variant="contained" onClick={DecNum}><RemoveIcon /></Button>
+                   <Button size="small" style={{backgroundColor:"white", color: 'black',margin:'auto 5px' , borderRadius:45 }} variant="contained" onClick={IncNum} ><AddIcon /></Button>
+                   <Button size="small" style={{backgroundColor:"white", color: 'black', margin:'auto 5px', borderRadius:45}}  variant="contained" onClick={DecNum}><RemoveIcon /></Button>
                 </section>
             </section>
             <section className = "cart-actions">
-               <IconButton onClick = {handleDeleteItem}  variant="contained" style={{backgroundColor:'white' , margin:"20px 10px",color: "black"}}><DeleteIcon/></IconButton>
+               <IconButton onClick = {handleDeleteItem}  variant="contained" style={{backgroundColor:'white' , fontSize:1,margin:"20px 10px",color: "black"}}><DeleteIcon/></IconButton>
               <Link to = "/product" fontSize="5px" style={{color:"black" , textDecoration: 'none'}} > <Button onClick = {handleView} variant="contained" style={{backgroundColor:'white' , margin:"20px 10px",color: "black"}}>View</Button></Link>
             </section>     
         </section>    
