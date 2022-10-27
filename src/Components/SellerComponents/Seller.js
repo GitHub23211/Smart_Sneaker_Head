@@ -1,6 +1,7 @@
 import { React, useContext } from "react";
 import LoginContext from '../../LoginContext';
 import { Link, Outlet } from 'react-router-dom';
+import axios from 'axios'
 
 import {ListItemButton, ListItemIcon,List , ListItem , ListItemText,Grid, Paper} from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -16,6 +17,11 @@ const Seller = () =>{
   const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
 
   const {setLogin} = useContext(LoginContext);
+
+  const handleLogout = () => {
+    setLogin(false)
+    axios.get('/auth/logout')
+  }
   
     return( 
     <> 
@@ -60,7 +66,7 @@ const Seller = () =>{
       <Link style={{color:"black" , textDecoration: 'none'}}  to = "/">
         <List>
           <ListItem disablePadding>
-            <ListItemButton onClick={ () => { setLogin(false)} } > 
+            <ListItemButton onClick={handleLogout} > 
               <ListItemIcon>< LogoutIcon/></ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItemButton>
