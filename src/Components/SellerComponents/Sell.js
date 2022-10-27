@@ -10,7 +10,9 @@ const Sell = ()=>{
     const [prodDescription , setDescription] = useState("")
     const [prodPrice , setPrice] = useState("")
     const [prodQuantity , setQuantity] = useState("")
+    const [prodBrand , setBrand] = useState("")
     const [productImg, setProductImg] = useState(null)
+    const [imgName, setImgName] = useState("")
 
     const [open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -31,6 +33,7 @@ const Sell = ()=>{
         const file = event.target.files[0]
         if(file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png") {
             setProductImg(file)
+            setImgName(file.filename)
         }
     }
 
@@ -56,6 +59,7 @@ const Sell = ()=>{
             price: prodPrice,
             description: prodDescription,
             quantity: prodQuantity,
+            brand: prodBrand,
             picture: image
         }
 
@@ -66,7 +70,9 @@ const Sell = ()=>{
            setDescription("")
            setPrice("")
            setQuantity("")
+           setBrand("")
            setProductImg(null)
+           setImgName("")
            setMessageTitle("Success!")
            setMessageContent("Product has been listed!")
            openDialog();
@@ -81,6 +87,9 @@ const Sell = ()=>{
         <h1> Enter the following details to list the Sneaker</h1>
         <TextField label='Product-Title' placeholder='Product Title' fullWidth required style={margin} 
         input value={prodTitle} onChange={(event) => handleOnChange(event, setTitle)}></TextField> 
+
+        <TextField label='Product-Brand' placeholder='Product Brand' fullWidth required style={margin} 
+        input value={prodBrand} onChange={(event) => handleOnChange(event, setBrand)}></TextField> 
  
         <TextField label='Product-Price' placeholder='Product Price' fullWidth required style={margin} 
         input value={prodPrice} onChange={(event) => handleOnChange(event, setPrice)}></TextField> 
@@ -91,8 +100,9 @@ const Sell = ()=>{
         <TextField label='Product-Description' placeholder='Product Description' fullWidth required multiline rows="10" style={margin} 
         input value={prodDescription} onChange={(event) => handleOnChange(event, setDescription)}></TextField> 
 
+
       <p>Add Product Image</p>
-      <Input type="file" onChange={addProductImage} alt="image"/>
+      <Input type="file" value={imgName} onChange={addProductImage} alt="image"/>
 
        <Grid>
           <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>Sell This Item</Button>
