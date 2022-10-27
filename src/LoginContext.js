@@ -3,8 +3,11 @@ import * as React from 'react'
 const LoginContext = React.createContext({
     isLogin: false, 
     userToken: "",
+    loginType:"",
     setLogin: () => {},
-    setToken: () => {}
+    setToken: () => {},
+    setLoginType: () => {}
+
 });
 
 export default LoginContext;

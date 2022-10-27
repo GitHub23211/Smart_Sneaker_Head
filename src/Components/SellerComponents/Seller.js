@@ -9,6 +9,7 @@ import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useCookies } from 'react-cookie';
 
 
 const Seller = () =>{
@@ -17,9 +18,12 @@ const Seller = () =>{
   const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
 
   const {setLogin} = useContext(LoginContext);
+  const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
+
 
   const handleLogout = () => {
     setLogin(false)
+    removeCookie('LoginType',{ path: '/' })
     axios.get('/auth/logout')
   }
   
