@@ -2,6 +2,8 @@ import { React, useContext } from "react";
 import LoginContext from '../../LoginContext';
 import { Link, Outlet } from 'react-router-dom';
 import axios from 'axios'
+import { useCookies } from 'react-cookie';
+
 
 import {ListItemButton, ListItemIcon,List , ListItem , ListItemText,Grid, Paper} from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -17,9 +19,12 @@ const User = () =>{
   const paperStyle = {height:'100vh'}
   const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
   const {setLogin} = useContext(LoginContext);
+  const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
+
 
   const handleLogout = () => {
     setLogin(false)
+    removeCookie('LoginType',{ path: '/' })
     axios.get('/auth/logout')
   }
   
