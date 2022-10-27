@@ -7,10 +7,10 @@ const UpdateProfile = ()=>{
     const margin={margin:'30px auto'}
     const buttonStyle ={margin:'20px auto'}
 
-    const [userName,setUserName] = useState(null)
-    const [Passcode,setPassword] = useState(null)
-    const [userEmail,setUserEmail] = useState(null)
-    const [userAddress,setUserAddress] = useState(null)
+    const [userName,setUserName] = useState("")
+    const [Passcode,setPassword] = useState("")
+    const [userEmail,setUserEmail] = useState("")
+    const [userAddress,setUserAddress] = useState("")
     const [avatar, setAvatar] = useState(null)
 
     const handleOnChange = (event, handler) => {
@@ -73,6 +73,11 @@ const UpdateProfile = ()=>{
 
       axios.put('/api/profile/update',obj)
       .then(response =>{
+        setUserName("")
+        setPassword("")
+        setUserEmail("")
+        setUserAddress("")
+        setAvatar(null)
         console.log(response)
       })
       .catch(error => {
