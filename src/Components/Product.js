@@ -50,7 +50,7 @@ const Product =()=>{
 
         <section className="product-details-section">
           <h2 className="product-title">{product.name}</h2>
-          <p className="product-description">Description : {product.description} </p>
+          <p className="product-description">{product.description} </p>
           <p className="product-price"> Price : AU${product.price}</p>
           
           <section className="counter" >
