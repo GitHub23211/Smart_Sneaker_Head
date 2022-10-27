@@ -1,16 +1,16 @@
 .card-container{
-    width: 90vw;
+    width: 80vw;
     height: 380px;
     overflow: hidden;
     box-shadow: 0px 0px 15px -5px;
-    transition: 0.3s;
+    transition: 0.1s;
     animation: ease-in-out;
-    background-color:rgb(165, 165, 165);
+   /* background-color:rgb(165, 165, 165);*/
+
    
 }
-
 .card-container:hover{
-    transform: scale(1.1);
+    transform: scale(1);
     box-shadow: 0px 0px 25px 0px;
     overflow: hidden;
 }
@@ -20,7 +20,7 @@
     height:auto;
 }
 .card-title h3{   
-    color:white;
+    color:black;
     font-family: "Lucida Console", "Courier New" , monospace;
 }
 

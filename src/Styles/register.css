@@ -1,26 +1,13 @@
 
-
 .register-container{
-    display: flex;
-    height: 700px;
-    margin-top: 20px;
+    margin: 25%px;
+    margin-left: 25%;
+    margin-right: 25%;
 
-}
-
-.register-left{
-    width: 50%;
-    background-image: url("register.png");
-    background-repeat: no-repeat;
-}
-
-.register-right{
-    padding-top:180px;
-    width: 50%;
-   
 }
 
 h1{
-    font-family: "Lucida Console", "Courier New" , monospace;
+    /*font-family: "Lucida Console", "Courier New" , monospace;*/
     font-size:xx-large;
 }
 

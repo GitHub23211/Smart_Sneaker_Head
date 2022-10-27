@@ -1,11 +1,13 @@
+
 .product-container{
     display: flex;
-    background-color: white;
-    text-align: center;
     justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    overflow: scroll;
+    border: none;
   }
   .product-img-section{
-    border: 1px solid #ddd;
     width: 500px;
     height:800px;
   }
@@ -18,14 +20,21 @@
   }
 
   .product-details-section{
-    border: 1px solid #ddd;
     width: 500px;
     height:800px;
     text-align: center;
+    justify-content: center;
     padding: 100px 0;
   }
 
   .counter{
     display: inline-flex;
   }
+
+  .product-title{
+    text-align: center;
+    font-size: 60px;
+    font-family: Georgia;
+  }
+
 
