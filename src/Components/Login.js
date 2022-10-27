@@ -4,15 +4,14 @@ import axios from "axios";
 import { Avatar, Grid, Paper, TextField, Button, Typography, FormControl, FormControlLabel, RadioGroup, Radio , Divider,Box } from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-
-
+import { useCookies } from 'react-cookie';
 import LoginContext from '../LoginContext';
 
 const Login=()=>{
 
-    const {setLogin} = useContext(LoginContext);
+    const {setLogin,setLoginType} = useContext(LoginContext);
+    
     const [loginType , setType] = useState("")
-  
     const [userName, setUserName] = useState("")
     const [Passcode, setPassword] = useState("")
     const [flag,setFlag] = useState(false)
@@ -20,6 +19,9 @@ const Login=()=>{
     const[open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
     const [msgContent , setMessageContent] = useState("") 
+
+    const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
+
 
     const handleOnChange = (event, handler) => {
         console.log(event.target.value)
@@ -46,6 +48,9 @@ const Login=()=>{
               setPassword("")
               setFlag(true);
               setLogin(true);
+              setLoginType(loginType)
+              setCookie('LoginType', loginType, { path: '/' });
+
            }
          }).catch(error => {
             setMessageTitle("Error");
