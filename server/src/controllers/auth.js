@@ -157,6 +157,7 @@ const getUser = async (request, response) => {
                 email: user.email,
                 address: user.address,
                 cart: user.cart,
+                wishlist: user.wishlist,
                 avatar: user.avatar
             })
         }
