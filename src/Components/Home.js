@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Divider,Button } from "@mui/material";
+import { Link } from 'react-router-dom';
 import "../Styles/home.css";
 import axios from "axios";
 import HomePageProduct from "./HomePageProduct";
@@ -97,7 +98,9 @@ const Home = () => {
         <section className="about-section-left">
          <h1 className="about-section-title">Smart Sneaker Head</h1>
          <h2 className="about-section-title">About</h2>
-            <Button size="large" variant="contained" sx={{backgroundColor:"white",color:"black",borderRadius:25 , mt:"280px",ml:"250px"}}>Search More</Button>
+           <Link to = '/about' style={{color:"black" , textDecoration: 'none'}}>
+              <Button size="large" variant="contained" sx={{backgroundColor:"white",color:"black",borderRadius:25 , mt:"280px",ml:"250px"}}>Search More</Button>
+           </Link>
         </section>
 
        </section>

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 
-
+import About from './Components/About';
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
@@ -102,6 +102,7 @@ function App() {
       <section>
       <Routes>
         <Route path = "/" element={<Home />} />
+        <Route path = "/about" element={<About />} />
         <Route path = "/login" element={<Login />} />
         <Route path = "/register" element={<Register />} />
         <Route  path = "/register/seller" element={<SellerRegister />} />
