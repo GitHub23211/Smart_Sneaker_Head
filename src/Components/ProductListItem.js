@@ -28,20 +28,12 @@ const ProductListItem = ({id , name , price , description , quantity , seller, p
     }else{
         return(
             <Grid item sm={4} className="all-products-individual" align="center">
-                <Paper elevation={5} style={{margin:'5px' ,height:'370px'}}>
+                <Paper elevation={5} style={{margin:'5px' ,height:'370px',overflow:"scroll"}}>
                     <img className="product-list-img" src={`/product/image/${picture}`} alt='' ></img>
                     <Typography variant="h5">{name}</Typography>
                     <Typography>AU${price}</Typography>
-                    <Button onClick = {handleView}>View Item</Button>
-                    <Button>Add to wishList</Button>
-                    {/* <Grid item sm={2}>
-                    <Typography variant="h5">{name}</Typography>
-                    </Grid>
-                    <Grid item sm={4}>
-                    <Typography>AU${price}</Typography>
-                        <Button onClick = {handleView}>View Item</Button>
-                        <Button>Add to wishList</Button>
-                    </Grid> */}
+                    <Button sx={{mt:5}} onClick = {handleView}>View Item</Button>
+                    <Button sx={{mt:5}}>Add to wishList</Button>
                 </Paper>
             </Grid>
         )

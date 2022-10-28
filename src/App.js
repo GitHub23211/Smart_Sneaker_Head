@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 
-
+import About from './Components/About';
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
@@ -54,16 +54,18 @@ function App() {
 
   const [cookies, setCookie] = useCookies(['login_type']);
 
-
-
   useEffect( () => {
     axios.get('/auth/user')
     .then(response => {
-        console.log(response.data)
+        console.log("user use effect : ", response.data)
         if(response.data.status === "success"){
             setLogin(true)
-            setLoginType(cookies.LoginType)
-            console.log("+++++++++++pass")
+            console.log("+++++ buyer++++++")
+            const type = cookies.LoginType;
+            if(type && type !== "seller") {
+              setLoginType(type)
+              console.log("cookie: ", type)
+            }            
         }
       }).catch(error => {
         console.log(error)
@@ -73,11 +75,15 @@ function App() {
   useEffect( () => {
     axios.get('/auth/seller')
     .then(response => {
-        console.log(response.data)
+        console.log("seller use effect : ", response.data)
         if(response.data.status === "success"){
             setLogin(true)
-            setLoginType(cookies.LoginType)
-            console.log("+++++++++++pass")
+            const type = cookies.LoginType;
+            if(type && type !== "user") {
+              console.log("+++++ seller ++++++")
+              setLoginType(type)
+              console.log("cookie: ", type)
+            }
         }
       }).catch(error => {
         console.log(error)
@@ -96,6 +102,7 @@ function App() {
       <section>
       <Routes>
         <Route path = "/" element={<Home />} />
+        <Route path = "/about" element={<About />} />
         <Route path = "/login" element={<Login />} />
         <Route path = "/register" element={<Register />} />
         <Route  path = "/register/seller" element={<SellerRegister />} />

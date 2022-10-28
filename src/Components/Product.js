@@ -60,9 +60,9 @@ const Product =()=>{
 
           <p className="product-price"> AU${product.price}</p>
           <section className="counter" >
-          <Button size="small" color="primary" style={{backgroundColor:"white", color: 'black',margin:'auto 5px'}} variant="outlined" onClick={IncNum} ><AddIcon /></Button>
-              <h4>{count}</h4>
           <Button size="small" style={{backgroundColor:"white", color: 'black', margin:'auto 5px'}}  variant="outlined" onClick={DecNum}><RemoveIcon /></Button>
+              <h4>{count}</h4>
+          <Button size="small" color="primary" style={{backgroundColor:"white", color: 'black',margin:'auto 5px'}} variant="outlined" onClick={IncNum} ><AddIcon /></Button>
           </section>
           <Box alignItems="center"
              justifyContent="center"

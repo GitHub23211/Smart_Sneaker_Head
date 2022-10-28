@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import LoginContext from '../LoginContext';
 import ProductListContext from "../ProductListContext";
+import { BorderBottomRounded } from "@mui/icons-material";
 
 const NavBar = () =>{
    const {isLogin,loginType} = useContext(LoginContext);
@@ -45,24 +46,8 @@ const NavBar = () =>{
                   sx={{ pb: "10px"}}>
                <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>
-               <Box sx={{marginLeft:"20PX", width: '30%', pb:"10px",pt:"10px"}}>
-               <TextField variant="filled" fullWidth label="Search" style={bg} onChange={(event) => handleOnChange(event, setQuery)}
+               <Box sx={{marginLeft:"20PX"}}> <Link style={{color:"black" , textDecoration: 'none'}} to = "/productlist">SNEAKERS</Link></Box>
 
-                        InputProps={{
-                                     endAdornment: (
-                                      <InputAdornment>            
-                                        <IconButton>
-                                        <Link to = "/productlist">
-                                             <SearchIcon />
-                                        </Link>
-                                         </IconButton>
-                                     </InputAdornment>
-                                     )
-                                     }}
-                 />
-               </Box>
-               <Box sx={{marginLeft:"20PX"}}> <Link style={{color:"black" , textDecoration: 'none'}} to = "/productlist">PRODUCTS</Link></Box>
-               
                <Box sx={{marginLeft:"20PX"}}> 
                <Link  style={{color:"black" , textDecoration: 'none',mt:"10px"}}
                   id="basic-button"
@@ -90,6 +75,24 @@ const NavBar = () =>{
                   <MenuItem onClick={handleClose}>Jordans</MenuItem>
                   <MenuItem onClick={handleClose}>Asics</MenuItem>
                </Menu>
+               <Box sx={{marginLeft:"400PX", width: '30%', pb:"10px",pt:"10px"}}>
+               <TextField variant="filled" fullWidth label="Search" style={bg} onChange={(event) => handleOnChange(event, setQuery)}
+
+                        InputProps={{
+                                     endAdornment: (
+                                      <InputAdornment>            
+                                        <IconButton>
+                                        <Link to = "/productlist">
+                                             <SearchIcon />
+                                        </Link>
+                                         </IconButton>
+                                     </InputAdornment>
+                                     )
+                                     }}
+                 />
+               </Box>
+               
+
 
 
                <Box sx={{marginLeft:"auto"}}>
