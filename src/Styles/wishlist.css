@@ -1,0 +1,36 @@
+.wishlist-container{
+    display : flex;
+    justify-content:space-between;
+    overflow: hidden;
+    width:900px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-top: thin solid grey;
+
+}
+.wishlist-details{
+    padding-top:35px
+}
+
+.wishlist-list-img{
+    width: 250px;
+    height: auto;
+}
+
+.wishlist-item-quantity{
+    padding-top:35px
+
+}
+
+.wishlist-actions{
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+
+p{
+    /*font-family: "Lucida Console", "Courier New" , monospace;*/
+    text-align: center;
+}
+
