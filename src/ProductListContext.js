@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const ProductListContext = React.createContext({
-    query_params : "",
+    query_object : {},
     setQuery : () => {}
 });
 
