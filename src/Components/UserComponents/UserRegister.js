@@ -19,7 +19,6 @@ const UserRegister= ()=>{
     const [msgContent , setMessageContent] = useState("") 
 
     const handleOnChange = (event, handler) => {
-        console.log(event.target.value)
         handler(event.target.value)
     }
 
@@ -39,7 +38,6 @@ const UserRegister= ()=>{
         //post request to register user 
        axios.post("/auth/register/user",userObj)
        .then(response => {
-              console.log(response.data)
               setMessageTitle("Thank you for Registering!")
               setMessageContent("Please proceed to Login to start shopping!")
               //resert the form

@@ -5,7 +5,6 @@ import{ Box,Divider} from "@mui/material";
 import {Link} from 'react-router-dom';
            
 const WishList = ()=>{
-    console.log('Rendering WISHLIST');
     const [wishList,setWishList] = useState([]);
     const [newWishList,setNewWishList] = useState([])
     const [refreshWishList,setRefreshWishList] = useState(false)
@@ -21,7 +20,6 @@ const WishList = ()=>{
     useEffect(()=>{
         axios.get(`/auth/user`)
         .then(response =>{
-            console.log(response.data.wishList)
             setWishList(response.data.wishlist)
         }).catch(error => {
             console.log(error)
@@ -32,19 +30,16 @@ const WishList = ()=>{
         let item_list= [];
         axios.get('/api/product')
         .then(response=>{
-          console.log(response.data.product)
           const size = response.data.products.length;
           for(let i = 0 ; i <wishList.length ;i++){
             const cart_prod_id = wishList[i].productid;
             
-            //console.log()
             for(let j=0; j<size; j++) {
                 let product = {
                     ...response.data.products[j],
                 };
                 if(cart_prod_id === product.id){
                     product.quantity = wishList[i].quantity;
-                    console.log(product.quantity)
                     item_list.push(product);
                 }
             } 

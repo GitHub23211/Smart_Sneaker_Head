@@ -14,7 +14,6 @@ const UserProfile = ()=>{
 
     axios.get('/auth/user')
     .then(response => {
-        console.log(response.data)
         if(response.data.status === "success"){
             setUserName(response.data.username)
             setUserEmail(response.data.email)

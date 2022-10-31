@@ -56,8 +56,6 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
       }
     
       const handleAddToCart = ()=>{
-        console.log("id",id)
-        console.log(count)
         axios.put(`/api/cart/add/${id}`,ProdObj)
         .then(response =>{
           console.log(response)
