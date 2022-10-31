@@ -78,7 +78,6 @@ const UpdateProfile = ()=>{
         setUserEmail("")
         setUserAddress("")
         setAvatar(null)
-        console.log(response)
       })
       .catch(error => {
         console.log(error)
