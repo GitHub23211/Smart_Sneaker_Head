@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import CartItem from "../UserComponents/CartItem";
 import axios from "axios";
-import{ Paper,Box,Divider,Button, Grid, TextField} from "@mui/material";
+import{ Paper,Box,Divider,Button, Grid, TextField, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
            
 const Cart = ()=>{
@@ -9,6 +9,8 @@ const Cart = ()=>{
     const [newCartList,setNewCartList] = useState([])
     const [refreshCart,setRefreshCart] = useState(false)
     const [cart_total , setCartTotal] = useState(0)
+    const [discount , setDiscount] = useState(0)
+    const [promo , setPromo] = useState("")
 
     const updateCart = () => {
         if(refreshCart) {
@@ -16,6 +18,21 @@ const Cart = ()=>{
         } else {
             setRefreshCart(true);
         }
+    }
+
+    const ApplyPromo = () =>{
+        if(promo === "FIRSTORDER"){
+            setDiscount(50)
+            setPromo("")
+        }
+        else{
+            setDiscount(0)
+            setPromo("")
+        }
+    }
+
+    const handleOnChange = (event, handler) => {
+        handler(event.target.value)
     }
 
     useEffect(()=>{
@@ -75,21 +92,26 @@ const Cart = ()=>{
             </Link>
             </Box>    
             <Box>
-                <Paper elevation={1} style={{width:"400px" , height:"100%"}}>
+                <Paper elevation={1} style={{width:"400px" , height:"auto"}}>
                     <Box sx={{pt:"10px"}}>
                      <h3>CHECKOUT SUMMARY</h3>
-                        <h5> Total Cost : AU$ {cart_total} </h5>
+                     <Divider/>
+                     <p>SUBTOTAL :  AU$ {cart_total} </p>
+                     <p>DISCOUNT :  AU$ {discount} </p>
+                     <Box>
+                      <TextField size="small" id="outlined-basic" label="Enter dicount code" variant="outlined" sx={{margin:"10px 10px"}} onChange={(event) => handleOnChange(event, setPromo)}></TextField>
+                      <Button size="small" variant = "outlined"  sx={{margin:"10px 10px",mt:"15px",color:"black"}} onClick={ApplyPromo}>Apply</Button>
+                    </Box>
+                     <Divider/>
+                     <h5> Total Cost : AU$ {cart_total-discount} </h5>
                     </Box>
 
-                     <Divider>Discount Code</Divider>
-                    <Box>
+                     <Divider/>
 
-                    <TextField  id="outlined-basic" label="Enter dicount code" variant="outlined"   sx={{margin:"10px 10px"}}/>
-                    </Box>
 
                     <Grid align='center'>
                         <Link to = "/user/checkout" style={{color:"black" , textDecoration: 'none'}} >
-                             <Button type='submit' variant="contained" style={{backgroundColor:"white", color: 'black', margin:'10px auto'}}>Checkout</Button>
+                             <Button type='submit' size="large" variant="contained" sx={{width:250, backgroundColor:"black", color: 'white' ,mr:"20px",ml:"20px",mb:"10px",borderRadius: 25,maxHeight: '90px'}}>Checkout</Button>
                         </Link>
                     </Grid>
                 </Paper>
