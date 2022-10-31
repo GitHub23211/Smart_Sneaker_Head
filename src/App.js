@@ -17,7 +17,7 @@ import ProductList from './Components/ProductList';
 import UserRegister from './Components/UserComponents/UserRegister';
 import User from './Components/UserComponents/User';
 import Orders from './Components/UserComponents/Orders';
-import Wishlist from './Components/UserComponents/Wishlist';
+import WishList from './Components/UserComponents/WishList';
 import UserProfile from './Components/UserComponents/UserProfile';
 import UpdateProfile from './Components/UserComponents/UpdateProfile';
 import Cart  from './Components/UserComponents/Cart';
@@ -112,7 +112,7 @@ function App() {
                <Route index element={<UserProfile />} />
                <Route path = "/user/profile" element={<UserProfile />} />
                <Route path = "/user/updateprofile" element={<UpdateProfile />} />
-               <Route path = "/user/wishlist" element={<Wishlist />} />
+               <Route path = "/user/wishlist" element={<WishList />} />
                <Route path = "/user/orders" element={<Orders />} />
                <Route path = "/user/delete" element={<DeleteAccount />} />
         </Route>  
