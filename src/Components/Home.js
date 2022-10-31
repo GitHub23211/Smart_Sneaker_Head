@@ -54,6 +54,9 @@ const Home = () => {
         <Carousel.Item>
              <p>Free Delivery for all orders over $150.</p>
         </Carousel.Item>
+        <Carousel.Item>
+             <p>Recieve AU$50 off your first order. Use Promo code : "FIRSTORDER" </p>
+        </Carousel.Item>
        </Carousel>
       </section>
 
