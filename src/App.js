@@ -49,7 +49,7 @@ function App() {
   const [userToken, setToken] = useState();
   const [loginType, setLoginType] = useState("");
   const [product, setProduct] = useState({name: "Dummy"});
-  const [query_params, setQuery] = useState("");
+  const [query_object, setQuery] = useState({});
 
   const [cookies, setCookie] = useCookies(['login_type']);
 
@@ -92,7 +92,7 @@ function App() {
   return (
     <LoginContext.Provider value={{isLogin, setLogin, userToken , setToken, loginType,  setLoginType}}> 
     <ProductContext.Provider value={{product, setProduct}}> 
-    <ProductListContext.Provider value={{query_params, setQuery}}> 
+    <ProductListContext.Provider value={{query_object, setQuery}}> 
     <Router>       
       <div className='App'>
         

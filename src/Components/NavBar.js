@@ -18,23 +18,22 @@ const NavBar = () =>{
    const bg ={backgroundColor:'white',margin:'auto'};
    const navStyle = {   background: 'white'}
    const buttonStyle = {backgroundColor:"white", color: 'black' }
+
+   const [anchorEl, setAnchorEl] = useState(null);
+   const open = Boolean(anchorEl);
+   const handleClick = (event) => {
+     setAnchorEl(event.currentTarget);
+   };
+   const handleClose = () => {
+     setAnchorEl(null);
+   };
+
    const handleOnChange = (event, handler) => {
-      console.log(event.target.value)
-      handler(event.target.value)
-      setQuery(event.target.value)      
+      handler({"name": event.target.value})
   }
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  console.log("Nav Bar isLogin: " , isLogin);
-  console.log("loginType:", loginType);
+ const handleCategory =(event,brand) =>{
+     setQuery({"brand": brand})
+  }
 
     if( isLogin === false) {
       return(
@@ -69,13 +68,14 @@ const NavBar = () =>{
                   'aria-labelledby': 'basic-button',
                }}
                >
-                  <MenuItem onClick={handleClose}>Nike</MenuItem>
-                  <MenuItem onClick={handleClose}>Adidas</MenuItem>
-                  <MenuItem onClick={handleClose}>Reebok</MenuItem>
-                  <MenuItem onClick={handleClose}>Jordans</MenuItem>
-                  <MenuItem onClick={handleClose}>Asics</MenuItem>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Nike")}>Nike</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Adidas")}>Adidas</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Reebok")}>Reebok</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Jordans")}>Jordans</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Asics")}>Asics</MenuItem></Link>
+
                </Menu>
-               <Box sx={{marginLeft:"400PX", width: '30%', pb:"10px",pt:"10px"}}>
+               <Box sx={{marginLeft:"550px", width: '30%', pb:"10px",pt:"10px"}}>
                <TextField variant="filled" fullWidth label="Search" style={bg} onChange={(event) => handleOnChange(event, setQuery)}
 
                         InputProps={{
@@ -96,7 +96,7 @@ const NavBar = () =>{
 
 
                <Box sx={{marginLeft:"auto"}}>
-                   <Link to ="/login" style={{color:"black" , textDecoration: 'none',marginRight:"20px"}} >LOGIN</Link>
+                   <Link to ="/login" style={{color:"black" , marginLeft:"20px", textDecoration: 'none',marginRight:"20px"}} >LOGIN</Link>
                </Box>
                <Box sx={{marginLeft:"10px"}}> <Link to ="/register" style={{color:"black" , textDecoration: 'none'}} >REGISTER</Link></Box>
             </Toolbar>
