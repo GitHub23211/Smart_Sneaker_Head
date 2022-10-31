@@ -6,12 +6,13 @@ import { Grid } from "@mui/material";
 
 const ProductList =()=>{
 
-   const {query_params}  = useContext(ProductListContext);
+   const {query_object}  = useContext(ProductListContext);
    const [productlist,setProductList] = useState([])
    
   useEffect( ()=>{
       const params = {
-          name: query_params,
+          ...query_object,
+          
       };
     
      axios.get('api/product' , {params})
@@ -22,7 +23,7 @@ const ProductList =()=>{
      }).catch(error =>{
       console.log(error)
      })
-    },[query_params]) 
+    },[query_object]) 
   
     return(
       <section className="all-products-page"> 

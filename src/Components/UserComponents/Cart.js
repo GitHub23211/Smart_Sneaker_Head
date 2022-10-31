@@ -5,14 +5,12 @@ import{ Paper,Box,Divider,Button, Grid, TextField} from "@mui/material";
 import {Link} from 'react-router-dom';
            
 const Cart = ()=>{
-    console.log('Rendering Cart');
     const [cartList,setCartList] = useState([]);
     const [newCartList,setNewCartList] = useState([])
     const [refreshCart,setRefreshCart] = useState(false)
     const [cart_total , setCartTotal] = useState(0)
 
     const updateCart = () => {
-        console.log('referesh cart called');
         if(refreshCart) {
             setRefreshCart(false);
         } else {
@@ -23,7 +21,6 @@ const Cart = ()=>{
     useEffect(()=>{
         axios.get(`/auth/user`)
         .then(response =>{
-            console.log(response.data.cart)
             setCartList(response.data.cart)
         }).catch(error => {
             console.log(error)
@@ -34,20 +31,17 @@ const Cart = ()=>{
         let item_list= [];
         axios.get('/api/product')
         .then(response=>{
-          console.log(response.data.product)
           const size = response.data.products.length;
           let total = 0;
           for(let i = 0 ; i <cartList.length ;i++){
             const cart_prod_id = cartList[i].productid;
             
-            //console.log()
             for(let j=0; j<size; j++) {
                 let product = {
                     ...response.data.products[j],
                 };
                 if(cart_prod_id === product.id){
                     product.quantity = cartList[i].quantity;
-                    console.log(product.quantity)
                     item_list.push(product);
                     let price = product.price;
                     total = total + (product.quantity * price)

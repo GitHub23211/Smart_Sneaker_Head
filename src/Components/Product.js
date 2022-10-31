@@ -28,8 +28,6 @@ const Product =()=>{
   }
 
   const handleAddToCart = ()=>{
-    console.log("id",product.id)
-    console.log(count)
     axios.put(`/api/cart/add/${product.id}`,ProdObj)
     .then(response =>{
       console.log(response)
