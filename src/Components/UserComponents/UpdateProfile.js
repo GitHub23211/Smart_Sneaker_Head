@@ -109,7 +109,7 @@ const UpdateProfile = ()=>{
       <Input type="file" onChange={grabAvatar} alt="avatar"/>
       <Grid align='center'>
         <Link to = "/user">
-          <Button onClick={handleRemoveAvatar}type='submit' color='secondary' variant="contained" 
+          <Button onClick={handleRemoveAvatar}type='submit'  variant="contained" 
           style= {buttonStyle} disableElevation>Remove Profile Image</Button>
         </Link>
       </Grid>

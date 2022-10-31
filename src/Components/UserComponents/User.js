@@ -17,7 +17,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const User = () =>{
 
   const paperStyle = {height:'100vh'}
-  const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
+  const outletStyle = {margin:'10px' ,padding:"10px", height:'auto', alignItems:"center",justifyContent:"center", overflow:"scroll"}
   const {setLogin,setLoginType} = useContext(LoginContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
 
@@ -87,17 +87,6 @@ const User = () =>{
             <ListItemButton onClick={handleLogout} > 
               <ListItemIcon>< LogoutIcon/></ListItemIcon>
               <ListItemText primary="LOGOUT" />
-            </ListItemButton>
-          </ListItem>
-         </List>
-      </Link>
-
-      <Link style={{color:"black" , textDecoration: 'none'}}  to = "/user/delete">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton> 
-              <ListItemIcon>< RestoreFromTrashIcon/></ListItemIcon>
-              <ListItemText primary="DELETE ACCOUNT" />
             </ListItemButton>
           </ListItem>
          </List>
