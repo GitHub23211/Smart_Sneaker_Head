@@ -24,7 +24,6 @@ const Login=()=>{
 
 
     const handleOnChange = (event, handler) => {
-        console.log(event.target.value)
         handler(event.target.value)
     }
 

@@ -116,7 +116,7 @@ const Home = () => {
             <section className="footer-socials">
 
             <a href="https://www.instagram.com/smartsneakerheadsyd/"> <InstagramIcon  sx={{ fontSize: 40 , color:"black" }}/></a>
-            <FacebookIcon sx={{ fontSize: 40 }} />
+             <FacebookIcon sx={{ fontSize: 40 }} /> 
             <TwitterIcon  sx={{ fontSize: 40 }}/>
             <YouTubeIcon  sx={{ fontSize: 40 }}/>
 
