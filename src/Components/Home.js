@@ -92,31 +92,46 @@ const Home = () => {
        <section className="home-about-section">
 
         <section className="about-section-right">
-         <h1>Authenticity Guaranteed</h1>
+         <h4 className="auth">Authenticity Guaranteed</h4>
         </section>
 
         <section className="about-section-left">
          <h1 className="about-section-title">Smart Sneaker Head</h1>
-         <h2 className="about-section-title">About</h2>
+         <h2 className="about-section-title">About Us</h2>
            <Link to = '/about' style={{color:"black" , textDecoration: 'none'}}>
-              <Button size="large" variant="contained" sx={{backgroundColor:"white",color:"black",borderRadius:25 , mt:"280px",ml:"250px"}}>Search More</Button>
+              <Button size="large" variant="contained" sx={{backgroundColor:"white",color:"black",borderRadius:25 , mt:"250px",ml:"250px"}}>Search More</Button>
            </Link>
         </section>
 
        </section>
 
-       <section className="home-footer">
-            <Divider>
+       <Divider>
             <Typography>
                  © Smart Sneaker Head, 2022. All Rights Reserved.
             </Typography>
             </Divider>
-            <InstagramIcon />
-            <FacebookIcon />
-            <TwitterIcon />
-            <YouTubeIcon />
+
+       <section className="home-footer">
+
+            <section className="footer-socials">
+
+            <a href="https://www.instagram.com/smartsneakerheadsyd/"> <InstagramIcon  sx={{ fontSize: 40 , color:"black" }}/></a>
+            <FacebookIcon sx={{ fontSize: 40 }} />
+            <TwitterIcon  sx={{ fontSize: 40 }}/>
+            <YouTubeIcon  sx={{ fontSize: 40 }}/>
+
+            </section>
+
+
+            <section className="footer-info">
+              <h5>FAQS</h5>
+              <h5>SHIPPING INFORMATION AND RETURNS</h5>
+              <h5>CONTACT US</h5>
+            </section>
 
         </section>
+
+
 
        
 

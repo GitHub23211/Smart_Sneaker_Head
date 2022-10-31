@@ -3,6 +3,7 @@ import "../Styles/list_item.css"
 import { Paper , Grid , Typography , Button } from "@mui/material";
 import ProductContext from '../ProductContext';
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const ProductListItem = ({id , name , price , description , quantity , seller, picture}) =>{
 
@@ -21,6 +22,16 @@ const ProductListItem = ({id , name , price , description , quantity , seller, p
         });
         setProductNavgn(true);
     }
+
+    const handleAddToWishList  = () =>{
+        axios.put(`/api/wishlist/add/${id}`)
+        .then(response =>{
+            console.log(response)
+        }).catch(error =>{
+            console.log(error)
+        })
+    }
+
     if(productNavgn === true){
         return(
             <Navigate to = "/product"></Navigate>
@@ -33,7 +44,7 @@ const ProductListItem = ({id , name , price , description , quantity , seller, p
                     <Typography variant="h5">{name}</Typography>
                     <Typography>AU${price}</Typography>
                     <Button sx={{mt:5}} onClick = {handleView}>View Item</Button>
-                    <Button sx={{mt:5}}>Add to wishList</Button>
+                    <Button sx={{mt:5}} onClick = {handleAddToWishList}>Add to wishList</Button>
                 </Paper>
             </Grid>
         )

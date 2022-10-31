@@ -127,7 +127,7 @@ const NavBar = () =>{
                                      }}
                  />
                </Box>
-            <Box sx={{marginLeft:"20PX"}}> <Link style={{color:"black" , textDecoration: 'none'}} to = "/productlist">PRODUCTS</Link></Box>
+            <Box sx={{marginLeft:"20PX"}}> <Link style={{color:"black" , textDecoration: 'none'}} to = "/productlist">SNEAKERS</Link></Box>
 
             <Box sx={{marginLeft:"auto"}}>
                <Link to="/user">
