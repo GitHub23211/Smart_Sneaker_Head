@@ -22,7 +22,6 @@ import UserProfile from './Components/UserComponents/UserProfile';
 import UpdateProfile from './Components/UserComponents/UpdateProfile';
 import Cart  from './Components/UserComponents/Cart';
 import Payment  from './Components/UserComponents/Payment';
-import DeleteAccount  from './Components/UserComponents/DeleteAccount';
 
 import Seller from './Components/SellerComponents/Seller';
 import SellerRegister from './Components/SellerComponents/SellerRegister';
@@ -114,7 +113,6 @@ function App() {
                <Route path = "/user/updateprofile" element={<UpdateProfile />} />
                <Route path = "/user/wishlist" element={<WishList />} />
                <Route path = "/user/orders" element={<Orders />} />
-               <Route path = "/user/delete" element={<DeleteAccount />} />
         </Route>  
         <Route path = "/user/cart" element={<Cart />} />
         <Route path = "/user/checkout" element={<Payment />} />
