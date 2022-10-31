@@ -1,10 +1,4 @@
 
-.home-banner{
-    height: 150px;
-    border-bottom: red;
-    padding-top: 10px;
-    box-shadow: 115px;
-}
 .home-container{
     align-items: center;
     justify-content: center;
@@ -32,7 +26,6 @@
     padding: 70px 0;
 }
 
-/*-------------------*/
 
 .top-bar{
     height: 80px;
@@ -53,27 +46,51 @@
     justify-content: space-around ;
 }
 
-
 .home-about-section{
     display: flex;
     justify-content: space-around;
     margin-top: 5vh;
 }
 
-.about-section-right{
-    border: thin solid black;
-    height: 50vh;
-    width: 50vh;
-}
 .about-section-left{
     border: thin solid black;
     height: 50vh;
-    width: 50vh;
+    width: 60vh;
     background-color: gray;
+    overflow: scroll;
+}
+
+
+.auth{
+    color: black;
+    font-display: center;
+
+}
+
+.about-section-right{
+    position: relative;
+    height: 50vh;
+    width: 60vh;
+    overflow: scroll;
+
+}
+.about-section-right::after {
+    content:'';
+    background: url("sneaker_authenticity.png") no-repeat ;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width:50vh;
+    height:50vh;
+    z-index:-1;
+    opacity: 0.8; 
 }
 
 .home-footer{
-    margin-top:350px;
-    padding-botton:200px;
+    /*margin-top:350px;*/
+    /*padding-bottom:200px;*/
     margin-bottom: 5vh;
+    display: flex;
+    justify-content: space-around;
 }
+
