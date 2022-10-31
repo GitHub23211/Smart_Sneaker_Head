@@ -17,7 +17,7 @@ import ProductList from './Components/ProductList';
 import UserRegister from './Components/UserComponents/UserRegister';
 import User from './Components/UserComponents/User';
 import Orders from './Components/UserComponents/Orders';
-import WishList from './Components/UserComponents/WishList';
+import WishList from './Components/UserComponents/Wishlist';
 import UserProfile from './Components/UserComponents/UserProfile';
 import UpdateProfile from './Components/UserComponents/UpdateProfile';
 import Cart  from './Components/UserComponents/Cart';
