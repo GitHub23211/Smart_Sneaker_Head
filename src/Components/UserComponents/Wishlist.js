@@ -9,7 +9,7 @@ const WishList = ()=>{
     const [newWishList,setNewWishList] = useState([])
     const [refreshWishList,setRefreshWishList] = useState(false)
 
-    const updateCart = () => {
+    const updateWishList = () => {
         if(refreshWishList) {
             setRefreshWishList(false);
         } else {
@@ -59,7 +59,7 @@ const WishList = ()=>{
             { newWishList.map(p => 
                 (  
                    <>
-                    < WishListItem data={{...p, "refereshCartHook": updateCart}} /> 
+                    < WishListItem data={{...p, "refereshCartHook": updateWishList}} /> 
                     <Divider sx={{ font: "10px" }} />
                    </>
                   )

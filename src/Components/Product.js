@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Button, MenuItem, FormControl, InputLabel, Select, Box} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
+
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import '../Styles/product.css';
@@ -7,10 +9,17 @@ import ProductContext from '../ProductContext';
 import axios from "axios"
 import Rating from '@mui/material/Rating';
 
+
+
 const Product =()=>{
 
   const [count, setCount] = useState(0)
   const {product} = useContext(ProductContext);
+
+
+  const[open,setOpen] = useState(false)
+  const [msgTitle, setMessageTitle] = useState("") 
+  const [msgContent , setMessageContent] = useState("") 
 
   const IncNum = () => {
     setCount(count + 1);
@@ -28,12 +37,21 @@ const Product =()=>{
   }
 
   const handleAddToCart = ()=>{
-    axios.put(`/api/cart/add/${product.id}`,ProdObj)
-    .then(response =>{
-      console.log(response)
-    }).catch(error=>{
-        console.log(error)
-    })
+    if(count > 0){
+      axios.put(`/api/cart/add/${product.id}`,ProdObj)
+      .then(response =>{
+        console.log(response)
+      }).catch(error=>{
+          console.log(error.response.data.error)
+          setMessageTitle("Error")
+          setMessageContent(error.response.data.error)
+          setOpen(true)
+      })
+    }else{
+      setMessageTitle("Error")
+      setMessageContent("Please enter the quantity")
+      setOpen(true)
+    }
   }
 
   const [size, setSize] = React.useState('');
@@ -91,6 +109,15 @@ const Product =()=>{
           
         </section>
         </section>
+        <Dialog open={open}>
+                    <DialogTitle>{msgTitle}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>{msgContent}</DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={()=>setOpen(false)}>Okay</Button>
+                    </DialogActions>
+      </Dialog>
         <section>
           <h1>Size Chart</h1>
           <img src="./images/Sizechart.png" width="1000vh" height="auto" alt="left"/>

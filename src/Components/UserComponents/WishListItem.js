@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import "../../Styles/wishlist.css";
 import { Paper, Button, IconButton } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductContext from '../../ProductContext';
 
@@ -10,6 +12,10 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
     const {setProduct} = useContext(ProductContext);
     const [count, setCount] = useState(quantity);
 
+    const[open,setOpen] = useState(false)
+    const [msgTitle, setMessageTitle] = useState("") 
+    const [msgContent , setMessageContent] = useState("") 
+  
 
     const handleView = () => {
       setProduct({
@@ -61,6 +67,10 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
           console.log(response)
         }).catch(error=>{
             console.log(error)
+            console.log(error.response.data.error)
+            setMessageTitle("Error")
+            setMessageContent(error.response.data.error)
+            setOpen(true)
         })
       }
 
@@ -79,6 +89,15 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
                <Button size="small" onClick = {handleAddToCart} variant="contained" style={{ width:120, backgroundColor:"black",color:"white", margin:"45px 10px",borderRadius: 25,maxHeight: '30px'}} >Add To Cart</Button>  
               <Link to = "/product" fontSize="5px" style={{color:"black" , textDecoration: 'none'}} > <Button onClick = {handleView} variant="contained" style={{ width:50, backgroundColor:"white",color:"black", margin:"45px 10px",borderRadius: 25,maxHeight: '30px'}} >View</Button></Link>
             </section>   
+            <Dialog open={open}>
+                    <DialogTitle>{msgTitle}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>{msgContent}</DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={()=>setOpen(false)}>Okay</Button>
+                    </DialogActions>
+          </Dialog>
         </section>    
 
         
