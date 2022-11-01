@@ -19,9 +19,9 @@ router.post('/api/upload/logo', upload.createUpload(logoDest).single('logo'), (r
 })
 
 /* POST request to upload product picture to backend */
-router.post('/api/upload/product', upload.createUpload(productDest).single('product'), (req, res) => {
-    const filename = res.req.file.filename
-    return res.status(200).json({status: "product image upload successful", filename: filename})
+router.post('/api/upload/product', upload.createUpload(productDest).array('products'), (req, res) => {
+    const filenames = res.req.files.map(file => file.filename)
+    return res.status(200).json({status: "product images upload successful", filenames: filenames})
 })
 
 module.exports = router
