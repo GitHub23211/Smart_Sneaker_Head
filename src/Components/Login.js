@@ -11,7 +11,7 @@ const Login=()=>{
 
     const {setLogin,setLoginType} = useContext(LoginContext);
     
-    const [loginType , setType] = useState("")
+    const [loginType , setType] = useState("user")
     const [userName, setUserName] = useState("")
     const [Passcode, setPassword] = useState("")
     const [flag,setFlag] = useState(false)
