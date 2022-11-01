@@ -76,8 +76,8 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
             <section className="cart-item-quantity">
                 <p>Quantity : {count}</p>
                <section className="counter" >
-                   <Button size="small" style={{backgroundColor:"white", color: 'black',margin:'auto 5px' , borderRadius:45 }} variant="contained" onClick={IncNum} ><AddIcon /></Button>
                    <Button size="small" style={{backgroundColor:"white", color: 'black', margin:'auto 5px', borderRadius:45}}  variant="contained" onClick={DecNum}><RemoveIcon /></Button>
+                   <Button size="small" style={{backgroundColor:"white", color: 'black',margin:'auto 5px' , borderRadius:45 }} variant="contained" onClick={IncNum} ><AddIcon /></Button>
                 </section>
             </section>
             <section className = "cart-actions">

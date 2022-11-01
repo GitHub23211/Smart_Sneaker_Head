@@ -49,11 +49,10 @@ const UserRegister= ()=>{
               openDialog();
            }
          ).catch(error => {
-            console.log(error)
-
-            setMessageTitle("Username Already Taken!")
-            setMessageContent("Please enter another username.") 
-            openDialog();
+            console.log(error.response.data.error)
+            setMessageTitle("Error")
+            setMessageContent(error.response.data.error)
+            setOpen(true)
           })
 
     }
