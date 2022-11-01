@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Paper, Button, TextField, Grid, Input} from "@mui/material";
+import { Button, TextField, Grid, Box} from "@mui/material";
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions}  from "@mui/material";
+import Dropzone from 'react-dropzone'
  
 
 const Sell = ()=>{
@@ -11,8 +12,9 @@ const Sell = ()=>{
     const [prodPrice , setPrice] = useState("")
     const [prodQuantity , setQuantity] = useState("")
     const [prodBrand , setBrand] = useState("")
-    const [productImg, setProductImg] = useState(null)
-    const [imgName, setImgName] = useState("")
+    const [mainView, setMainView] = useState(null)
+    const [secondView, setSecondView] = useState(null)
+    const [thirdView, setThirdView] = useState(null)
 
     const [open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -23,44 +25,99 @@ const Sell = ()=>{
     }
 
     const margin={margin:'30px auto'}
+    
+    const imgUploadStyle = {
+        border: "solid 1px black",
+        margin:'30px auto',
+        padding: "1%",
+        paddingBottom: "25vh",
+        fontWeight : "500"
+    }
+
+    const filenameStyle = {
+        fontWeight : "400"
+    }
+
+    const acceptedFileTypes = {
+        "image/jpg": [".jpg"],
+        "image/jpeg": [".jpeg"],
+        "image/png": [".png"]
+    }
+
+    const createUploadArea = (label, image, imageHandler) => {
+        return (
+            <Grid item>
+                <Dropzone onDropAccepted={files => handleImages(files, imageHandler)} accept={acceptedFileTypes}>
+                    {({getRootProps, getInputProps}) => (
+                        <section>
+                            <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <p style={imgUploadStyle}>
+                                {label}
+                                <div style={filenameStyle}>
+                                    {image ? image.name : <></>}
+                                </div>
+                            </p>
+                            </div>
+                        </section>
+                    )}
+                </Dropzone> 
+            </Grid>
+        )
+    }
 
     const handleOnChange = (event, handler) => {
-        console.log(event.target.value)
         handler(event.target.value)
     }
 
-    const addProductImage = (event)=>{
-        const file = event.target.files[0]
-        if(file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png") {
-            setProductImg(file)
-            setImgName(file.filename)
+    const handleImages = (files, imageHandler) => {
+        imageHandler(files[0])
+    }
+
+    const clearImages = () => {
+        setMainView(null)
+        setSecondView(null)
+        setThirdView(null)
+    }
+
+    const createImageArray = () => {
+        const imageArray = []
+        if(mainView) {
+            imageArray.push(mainView)
         }
+        if(secondView) {
+            imageArray.push(secondView)
+        }
+        if(thirdView) {
+            imageArray.push(thirdView)
+        }
+        return imageArray
     }
 
     const handleSellProduct = ()=>{
-        if(productImg) {
+        const productImgs = createImageArray()
+        console.log(productImgs)
+        if(productImgs.length > 0) {
           const imageData = new FormData()
-          imageData.append("product", productImg)
+          productImgs.map(img => imageData.append("products", img))
           axios.post("/api/upload/product", imageData)
-          .then(response => response.data.filename)
-          .then(response => sendInfo(response))
+          .then(response => response.data.filenames)
+          .then(filenames => sendInfo(filenames))
           .catch(error => console.log(error.toString()))
         }
         else {
-          sendInfo(null)
+          sendInfo([])
         }
     }
 
-    const sendInfo = (image)=>{
-        console.log("sell")
-
+    const sendInfo = (names)=>{
         const product = {
             name: prodTitle,
             price: prodPrice,
             description: prodDescription,
             quantity: prodQuantity,
             brand: prodBrand,
-            picture: image
+            picture: names
         }
 
         axios.post(`/api/product/register`,  product)
@@ -71,8 +128,7 @@ const Sell = ()=>{
            setPrice("")
            setQuantity("")
            setBrand("")
-           setProductImg(null)
-           setImgName("")
+           clearImages()
            setMessageTitle("Success!")
            setMessageContent("Product has been listed!")
            openDialog();
@@ -100,13 +156,23 @@ const Sell = ()=>{
         <TextField label='Product-Description' placeholder='Product Description' fullWidth required multiline rows="10" style={margin} 
         input value={prodDescription} onChange={(event) => handleOnChange(event, setDescription)}></TextField> 
 
+        <p>To upload your product's images: Drag each file over the desired view, or click on each view and choose a file to upload</p>
 
-      <p>Add Product Image</p>
-      <Input type="file" value={imgName} onChange={addProductImage} alt="image"/>
+        <Box container sx={{display:"grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px"}}>
+            {createUploadArea("Main View", mainView, setMainView)}
+            {createUploadArea("Second View", secondView, setSecondView)}
+            {createUploadArea("Third View", thirdView, setThirdView)}
+        </Box>
 
-       <Grid>
-          <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>Sell This Item</Button>
-       </Grid>
+        <Button onClick={clearImages}>
+                Remove all files
+            </Button>
+
+        <Grid>
+            <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>
+                Sell This Item
+            </Button>
+        </Grid>
        
        <Dialog open={open}>
                 <DialogTitle>{msgTitle}</DialogTitle>
