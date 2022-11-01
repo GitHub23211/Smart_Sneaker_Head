@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Paper, Button, TextField, Grid, Input} from "@mui/material";
+import { Button, TextField, Grid, Box} from "@mui/material";
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions}  from "@mui/material";
 import Dropzone from 'react-dropzone'
  
@@ -12,7 +12,9 @@ const Sell = ()=>{
     const [prodPrice , setPrice] = useState("")
     const [prodQuantity , setQuantity] = useState("")
     const [prodBrand , setBrand] = useState("")
-    const [productImgs, setProductImgs] = useState([])
+    const [mainView, setMainView] = useState(null)
+    const [secondView, setSecondView] = useState(null)
+    const [thirdView, setThirdView] = useState(null)
 
     const [open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -26,7 +28,9 @@ const Sell = ()=>{
     
     const imgUploadStyle = {
         border: "solid 1px black",
+        margin:'30px auto',
         padding: "1%",
+        paddingBottom: "25vh",
         fontWeight : "500"
     }
 
@@ -40,31 +44,60 @@ const Sell = ()=>{
         "image/png": [".png"]
     }
 
+    const createUploadArea = (label, image, imageHandler) => {
+        return (
+            <Grid item>
+                <Dropzone onDropAccepted={files => handleImages(files, imageHandler)} accept={acceptedFileTypes}>
+                    {({getRootProps, getInputProps}) => (
+                        <section>
+                            <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <p style={imgUploadStyle}>
+                                {label}
+                                <div style={filenameStyle}>
+                                    {image ? image.name : <></>}
+                                </div>
+                            </p>
+                            </div>
+                        </section>
+                    )}
+                </Dropzone> 
+            </Grid>
+        )
+    }
+
     const handleOnChange = (event, handler) => {
         handler(event.target.value)
     }
 
-    const handleImages = (files) => {
-        if(productImgs.length < 3) {
-            setProductImgs(productImgs.concat(files))
-        }
-        else {
-            setMessageTitle("File limit reached!")
-            setMessageContent("Cannot upload more than 3 files!")
-            openDialog();
-        }
+    const handleImages = (files, imageHandler) => {
+        imageHandler(files[0])
     }
 
-    const imageListItem = (file) => {
-        return (
-            <div key={file.name}>
-                {file.name} 
-            </div>
-        )
+    const clearImages = () => {
+        setMainView(null)
+        setSecondView(null)
+        setThirdView(null)
+    }
+
+    const createImageArray = () => {
+        const imageArray = []
+        if(mainView) {
+            imageArray.push(mainView)
+        }
+        if(secondView) {
+            imageArray.push(secondView)
+        }
+        if(thirdView) {
+            imageArray.push(thirdView)
+        }
+        return imageArray
     }
 
     const handleSellProduct = ()=>{
-        if(productImgs) {
+        const productImgs = createImageArray()
+        console.log(productImgs)
+        if(productImgs.length > 0) {
           const imageData = new FormData()
           productImgs.map(img => imageData.append("products", img))
           axios.post("/api/upload/product", imageData)
@@ -95,7 +128,7 @@ const Sell = ()=>{
            setPrice("")
            setQuantity("")
            setBrand("")
-           setProductImgs([])
+           clearImages()
            setMessageTitle("Success!")
            setMessageContent("Product has been listed!")
            openDialog();
@@ -123,32 +156,23 @@ const Sell = ()=>{
         <TextField label='Product-Description' placeholder='Product Description' fullWidth required multiline rows="10" style={margin} 
         input value={prodDescription} onChange={(event) => handleOnChange(event, setDescription)}></TextField> 
 
+        <p>To upload your product's images: Drag each file over the desired view, or click on each view and choose a file to upload</p>
 
-      <Dropzone onDropAccepted={files => handleImages(files)} accept={acceptedFileTypes}>
-        {({getRootProps, getInputProps}) => (
-            <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p style={imgUploadStyle}>
-                    Drag 'n' drop some files here, or click to select files
-                    <div style={filenameStyle}>
-                        {productImgs ? productImgs.map(file => imageListItem(file)) : <></> }
-                    </div>
-                  </p>
-                </div>
-            </section>
-        )}
-      </Dropzone>
+        <Box container sx={{display:"grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px"}}>
+            {createUploadArea("Main View", mainView, setMainView)}
+            {createUploadArea("Second View", secondView, setSecondView)}
+            {createUploadArea("Third View", thirdView, setThirdView)}
+        </Box>
 
-      <Button onClick={() => setProductImgs([])}>
-            Remove all files
-        </Button>
+        <Button onClick={clearImages}>
+                Remove all files
+            </Button>
 
-      <Grid>
-          <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>
-            Sell This Item
-        </Button>
-       </Grid>
+        <Grid>
+            <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>
+                Sell This Item
+            </Button>
+        </Grid>
        
        <Dialog open={open}>
                 <DialogTitle>{msgTitle}</DialogTitle>
