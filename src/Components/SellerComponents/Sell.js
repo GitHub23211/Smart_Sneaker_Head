@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Paper, Button, TextField, Grid, Input} from "@mui/material";
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions}  from "@mui/material";
+import Dropzone from 'react-dropzone'
  
 
 const Sell = ()=>{
@@ -11,8 +12,7 @@ const Sell = ()=>{
     const [prodPrice , setPrice] = useState("")
     const [prodQuantity , setQuantity] = useState("")
     const [prodBrand , setBrand] = useState("")
-    const [productImg, setProductImg] = useState(null)
-    const [imgName, setImgName] = useState("")
+    const [productImgs, setProductImgs] = useState([])
 
     const [open,setOpen] = useState(false)
     const [msgTitle, setMessageTitle] = useState("") 
@@ -23,44 +23,68 @@ const Sell = ()=>{
     }
 
     const margin={margin:'30px auto'}
+    
+    const imgUploadStyle = {
+        border: "solid 1px black",
+        padding: "1%",
+        fontWeight : "500"
+    }
+
+    const filenameStyle = {
+        fontWeight : "400"
+    }
+
+    const acceptedFileTypes = {
+        "image/jpg": [".jpg"],
+        "image/jpeg": [".jpeg"],
+        "image/png": [".png"]
+    }
 
     const handleOnChange = (event, handler) => {
-        console.log(event.target.value)
         handler(event.target.value)
     }
 
-    const addProductImage = (event)=>{
-        const file = event.target.files[0]
-        if(file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png") {
-            setProductImg(file)
-            setImgName(file.filename)
+    const handleImages = (files) => {
+        if(productImgs.length < 3) {
+            setProductImgs(productImgs.concat(files))
         }
+        else {
+            setMessageTitle("File limit reached!")
+            setMessageContent("Cannot upload more than 3 files!")
+            openDialog();
+        }
+    }
+
+    const imageListItem = (file) => {
+        return (
+            <div key={file.name}>
+                {file.name} 
+            </div>
+        )
     }
 
     const handleSellProduct = ()=>{
-        if(productImg) {
+        if(productImgs) {
           const imageData = new FormData()
-          imageData.append("product", productImg)
+          productImgs.map(img => imageData.append("products", img))
           axios.post("/api/upload/product", imageData)
-          .then(response => response.data.filename)
-          .then(response => sendInfo(response))
+          .then(response => response.data.filenames)
+          .then(filenames => sendInfo(filenames))
           .catch(error => console.log(error.toString()))
         }
         else {
-          sendInfo(null)
+          sendInfo([])
         }
     }
 
-    const sendInfo = (image)=>{
-        console.log("sell")
-
+    const sendInfo = (names)=>{
         const product = {
             name: prodTitle,
             price: prodPrice,
             description: prodDescription,
             quantity: prodQuantity,
             brand: prodBrand,
-            picture: image
+            picture: names
         }
 
         axios.post(`/api/product/register`,  product)
@@ -71,8 +95,7 @@ const Sell = ()=>{
            setPrice("")
            setQuantity("")
            setBrand("")
-           setProductImg(null)
-           setImgName("")
+           setProductImgs([])
            setMessageTitle("Success!")
            setMessageContent("Product has been listed!")
            openDialog();
@@ -101,11 +124,30 @@ const Sell = ()=>{
         input value={prodDescription} onChange={(event) => handleOnChange(event, setDescription)}></TextField> 
 
 
-      <p>Add Product Image</p>
-      <Input type="file" value={imgName} onChange={addProductImage} alt="image"/>
+      <Dropzone onDropAccepted={files => handleImages(files)} accept={acceptedFileTypes}>
+        {({getRootProps, getInputProps}) => (
+            <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p style={imgUploadStyle}>
+                    Drag 'n' drop some files here, or click to select files
+                    <div style={filenameStyle}>
+                        {productImgs ? productImgs.map(file => imageListItem(file)) : <></> }
+                    </div>
+                  </p>
+                </div>
+            </section>
+        )}
+      </Dropzone>
 
-       <Grid>
-          <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>Sell This Item</Button>
+      <Button onClick={() => setProductImgs([])}>
+            Remove all files
+        </Button>
+
+      <Grid>
+          <Button onClick = {handleSellProduct} variant="contained" style={{ margin: "20px", backgroundColor:"white" , color:"black"}}>
+            Sell This Item
+        </Button>
        </Grid>
        
        <Dialog open={open}>
