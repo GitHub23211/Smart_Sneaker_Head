@@ -34,7 +34,7 @@ const HomePageProduct = ({data:{id,name, price,seller,description,quantity,pictu
             
             <section className="card-container">
                 <section className="image-container">
-                   <img  className="home-product-img"  src={`/product/image/${picture}`} alt='unable to find' />
+                   <img  className="home-product-img"  src={`/product/image/${picture[0]}`} alt='unable to find on home' />
                 </section> 
                 <section className="card-title">
                  <h3>{name}</h3>

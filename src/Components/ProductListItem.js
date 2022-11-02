@@ -40,7 +40,7 @@ const ProductListItem = ({id , name , price , description , quantity , seller, p
         return(
             <Grid item sm={4} className="all-products-individual" align="center">
                 <Paper elevation={5} style={{margin:'5px' ,height:'370px',overflow:"scroll"}}>
-                    <img className="product-list-img" src={`/product/image/${picture}`} alt='' ></img>
+                    <img className="product-list-img" src={`/product/image/${picture[0]}`} alt='' ></img>
                     <Typography variant="h5">{name}</Typography>
                     <Typography>AU${price}</Typography>
                     <Button sx={{mt:5}} onClick = {handleView}>View Item</Button>

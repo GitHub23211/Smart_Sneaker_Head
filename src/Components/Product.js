@@ -8,6 +8,7 @@ import '../Styles/product.css';
 import ProductContext from '../ProductContext';
 import axios from "axios"
 import Rating from '@mui/material/Rating';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 
@@ -67,7 +68,25 @@ const Product =()=>{
       <section className="single-product-container">
         <section className="product-container">
         <section className="product-img-section">
-          <img className="product-img" src={`/product/image/${product.picture}`} alt=''></img>
+        <Carousel slide={false} variant="dark">
+          {product.picture.map( (image) => {
+            return (
+              <Carousel.Item>
+                <section className="item">
+                <img className="product-img" src={`/product/image/${image}`} alt=''></img>
+                </section>
+              </Carousel.Item>
+            )
+          })}   
+        </Carousel>
+        {/* <section>
+        {product.map( (list) => {
+                    return (
+                     <p>{list.picture}</p>
+                    )
+          })}
+        </section> */}
+          {/* <img className="product-img" src={`/product/image/${product.picture}`} alt=''></img> */}
         </section>
 
         <section className="product-details-section">

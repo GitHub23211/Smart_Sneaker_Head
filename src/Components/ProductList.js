@@ -40,7 +40,7 @@ const ProductList =()=>{
                   description={p.description} 
                   quantity={p.quantity}
                   seller={p.seller}
-                  picture={p.picture[0]}/>
+                  picture={p.picture}/>
               ))
           }
           </Grid>
