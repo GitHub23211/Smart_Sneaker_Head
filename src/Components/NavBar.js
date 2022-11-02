@@ -45,7 +45,7 @@ const NavBar = () =>{
                   sx={{ pb: "10px"}}>
                <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>
-               <Box sx={{marginLeft:"20PX"}}> <Link style={{color:"black" , textDecoration: 'none'}} to = "/productlist">SNEAKERS</Link></Box>
+               <Box sx={{marginLeft:"20PX"}}> <Link onClick = {(event) => handleCategory(event, "")} style={{color:"black" , textDecoration: 'none'}} to = "/productlist">SNEAKERS</Link></Box>
 
                <Box sx={{marginLeft:"20PX"}}> 
                <Link  style={{color:"black" , textDecoration: 'none',mt:"10px"}}
@@ -107,27 +107,57 @@ const NavBar = () =>{
          <AppBar position="relative" style={navStyle}>
             <Toolbar>
                <Box 
-                     alignItems="center"
-                       justifyContent="center"
-                      sx={{ pb: "10px"}}>
-                <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
+                  alignItems="center"
+                  justifyContent="center"
+                  sx={{ pb: "10px"}}>
+               <Link to ="/"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>
-               <Box sx={{marginLeft:"20PX", width: '30%', pb:"10px",pt:"10px"}}>
+               <Box sx={{marginLeft:"20PX"}}> <Link onClick = {(event) => handleCategory(event, "")} style={{color:"black" , textDecoration: 'none'}} to = "/productlist">SNEAKERS</Link></Box>
+
+               <Box sx={{marginLeft:"20PX"}}> 
+               <Link  style={{color:"black" , textDecoration: 'none',mt:"10px"}}
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                    >
+                   BRANDS
+                  </Link>
+                  </Box>
+
+               <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+               }}
+               >
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Nike")}>Nike</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Adidas")}>Adidas</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Reebok")}>Reebok</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Jordans")}>Jordans</MenuItem></Link>
+                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Asics")}>Asics</MenuItem></Link>
+
+               </Menu>
+               <Box sx={{marginLeft:"550px", width: '30%', pb:"10px",pt:"10px"}}>
                <TextField variant="filled" fullWidth label="Search" style={bg} onChange={(event) => handleOnChange(event, setQuery)}
+
                         InputProps={{
                                      endAdornment: (
-                                      <InputAdornment>
-                                       <IconButton>
-                                       <Link to = "/productlist">
+                                      <InputAdornment>            
+                                        <IconButton>
+                                        <Link to = "/productlist">
                                              <SearchIcon />
                                         </Link>
-                                       </IconButton>
+                                         </IconButton>
                                      </InputAdornment>
                                      )
                                      }}
                  />
                </Box>
-            <Box sx={{marginLeft:"20PX"}}> <Link style={{color:"black" , textDecoration: 'none'}} to = "/productlist">SNEAKERS</Link></Box>
 
             <Box sx={{marginLeft:"auto"}}>
                <Link to="/user">
