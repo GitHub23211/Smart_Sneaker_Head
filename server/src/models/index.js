@@ -56,7 +56,11 @@ const productSchema = new mongoose.Schema({
     description: String,
     quantity: {type: Number, required: true},
     brand: String,
-    picture: [String],
+    pictures: {
+        mainView: String,
+        secondView: String,
+        thirdView: String,
+    },
     seller: {type: mongoose.Types.ObjectId, ref: "Seller", required: true},
 })
 
