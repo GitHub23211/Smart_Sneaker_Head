@@ -39,6 +39,26 @@ const getProducts = async (request, response) => {
 }
 
 /**
+ * Retrieve a specific product using a product id
+ * @param {Object} request Object a params field that has the productid
+ * @param {Object} response - Object used to send a json response.
+ * @returns a product if found or a error
+ */
+const getProduct = async (request, response) => {
+
+    try {
+        const productid = request.params.productid
+        const product = await models.Product.findById(productid)
+
+        if(product) {
+            return response.status(200).json({status: "success", product: product})
+        }
+        return response.status(400).json({error: "product could not be found"})    
+
+    } catch (e) {return response.status(401).json({error: e.toString()})}
+}
+
+/**
  * Creates new product and puts it into the database
  * @param {Object} request - Object containing a body field that is a JSON object with 4 keys: name, price, description, quantity
  * @param {Object} response - Object used to send a json response.
@@ -142,4 +162,4 @@ const deleteProduct = async (request, response) => {
     return response.status(401).json({error: "invalid seller"})
 }
 
-module.exports = {getProducts, createProduct, updateProduct, deleteProduct}
+module.exports = {getProducts, getProduct, createProduct, updateProduct, deleteProduct}
