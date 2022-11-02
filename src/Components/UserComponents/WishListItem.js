@@ -8,7 +8,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} f
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductContext from '../../ProductContext';
 
-const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, refereshCartHook}})=>{
+const WishListItem = ({data:{id,name,price,seller,description,quantity,pictures, refereshCartHook}})=>{
     const {setProduct} = useContext(ProductContext);
     const [count, setCount] = useState(quantity);
 
@@ -24,7 +24,7 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
           price: price,
           description: description, 
           quantity:quantity,
-          picture: picture,
+          pictures: pictures,
           seller: seller
       });
     };
@@ -78,7 +78,7 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
     
         <section className = "wishlist-container">
            <section className = "wishlist-img">
-           <img className="wishlist-list-img" src={`/product/image/${picture[0]}`} alt='' width="400px" height="300px"></img>
+           <img className="wishlist-list-img" src={`/product/image/${pictures.mainView}`} alt='' width="400px" height="300px"></img>
             </section>
             <section className = "wishlist-details"> 
              <p>{name}</p>   
