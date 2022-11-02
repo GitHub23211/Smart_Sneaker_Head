@@ -23,8 +23,8 @@ const Product =()=>{
   const [msgContent , setMessageContent] = useState("") 
 
   const imgStyle = {
-    maxWidth: "250px",
-    maxHeight: "250px"
+    maxWidth: "300px",
+    maxHeight: "300px"
   }
 
   const IncNum = () => {
@@ -74,7 +74,7 @@ const Product =()=>{
         <section className="product-container">
         <section className="product-img-section">
         <Carousel slide={false} variant="dark">
-          {product.picture.map( (image) => {
+          {Object.values(product.pictures).map( (image) => {
             return (
               <Carousel.Item>
                 <section className="item">
