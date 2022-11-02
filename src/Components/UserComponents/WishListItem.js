@@ -78,7 +78,7 @@ const WishListItem = ({data:{id,name,price,seller,description,quantity,picture, 
     
         <section className = "wishlist-container">
            <section className = "wishlist-img">
-           <img className="wishlist-list-img" src={`/product/image/${picture}`} alt='' width="400px" height="300px"></img>
+           <img className="wishlist-list-img" src={`/product/image/${picture[0]}`} alt='' width="400px" height="300px"></img>
             </section>
             <section className = "wishlist-details"> 
              <p>{name}</p>   

@@ -67,7 +67,7 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,picture, refe
       <Paper elevation={2} style={{ width:"1100px", margin:"10px"}}>
         <section className = "cart-container">
            <section className = "cart-img">
-           <img className="cart-list-img" src={`/product/image/${picture}`} alt='' width="400px" height="300px"></img>
+           <img className="cart-list-img" src={`/product/image/${picture[0]}`} alt='' width="400px" height="300px"></img>
             </section>
             <section className = "cart-details"> 
              <p>{name}</p>   
