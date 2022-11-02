@@ -40,7 +40,7 @@ const getProducts = async (request, response) => {
 
 /**
  * Retrieve a specific product using a product id
- * @param {Object} request Object a params field that has the productid
+ * @param {Object} request Object with a params field that has the productid
  * @param {Object} response - Object used to send a json response.
  * @returns a product if found or a error
  */
