@@ -28,7 +28,10 @@ import SellerRegister from './Components/SellerComponents/SellerRegister';
 import SellerProfile from './Components/SellerComponents/SellerProfile';
 import SellerProducts from './Components/SellerComponents/SellerProducts';
 import Sell from './Components/SellerComponents/Sell';
+import EditProduct from './Components/SellerComponents/EditProduct'
+
 import Product  from './Components/Product';
+
 
 
 import LoginContext from './LoginContext';
@@ -122,6 +125,7 @@ function App() {
                <Route path = "/seller/profile" element={<SellerProfile />} />
                <Route path = "/sellerproducts" element={<SellerProducts />} />
                <Route path = "/seller/sellproduct" element={<Sell />} />
+               <Route path = "/seller/editproduct/:productid" element={<EditProduct />} />
         </Route>
    
         <Route path = "/product" element={<Product />} /> 
