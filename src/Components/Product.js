@@ -79,14 +79,6 @@ const Product =()=>{
             )
           })}   
         </Carousel>
-        {/* <section>
-        {product.map( (list) => {
-                    return (
-                     <p>{list.picture}</p>
-                    )
-          })}
-        </section> */}
-          {/* <img className="product-img" src={`/product/image/${product.picture}`} alt=''></img> */}
         </section>
 
         <section className="product-details-section">
