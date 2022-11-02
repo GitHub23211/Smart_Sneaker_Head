@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 
 
 import About from './Components/About';
+import ContactUs from './Components/ContactUs';
 import NavBar from './Components/NavBar';
 import Home from './Components/Home';
 import Login from './Components/Login';
@@ -105,6 +106,7 @@ function App() {
       <Routes>
         <Route path = "/" element={<Home />} />
         <Route path = "/about" element={<About />} />
+        <Route path = "/contactus" element={<ContactUs />} />
         <Route path = "/login" element={<Login />} />
         <Route path = "/register" element={<Register />} />
         <Route  path = "/register/seller" element={<SellerRegister />} />

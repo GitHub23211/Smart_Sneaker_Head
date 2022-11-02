@@ -129,7 +129,7 @@ const Home = () => {
             <section className="footer-info">
               <h5>FAQS</h5>
               <h5>SHIPPING INFORMATION AND RETURNS</h5>
-              <h5>CONTACT US</h5>
+              <Link to ="/contactus" style={{color:"black" , textDecoration: 'none'}}><h5>CONTACT US</h5></Link>
             </section>
 
         </section>
