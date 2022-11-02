@@ -68,13 +68,13 @@ const createProduct = async (request, response) => {
     const seller = request.user
     if(seller) {
         try {
-            const {name, price, description, quantity, brand, picture} = request.body
+            const {name, price, description, quantity, brand, pictures} = request.body
             const newProduct = new models.Product({
                 name: name,
                 price: price,
                 description: description,
                 quantity: quantity,
-                picture: picture,
+                pictures: pictures,
                 brand: brand,
                 seller: seller
             })
@@ -103,12 +103,14 @@ const updateProduct = async (request, response) => {
         try {
             const filter = {_id: request.params.productid, seller: seller}
 
-            const {name, price, description, quantity} = request.body
+            const {name, price, description, quantity, brand, pictures} = request.body
             const updatedProduct = {
                 name: name,
                 price: price,
                 description: description,
-                quantity: quantity
+                quantity: quantity,
+                brand: brand,
+                pictures: pictures
             }
 
             const productToUpdate = await models.Product.findOneAndUpdate(filter, updatedProduct)

@@ -22,6 +22,11 @@ const Product =()=>{
   const [msgTitle, setMessageTitle] = useState("") 
   const [msgContent , setMessageContent] = useState("") 
 
+  const imgStyle = {
+    maxWidth: "250px",
+    maxHeight: "250px"
+  }
+
   const IncNum = () => {
     setCount(count + 1);
   };
@@ -73,7 +78,7 @@ const Product =()=>{
             return (
               <Carousel.Item>
                 <section className="item">
-                <img className="product-img" src={`/product/image/${image}`} alt=''></img>
+                <img style={imgStyle} className="product-img" src={`/product/image/${image}`} alt=''></img>
                 </section>
               </Carousel.Item>
             )

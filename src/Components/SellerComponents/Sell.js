@@ -94,15 +94,22 @@ const Sell = ()=>{
         return imageArray
     }
 
+    const handleFileNames = (filenames) => {
+        return {
+            mainView: filenames[0],
+            secondView: filenames[1],
+            thirdView: filenames[2]
+        }
+    }
+
     const handleSellProduct = ()=>{
         const productImgs = createImageArray()
-        console.log(productImgs)
         if(productImgs.length > 0) {
           const imageData = new FormData()
           productImgs.map(img => imageData.append("products", img))
           axios.post("/api/upload/product", imageData)
           .then(response => response.data.filenames)
-          .then(filenames => sendInfo(filenames))
+          .then(filenames => sendInfo(handleFileNames(filenames)))
           .catch(error => console.log(error.toString()))
         }
         else {
@@ -110,14 +117,14 @@ const Sell = ()=>{
         }
     }
 
-    const sendInfo = (names)=>{
+    const sendInfo = (pictures)=>{
         const product = {
             name: prodTitle,
             price: prodPrice,
             description: prodDescription,
             quantity: prodQuantity,
             brand: prodBrand,
-            picture: names
+            pictures: pictures
         }
 
         axios.post(`/api/product/register`,  product)
@@ -140,6 +147,7 @@ const Sell = ()=>{
 
     return(
    <Grid>
+
         <h1> Enter the following details to list the Sneaker</h1>
         <TextField label='Product-Title' placeholder='Product Title' fullWidth required style={margin} 
         input value={prodTitle} onChange={(event) => handleOnChange(event, setTitle)}></TextField> 
@@ -156,8 +164,8 @@ const Sell = ()=>{
         <TextField label='Product-Description' placeholder='Product Description' fullWidth required multiline rows="10" style={margin} 
         input value={prodDescription} onChange={(event) => handleOnChange(event, setDescription)}></TextField> 
 
-        <p>To upload your product's images: Drag each file over the desired view, or click on each view and choose a file to upload</p>
 
+        <p>To upload your product's images: Drag each file over the desired view, or click on each view and choose a file to upload</p>
         <Box container sx={{display:"grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px"}}>
             {createUploadArea("Main View", mainView, setMainView)}
             {createUploadArea("Second View", secondView, setSecondView)}
@@ -182,9 +190,8 @@ const Sell = ()=>{
                 <DialogActions>
                     <Button onClick={()=>setOpen(false)}>Close</Button>
                 </DialogActions>
-        </Dialog>
+        </Dialog>       
 
-       
    </Grid>
 
     )
