@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 import {Button} from  "@mui/material";
 
-const HomePageProduct = ({data:{id,name, price,seller,description,quantity,picture}}) => {
+const HomePageProduct = ({data:{id,name, price,seller,description,quantity,pictures}}) => {
     const {setProduct} = useContext(ProductContext);
     const [productNavgn, setProductNavgn] = useState(false);
 
@@ -20,7 +20,7 @@ const HomePageProduct = ({data:{id,name, price,seller,description,quantity,pictu
             description: description, 
             quantity: quantity,
             seller: seller,
-            picture: picture
+            pictures: pictures
         });
         setProductNavgn(true);
     }
@@ -34,7 +34,7 @@ const HomePageProduct = ({data:{id,name, price,seller,description,quantity,pictu
             
             <section className="card-container">
                 <section className="image-container">
-                   <img  className="home-product-img"  src={`/product/image/${picture[0]}`} alt='unable to find on home' />
+                   <img  className="home-product-img"  src={`/product/image/${pictures.mainView}`} alt='unable to find on home' />
                 </section> 
                 <section className="card-title">
                  <h3>{name}</h3>
