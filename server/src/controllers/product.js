@@ -27,7 +27,7 @@ const queryProducts = async (query) => {
 
 /**
  * Returns a list of products from the database
- * @param {Object} request Object containing a query field that is used to filter the returned items
+ * @param {Object} request - Object containing a query field that is used to filter the returned items
  * @param {Object} response - Object used to send a json response.
  * @returns JSON object containing the requested products or an error if it cannot find the products.
  */
@@ -36,6 +36,26 @@ const getProducts = async (request, response) => {
         const products = await queryProducts(request.query)
         return response.status(200).json({status: "success", products: products, query: request.query})
     } catch(e) {return response.status(401).json({error: e.toString()})}
+}
+
+/**
+ * Retrieve a specific product using a product id
+ * @param {Object} request - Object with a params field that has the productid
+ * @param {Object} response - Object used to send a json response.
+ * @returns a product if found or an error
+ */
+const getProduct = async (request, response) => {
+
+    try {
+        const productid = request.params.productid
+        const product = await models.Product.findById(productid)
+
+        if(product) {
+            return response.status(200).json({status: "success", product: product})
+        }
+        return response.status(400).json({error: "product could not be found"})    
+
+    } catch (e) {return response.status(401).json({error: e.toString()})}
 }
 
 /**
@@ -142,4 +162,4 @@ const deleteProduct = async (request, response) => {
     return response.status(401).json({error: "invalid seller"})
 }
 
-module.exports = {getProducts, createProduct, updateProduct, deleteProduct}
+module.exports = {getProducts, getProduct, createProduct, updateProduct, deleteProduct}
