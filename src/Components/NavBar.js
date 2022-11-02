@@ -70,7 +70,6 @@ const NavBar = () =>{
                >
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Nike")}>Nike</MenuItem></Link>
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Adidas")}>Adidas</MenuItem></Link>
-                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Reebok")}>Reebok</MenuItem></Link>
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Jordans")}>Jordans</MenuItem></Link>
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Asics")}>Asics</MenuItem></Link>
 
@@ -137,7 +136,6 @@ const NavBar = () =>{
                >
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Nike")}>Nike</MenuItem></Link>
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Adidas")}>Adidas</MenuItem></Link>
-                <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Reebok")}>Reebok</MenuItem></Link>
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Jordans")}>Jordans</MenuItem></Link>
                 <Link to = "/productlist"  style={{color:"black" , textDecoration: 'none',mt:"10px"}}><MenuItem onClick = {(event) => handleCategory(event, "Asics")}>Asics</MenuItem></Link>
 
