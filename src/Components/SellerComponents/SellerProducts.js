@@ -37,7 +37,6 @@ const SellerProducts =()=>{
     <section>
     <h1>My Products</h1>
     <h4>Current Items Listed for Sale</h4>
-    <Typography>Need to Add a Check for Seller ID</Typography>
 
     <section className="my-products">
           <Grid container direction = "row" alignItems="center">

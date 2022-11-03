@@ -2,7 +2,7 @@ import React, {useContext, useState } from "react";
 import "../../Styles/list_item.css"
 import { Paper , Grid , Typography , Button } from "@mui/material";
 import ProductContext from '../../ProductContext';
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
 const SellerProductList = ({id , name , price , description , quantity , seller, pictures}) =>{
@@ -23,15 +23,6 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
         setProductNavgn(true);
     }
 
-    const handleEditProduct = () =>{
-        axios.put(`/api/wishlist/add/${id}`)
-        .then(response =>{
-            console.log(response)
-        }).catch(error =>{
-            console.log(error)
-        })
-    }
-
     if(productNavgn === true){
         return(
             <Navigate to = "/product"></Navigate>
@@ -44,7 +35,7 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
                     <Typography variant="h5">{name}</Typography>
                     <Typography>AU${price}</Typography>
                     <Button sx={{mt:5}} onClick = {handleView}>View Item</Button>
-                    <Button sx={{mt:5}} onClick = {handleEditProduct}>Edit Item</Button>
+                    <Link to =  {`/seller/editproduct/${id}`}><Button sx={{mt:5}} >Edit Item</Button></Link>
                 </Paper>
             </Grid>
         )
