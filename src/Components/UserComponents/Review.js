@@ -7,8 +7,9 @@ const Review = ({review}) => {
     const [user, setUser] = useState("")
 
     useEffect(() => {
-        axios.get("/auth/user")
-             .then(response => setUser(response.data.username))
+        axios.get(`/api/user/${review.reviewerid}`)
+             .then(response => setUser(response.data.user.username))
+             .catch(error => console.log(error))
     }, [])
 
     return (
