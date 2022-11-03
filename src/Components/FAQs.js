@@ -18,7 +18,7 @@ const FAQs = () =>{
       <h2 class="faq-header">What payment methods are accepted?</h2>  
       <p class="ex1">Smart Sneaker Head accepts Debit or Credit Card payments.</p> 
       
-      <h2 class="faq-header"> What is the status of my order? </h2> 
+      <h2 class="faq-header"> What is the status of my order?</h2> 
       <p class="ex1">From the moment your order is placed, we require the typical processing time shown in the item description (excluding weekends and holidays). Once your order has been sent, an email with a tracking number will be sent to you. If you have not received any delivery or confirmation emails, please check any promotional or junk inboxes.
       </p>
       
