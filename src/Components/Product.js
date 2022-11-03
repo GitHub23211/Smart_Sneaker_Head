@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, MenuItem, FormControl, InputLabel, Select, Box} from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 
@@ -11,10 +11,14 @@ import Rating from '@mui/material/Rating';
 import Carousel from 'react-bootstrap/Carousel';
 import LoginContext from '../LoginContext';
 
+import Review from './UserComponents/Review'
+import ReviewForm from './UserComponents/ReviewForm'
+
 
 const Product =()=>{
 
   const [count, setCount] = useState(0)
+  const [reviews, setReviews] = useState([])
   const {product} = useContext(ProductContext);
   const {isLogin,loginType} = useContext(LoginContext);
 
@@ -43,6 +47,25 @@ const Product =()=>{
     quantity : count
   }
 
+  const getReviews = () => {
+    axios.get(`/api/review/${product.id}`)
+         .then(response => {
+            setReviews(response.data.reviews)
+            calculateProductRating()
+         })
+         .catch(error => console.log(error))
+  }
+  
+  const calculateProductRating = () => {
+    const totalRating = reviews.reduce(function (total, review) {return total + review.rating}, 0)
+    if(reviews.length > 0) {
+      setValue(totalRating/reviews.length)
+    }
+    else {
+      setValue(0)
+    }
+  }
+
   const handleAddToCart = ()=>{
     if(count > 0){
       axios.put(`/api/cart/add/${product.id}`,ProdObj)
@@ -60,6 +83,10 @@ const Product =()=>{
       setOpen(true)
     }
   }
+
+  useEffect(() => {
+    getReviews()
+  }, [])
 
   const [size, setSize] = React.useState('');
   const [value, setValue] = useState(4);
@@ -204,10 +231,13 @@ const Product =()=>{
                           <Button onClick={()=>setOpen(false)}>Okay</Button>
                       </DialogActions>
         </Dialog>
-          <section>
+          <section style={{margin: "30px"}}>
             <h1>Size Chart</h1>
             <img src="./images/Sizechart.png" width="1000vh" height="auto" alt="left"/>
           </section>
+
+          {isLogin ? <ReviewForm product={product} /> : <></>}
+          {reviews ? reviews.map(review => <Review review={review}/>) : <></>}
         </section>
       )
     }

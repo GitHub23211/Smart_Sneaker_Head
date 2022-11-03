@@ -116,7 +116,7 @@ const UpdateProfile = ()=>{
 
       <Grid align='center'>
         <Link to = "/user">
-           <Button onClick={handleUpdate}type='submit' color='primary' variant="contained" 
+           <Button onClick={handleUpdate} type='submit' color='primary' variant="contained" 
            style= {buttonStyle} fullWidth required disableElevation>Submit Changes</Button>
          </Link>
       </Grid>

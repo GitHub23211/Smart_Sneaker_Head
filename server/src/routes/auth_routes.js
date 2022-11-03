@@ -1,11 +1,15 @@
 const express = require('express')
 const product = require('../controllers/product')
+const review = require('../controllers/review')
 const auth = require('../controllers/auth')
 
 const router = express.Router()
 
 /* GET request to get all products */
 router.get('/api/product', product.getProducts)
+
+/* GET request to get reviews for product */
+router.get('/api/review/:productid', review.getReviews)
 
 /* GET request to get one product */
 router.get('/api/product/:productid', product.getProduct)

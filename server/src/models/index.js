@@ -74,6 +74,25 @@ productSchema.set('toJSON' , {
 
 const Product = mongoose.model("Product", productSchema)
 
+const reviewSchema = new mongoose.Schema({
+    title: String,
+    contents: String,
+    rating: Number,
+    productid: {type: mongoose.Types.ObjectId, ref: "Product", required: true},
+    reviewerid: {type: mongoose.Types.ObjectId, ref: "Session", required: true}
+})
+
+reviewSchema.set('toJSON' , {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
+reviewSchema.index({productid: 1, reviewerid: 1}, {unique: true})
+
+const Review = mongoose.model("Review", reviewSchema)
 
 const startDb = () => {
     mongoose.connect(config.mongoDBUrl)
@@ -90,5 +109,6 @@ module.exports = {
     Session,
     Seller,
     Product,
+    Review,
     startDb
 }
