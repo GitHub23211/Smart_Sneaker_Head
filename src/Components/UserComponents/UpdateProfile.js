@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid,TextField, Typography,Button,Input } from "@mui/material";
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions}  from "@mui/material";
+import "../../Styles/userprofile.css";
 
 const UpdateProfile = ()=>{
     const margin={margin:'30px auto'}
@@ -12,6 +14,10 @@ const UpdateProfile = ()=>{
     const [userEmail,setUserEmail] = useState("")
     const [userAddress,setUserAddress] = useState("")
     const [avatar, setAvatar] = useState(null)
+    
+    const[open, setOpen] = useState(false)
+    const [msgTitle, setMessageTitle] = useState("") 
+    const [msgContent, setMessageContent] = useState("") 
 
     const handleOnChange = (event, handler) => {
         handler(event.target.value)
@@ -82,7 +88,26 @@ const UpdateProfile = ()=>{
       .catch(error => {
         console.log(error)
       })
+
     }
+    const setUser = (user) => {
+      setUserName(user.username)
+      setPassword(user.passCode)
+      setUserEmail(user.email)
+      setUserAddress(user.address)
+      setAvatar(null)
+      }
+
+      useEffect(() => {
+        axios.get(`/auth/user`)
+        .then(response => setUser(response.data))
+        .catch(error => {
+            setMessageTitle("Error")
+            setMessageContent("Error has occurred")
+            setOpen(true)
+        })
+    }, [])
+
     return(
   <>
     <Grid>
@@ -105,7 +130,10 @@ const UpdateProfile = ()=>{
 
       <p>Add Profile Image</p>
 
-      <Input type="file" onChange={grabAvatar} alt="avatar"/>
+      {/* <Input type="file" onChange={grabAvatar} alt="avatar"/> */}
+      <input type="file" onChange={grabAvatar} accept="image/png, image/gif, image/jpeg" alt="avatar"/>
+
+
       <Grid align='center'>
         <Link to = "/user">
           <Button onClick={handleRemoveAvatar}type='submit'  variant="contained" 
@@ -121,6 +149,16 @@ const UpdateProfile = ()=>{
          </Link>
       </Grid>
    </Grid> 
+
+   <Dialog open={open}>
+                <DialogTitle>{msgTitle}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>{msgContent}</DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpen(false)}>Close</Button>
+                </DialogActions>
+        </Dialog>   
 
    </>
     )
