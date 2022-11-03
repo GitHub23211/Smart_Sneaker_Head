@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, MenuItem, FormControl, InputLabel, Select, Box} from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 
@@ -18,6 +18,7 @@ import ReviewForm from './UserComponents/ReviewForm'
 const Product =()=>{
 
   const [count, setCount] = useState(0)
+  const [reviews, setReviews] = useState([])
   const {product} = useContext(ProductContext);
   const {isLogin,loginType} = useContext(LoginContext);
 
@@ -46,6 +47,12 @@ const Product =()=>{
     quantity : count
   }
 
+  const getReviews = () => {
+    axios.get(`/api/review/${product.id}`)
+         .then(response => setReviews(response.data.reviews))
+         .catch(error => console.log(error))
+  }
+
   const handleAddToCart = ()=>{
     if(count > 0){
       axios.put(`/api/cart/add/${product.id}`,ProdObj)
@@ -63,6 +70,10 @@ const Product =()=>{
       setOpen(true)
     }
   }
+
+  useEffect(() => {
+    getReviews()
+  }, [])
 
   const [size, setSize] = React.useState('');
   const [value, setValue] = useState(4);
@@ -213,6 +224,7 @@ const Product =()=>{
           </section>
 
           {isLogin ? <ReviewForm product={product} /> : <></>}
+          {reviews ? reviews.map(review => <Review review={review}/>) : <></>}
         </section>
       )
     }
