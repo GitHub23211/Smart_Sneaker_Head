@@ -8,12 +8,7 @@ const createReview = async (request, response) => {
 
 }
 
-const deleteReview = async (request, response) => {
-    
-}
-
 module.exports = {
     getReviews,
-    createReview,
-    deleteReview
+    createReview
 }

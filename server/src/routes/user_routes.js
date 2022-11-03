@@ -3,6 +3,7 @@ const cart = require('../controllers/cart')
 const wishlist = require('../controllers/wishlist')
 const profile = require('../controllers/profile')
 const auth = require('../controllers/auth')
+const review = require('../controllers/review')
 
 const router = express.Router()
 
@@ -26,5 +27,8 @@ router.delete(`/api/wishlist/delete/:productid`, wishlist.deleteFromWishlist)
 
 /* PUT request to update user profile information */
 router.put('/api/profile/update', profile.updateProfile)
+
+/* PUT request to add review to product */
+router.put(`/api/reviews/add/:productid`, review.createReview)
 
 module.exports = router 
