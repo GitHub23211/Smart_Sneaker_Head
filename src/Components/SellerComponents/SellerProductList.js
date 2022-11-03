@@ -5,7 +5,6 @@ import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions}  f
 import ProductContext from '../../ProductContext';
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
 
 const SellerProductList = ({id , name , price , description , quantity , seller, pictures}) =>{
 
@@ -30,7 +29,7 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
     }
 
     const handleDelete = () => {
-        setMessageTitle(`Delete product: ${name}`)
+        setMessageTitle(`Delete Product: ${name}`)
         setMessageContent(`Are you sure you want to delete the product: ${name}`)
         setOpen(true)
     }
