@@ -35,7 +35,7 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
                     <Typography variant="h5">{name}</Typography>
                     <Typography>AU${price}</Typography>
                     <Button sx={{mt:5}} onClick = {handleView}>View Item</Button>
-                    <Link to =  {`/seller/editproduct/${id}`}><Button sx={{mt:5}} >Edit Item</Button></Link>
+                    <Link to = {`/seller/editproduct/${id}`} style={{color:"black" , textDecoration: 'none'}}><Button sx={{mt:5}}>Edit Item</Button></Link>
                 </Paper>
             </Grid>
         )

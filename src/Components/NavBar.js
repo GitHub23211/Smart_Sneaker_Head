@@ -181,7 +181,7 @@ const NavBar = () =>{
                      alignItems="center"
                        justifyContent="center"
                       sx={{ pb: "10px"}}>
-                <img src="./logo.png" width="370px" height="80px" alt="logo"/>
+               <Link to ="/seller/profile"><img src="./logo.png" width="370px" height="80px" alt="logo"/></Link>
                </Box>             
          </Toolbar>
       </AppBar>   
