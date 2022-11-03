@@ -26,7 +26,13 @@ The src folder holds all our front end code. We have seperated our components an
 Most of our work has been done on the highlighted folders mentioned above. 
 
 ## Continuation of the Project
-Continue to work of Product Reviews.
+Fix some known bugs, Navigation Bar disappearing sometimes
+Keep polishing the CSS.
+Implement more pop ups to make it obvious that an action has been completed, e.g. adding item to cart, adding item to wishlist, logging out confirmation
+Allow buyers to see the seller of the sneaker and their profile
+Place information from the ABN into the Seller profile. 
+Improve the filtering options for sneakers.
+
 
 ## Summary of Roles
 Joshua Santos - 45203083 - Backend Specialist
