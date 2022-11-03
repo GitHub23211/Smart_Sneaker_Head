@@ -4,10 +4,10 @@ import { Paper } from "@mui/material";
 
 const About = () =>{
     return(
-        <Paper elevation={24} sx={{mt:"20px",mr:"20px", ml:"20px"}}>
+        <Paper elevation={24} sx={{mt:"20px",mr:"20px", ml:"20px", p:"20px"}}>
           <h1>About Us</h1>
           <section className="video-section">
-            <video src = './images/About_us.mp4' autoPlay width="800px" height="auto" controls/>
+            <video src = './images/About_us.mp4' autoPlay muted width="800px" height="auto" controls/>
             <section className="about-us-info">
             <p>Established by four friends in Sydney with a shared obsession and vision to centralise sought-after sneakers. 
                Operating since 2022, Smart Sneaker Head is one of the largest online stores for limited edition shoes! Smart Sneaker Head has always strived to fulfil our customers sneaker needs. 

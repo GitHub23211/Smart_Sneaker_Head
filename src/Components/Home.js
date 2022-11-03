@@ -87,7 +87,7 @@ const Home = () => {
         <section className="home-banner-3">
          <img src="./images/banner3_image_1.png" width="100px" height="auto" alt="left"/>
          <img src="./images/banner3_image_2.png" width="100px" height="auto" alt="left"/>
-\         <img src="./images/banner3_image_4.png" width="100px" height="auto" alt="left"/>
+         <img src="./images/banner3_image_4.png" width="100px" height="auto" alt="left"/>
          <img src="./images/banner3_image_5.png" width="100px" height="auto" alt="left"/>
        </section>
 
@@ -98,11 +98,13 @@ const Home = () => {
         </section>
 
         <section className="about-section-left">
-         <h1 className="about-section-title">Smart Sneaker Head</h1>
-         <h2 className="about-section-title">About Us</h2>
-           <Link to = '/about' style={{color:"black" , textDecoration: 'none'}}>
-              <Button size="large" variant="contained" sx={{backgroundColor:"white",color:"black",borderRadius:25 , mt:"250px",ml:"250px"}}>Search More</Button>
+          <section className="about-section-backing">
+          <h1 className="about-section-title">Smart Sneaker Head</h1>
+          <h2 className="about-section-title">Hear Our Story</h2>
+          <Link to = '/about' style={{color:"black" , textDecoration: 'none'}}>
+              <Button size="large" variant="contained" sx={{backgroundColor:"#DCF3FD",color:"black",borderRadius:25}}>About Us</Button>
            </Link>
+          </section>           
         </section>
 
        </section>
