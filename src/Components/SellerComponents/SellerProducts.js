@@ -6,6 +6,7 @@ import SellerProductList from "./SellerProductList";
 const SellerProducts =()=>{
    const [sellList,setSellList] = useState([]);
    const [sellID,setSellID] = useState("")
+   const [deletedItem, setDeletedItem] = useState(false)
 
    axios.get('/auth/seller')
    .then(response => {
@@ -14,6 +15,11 @@ const SellerProducts =()=>{
    }).catch(error => {
       console.log(error)
    })
+
+   const deleteItem = (id) => {
+      axios.delete(`/api/product/delete/${id}`)
+      setDeletedItem(!deletedItem)
+   }
 
    useEffect( ()=>{
      axios.get('/api/product' )
@@ -31,7 +37,7 @@ const SellerProducts =()=>{
      }).catch(error =>{
       console.log(error)
      })
-    },[sellID]) 
+    },[sellID, deletedItem]) 
 
    return(
     <section>
@@ -48,7 +54,8 @@ const SellerProducts =()=>{
                   description={p.description} 
                   quantity={p.quantity}
                   seller={p.seller}
-                  pictures={p.pictures}/>
+                  pictures={p.pictures}
+                  deleteItem={deleteItem}/>
               ))
           }
           </Grid>
