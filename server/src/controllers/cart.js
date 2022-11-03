@@ -89,4 +89,16 @@ const deleteFromCart = async (request, response) => {
     return response.status(401).json({error: "invalid user"})
 }
 
-module.exports = {addToCart, deleteFromCart, updateQuantity}
+const clearCart = async (request, response) => {
+
+    const buyer = request.user
+
+    try {
+        const user = await models.Session.findById(buyer)
+        user.cart = []
+        await user.save()
+        return response.status(200).json({status: "success", cart: user.cart})
+    } catch (e) {return response.status(401).json({error: e.toString()})}
+}
+
+module.exports = {addToCart, deleteFromCart, updateQuantity, clearCart}
