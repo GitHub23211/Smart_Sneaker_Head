@@ -6,7 +6,7 @@ import ProductContext from '../../ProductContext';
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
-const SellerProductList = ({id , name , price , description , quantity , seller, pictures}) =>{
+const SellerProductList = ({id , name , price , description , quantity , seller, pictures, deleteItem}) =>{
 
     const {setProduct} = useContext(ProductContext);
     const [productNavgn, setProductNavgn] = useState(false);  
@@ -34,10 +34,6 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
         setOpen(true)
     }
 
-    const deleteItem = () => {
-        axios.delete(`/api/product/delete/${id}`)
-    }
-
     if(productNavgn === true){
         return(
             <Navigate to = "/product"></Navigate>
@@ -61,7 +57,7 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={()=>setOpen(false)}>No</Button>
-                        <Button onClick={()=>{setOpen(false); deleteItem()}}>Yes</Button>
+                        <Button onClick={()=>{setOpen(false); deleteItem(id)}}>Yes</Button>
                     </DialogActions>
                 </Dialog>    
             </Grid>
