@@ -19,6 +19,17 @@ const ReviewForm = ({product}) => {
         handler(event.target.value)
     }
 
+    const sanitiseReview = () => {
+        if(title && contents && rating) {
+            sendReview()
+        }
+        else {
+            setMessageTitle("Error")
+            setMessageContent("Please fully complete the review form including the rating!")
+            setOpen(true)
+        }
+    }
+
     const sendReview = () => {
         const review = {
             title: title,
@@ -30,6 +41,7 @@ const ReviewForm = ({product}) => {
         axios.put(`/api/review/add/${product.id}`, review)
              .then(response => console.log(response.data))
              .catch(error => {
+                console.log(error)
                 setMessageTitle("Error")
                 setMessageContent("You already have a review for this product!")
                 setOpen(true)
@@ -52,7 +64,7 @@ const ReviewForm = ({product}) => {
 
             <TextField label='Write your review here!' fullWidth required multiline rows="10" input onChange={(e) => handleOnChange(e, setContents)} value={contents}/> 
 
-            <Button onClick={sendReview} type='submit' style={{margin: "30px auto"}}
+            <Button onClick={sanitiseReview} type='submit' style={{margin: "30px auto"}}
             fullWidth required disableElevation>Submit Review</Button>
 
         </Grid>
