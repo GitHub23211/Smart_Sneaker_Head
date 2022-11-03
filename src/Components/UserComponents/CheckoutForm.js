@@ -8,14 +8,8 @@ const CheckoutForm = ({}) => {
     const stripe = useStripe()
     const elements = useElements()
 
-    const [cart, setCart] = useState([]);
     const [message, setMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-
-    useEffect(() => {
-        axios.get("/auth/user")
-             .then(response => {setCart(response.data.cart);console.log(response.data.cart)})
-    }, [])
 
     useEffect(() => {
         if(!stripe) {
@@ -59,7 +53,7 @@ const CheckoutForm = ({}) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/orderconfirm/"
+                return_url: "http://localhost:3000/user/orderconfirm/"
             }
         })
 
