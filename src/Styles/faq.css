@@ -1,0 +1,28 @@
+p.ex1{
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+p.ex2{
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+h2.faq-header{
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+h4.faq-header{
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+outside {  
+    margin: auto;
+    width: 70vw;
+    border: 1px solid grey;
+    padding: 10px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
