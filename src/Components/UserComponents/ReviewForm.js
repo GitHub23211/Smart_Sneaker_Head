@@ -47,7 +47,7 @@ const ReviewForm = ({product}) => {
         <h1>Write Your Review Here!</h1>
         <Grid style={{maxWidth: "50%", marginLeft: "25%", marginBottom: "30px", marginTop: "15px"}}>
 
-            <Rating size="large" name="read-only" value={rating} onChange={(e) => handleOnChange(e, setTitle)} />
+            <Rating size="large" name="read-only" value={rating} onChange={handleRating} />
 
             <TextField label='Title' fullWidth required input value={title} onChange={(e) => handleOnChange(e, setTitle)} style={{marginBottom: "30px"}} />
 
