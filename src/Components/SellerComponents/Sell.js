@@ -113,7 +113,9 @@ const Sell = ()=>{
           .catch(error => console.log(error.toString()))
         }
         else {
-          sendInfo([])
+          setMessageTitle("Error")
+          setMessageContent("Your product needs at least one picture!")
+          openDialog()
         }
     }
 
