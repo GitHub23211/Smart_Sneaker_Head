@@ -107,13 +107,14 @@ const Home = () => {
         </section>
 
        </section>
-
+       <section className="home-copyright">        
        <Divider>
             <Typography>
                  © Smart Sneaker Head, 2022. All Rights Reserved.
             </Typography>
             </Divider>
-
+       </section>
+        
        <section className="home-footer">
 
             <section className="footer-socials">
