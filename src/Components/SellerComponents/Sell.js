@@ -30,7 +30,7 @@ const Sell = ()=>{
         border: "solid 1px black",
         margin:'30px auto',
         padding: "1%",
-        paddingBottom: "25vh",
+        paddingBottom: "5vh",
         fontWeight : "500"
     }
 
