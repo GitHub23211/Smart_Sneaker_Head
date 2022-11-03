@@ -14,6 +14,9 @@ router.get('/api/review/:productid', review.getReviews)
 /* GET request to get one product */
 router.get('/api/product/:productid', product.getProduct)
 
+/* GET request to get a specific user */
+router.get('/api/user/:userid', auth.getAUser)
+
 /* POST request that registers user to website */
 router.post('/auth/register/user', auth.createUser)
 

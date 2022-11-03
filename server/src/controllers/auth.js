@@ -166,6 +166,22 @@ const getUser = async (request, response) => {
     return response.status(400).json({error: 'unregistered or accessing user info with seller account'})
 }
 
+const getAUser = async (request, response) => {
+
+    try {
+        const userid = request.params.userid
+        const user = await models.Session.findById(userid)
+
+        if(user) {
+            return response.status(200).json({status: "success", user: user})
+        }
+        else {
+            return response.status(401).json({error: "could not find user"})
+        }
+
+    } catch (e) {return response.status(401).json({error: e.toString()})}
+}
+
 /**
  * Gets user information from database using seller token
  * @param {Object} request - JSON Object containing headers with the seller's token
@@ -267,4 +283,13 @@ const validateUser = async (token) => {
     catch {return false}
 }
 
-module.exports = {getUser, createUser, loginUser, validateUser, logoutUser, createSeller, getSeller}
+module.exports = {
+    getUser,
+    getAUser,
+    createUser,
+    loginUser,
+    validateUser,
+    logoutUser, 
+    createSeller, 
+    getSeller
+}
