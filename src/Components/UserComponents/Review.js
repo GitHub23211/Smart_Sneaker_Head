@@ -1,25 +1,27 @@
-import {Grid, TextField, Button, Rating} from "@mui/material";
+import {useState, useEffect} from "react"
+import {Grid, TextField, Rating} from "@mui/material";
+import axios from "axios"
 
-const Review = () => {
+const Review = ({review}) => {
 
-    const handleSubmit = () => {
-        console.log("review submitted")
-    }
+    const [user, setUser] = useState("")
+
+    useEffect(() => {
+        axios.get("/auth/user")
+             .then(response => setUser(response.data.username))
+    }, [])
 
     return (
         <>
+        <h3>{user}</h3>
         <Grid style={{maxWidth: "50%", marginLeft: "25%", marginBottom: "30px"}}>
-            <TextField label='Title' fullWidth required style={{margin: "30px auto"}}
-            input></TextField>
+            <Rating size="large" name="read-only" value={review.rating} readOnly />
 
-            <Rating size="large" name="read-only" value={2} readOnly />
+            <TextField label='Title' fullWidth style={{margin: "30px auto"}}
+            InputProps={{readOnly: true}} value={review.title}></TextField>
 
-            <TextField label='Write your review here!' fullWidth required multiline rows="10"
-            input></TextField> 
-
-            <Button onClick={handleSubmit} type='submit' style={{margin: "30px auto"}}
-            fullWidth required disableElevation>Submit Review</Button>
-
+            <TextField label='Review' fullWidth multiline rows="10"
+            InputProps={{readOnly: true}} value={review.contents}></TextField> 
         </Grid>
         </>
     )
