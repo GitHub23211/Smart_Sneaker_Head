@@ -19,6 +19,9 @@ router.put(`/api/cart/update/:productid`, cart.updateQuantity)
 /* DELETE request to remove a product from cart */
 router.delete(`/api/cart/delete/:productid`, cart.deleteFromCart)
 
+/* DELETE request to clear cart */
+router.delete(`/api/cart/clear`, cart.clearCart)
+
 /* PUT request to add products to wishlist */
 router.put(`/api/wishlist/add/:productid`, wishlist.addToWishlist)
 
