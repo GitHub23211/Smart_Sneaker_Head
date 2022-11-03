@@ -49,8 +49,21 @@ const Product =()=>{
 
   const getReviews = () => {
     axios.get(`/api/review/${product.id}`)
-         .then(response => setReviews(response.data.reviews))
+         .then(response => {
+            setReviews(response.data.reviews)
+            calculateProductRating()
+         })
          .catch(error => console.log(error))
+  }
+  
+  const calculateProductRating = () => {
+    const totalRating = reviews.reduce(function (total, review) {return total + review.rating}, 0)
+    if(reviews.length > 0) {
+      setValue(totalRating/reviews.length)
+    }
+    else {
+      setValue(0)
+    }
   }
 
   const handleAddToCart = ()=>{
