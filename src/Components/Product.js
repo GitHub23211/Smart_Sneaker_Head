@@ -25,7 +25,10 @@ const Product =()=>{
 
   const[open,setOpen] = useState(false)
   const [msgTitle, setMessageTitle] = useState("") 
-  const [msgContent , setMessageContent] = useState("") 
+  const [msgContent , setMessageContent] = useState("")
+  
+  const [size, setSize] = React.useState('');
+  const [value, setValue] = useState(0);
 
   const imgStyle = {
     maxWidth: "300px",
@@ -51,14 +54,13 @@ const Product =()=>{
     axios.get(`/api/review/${product.id}`)
          .then(response => {
             setReviews(response.data.reviews)
-            calculateProductRating()
          })
          .catch(error => console.log(error))
   }
   
   const calculateProductRating = () => {
-    const totalRating = reviews.reduce(function (total, review) {return total + review.rating}, 0)
     if(reviews.length > 0) {
+      const totalRating = reviews.reduce(function (total, review) {return total + review.rating}, 0)
       setValue(totalRating/reviews.length)
     }
     else {
@@ -88,8 +90,9 @@ const Product =()=>{
     getReviews()
   }, [])
 
-  const [size, setSize] = React.useState('');
-  const [value, setValue] = useState(4);
+  useEffect(() => {
+    calculateProductRating()
+  }, [reviews])
 
   const handleChange = (event) => {
     setSize(event.target.value);
