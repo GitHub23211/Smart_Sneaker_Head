@@ -4,7 +4,7 @@ import axios from "axios";
 import {Grid, TextField, Button, Rating} from "@mui/material";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from "@mui/material";
 
-const ReviewForm = ({product}) => {
+const ReviewForm = ({product, setPosted, posted}) => {
 
     const [title, setTitle] = useState("")
     const [contents, setContents] = useState("")
@@ -39,7 +39,7 @@ const ReviewForm = ({product}) => {
         }
 
         axios.put(`/api/review/add/${product.id}`, review)
-             .then(response => console.log(response.data))
+             .then(response => setPosted(!posted))
              .catch(error => {
                 console.log(error)
                 setMessageTitle("Error")

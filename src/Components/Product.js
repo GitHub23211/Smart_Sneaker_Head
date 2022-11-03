@@ -19,6 +19,7 @@ const Product =()=>{
 
   const [count, setCount] = useState(0)
   const [reviews, setReviews] = useState([])
+  const [posted, setPosted] = useState(false)
   const {product} = useContext(ProductContext);
   const {isLogin,loginType} = useContext(LoginContext);
 
@@ -88,7 +89,7 @@ const Product =()=>{
 
   useEffect(() => {
     getReviews()
-  }, [])
+  }, [posted])
 
   useEffect(() => {
     calculateProductRating()
@@ -239,7 +240,7 @@ const Product =()=>{
             <img src="./images/Sizechart.png" width="1000vh" height="auto" alt="left"/>
           </section>
 
-          {isLogin ? <ReviewForm product={product} /> : <></>}
+          {isLogin ? <ReviewForm product={product} setPosted={setPosted} posted={posted}/> : <></>}
           {reviews ? reviews.map(review => <Review review={review}/>) : <></>}
         </section>
       )
