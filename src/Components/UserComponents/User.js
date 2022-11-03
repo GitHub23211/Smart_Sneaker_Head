@@ -17,7 +17,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const User = () =>{
 
   const paperStyle = {height:'100vh'}
-  const outletStyle = {margin:'10px' ,padding:"10px", height:'auto', alignItems:"center",justifyContent:"center", overflow:"scroll"}
+  const outletStyle = {margin:'10px' ,padding:"10px", height:'auto', alignItems:"center",justifyContent:"center", overflow:"auto"}
   const {setLogin,setLoginType} = useContext(LoginContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
 

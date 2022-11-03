@@ -4,7 +4,7 @@
     justify-content: center;
     margin-left: 10%;
     margin-right: 10%;
-    overflow: scroll;
+    overflow: auto;
     border: none;
   }
   .product-img-section{

@@ -41,7 +41,7 @@ const SellerProductList = ({id , name , price , description , quantity , seller,
     }else{
         return(
             <Grid item sm={6} className="all-products-individual" align="center">
-                <Paper elevation={5} style={{margin:'5px' ,height:'370px',overflow:"scroll"}}>
+                <Paper elevation={5} style={{margin:'5px' ,height:'370px',overflow:"auto"}}>
                     <img className="product-list-img" src={`/product/image/${pictures.mainView}`} alt='' ></img>
                     <Typography variant="h5">{name}</Typography>
                     <Typography>AU${price}</Typography>
