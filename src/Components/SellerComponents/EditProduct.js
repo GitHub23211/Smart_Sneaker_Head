@@ -78,7 +78,8 @@ const EditProduct = () => {
                                 {image ? image.name : <></>}
                             </div>
                         </p>
-                        {view ? view.name : image ? <img style={imgStyle} src={`/product/image/${image}`} alt=''/> : <></>}
+                        {view ? <img style={{maxWidth: "150px", maxHeight: "150px"}} src={URL.createObjectURL(view)} alt="preview"/> : 
+                        image ? <img style={imgStyle} src={`/product/image/${image}`} alt=''/> : <></>}
                         </div>
                     </section>
                 )}

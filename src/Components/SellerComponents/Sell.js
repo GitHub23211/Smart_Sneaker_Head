@@ -55,7 +55,7 @@ const Sell = ()=>{
                             <p style={imgUploadStyle}>
                                 {label}
                                 <div style={filenameStyle}>
-                                    {image ? image.name : <></>}
+                                    {image ? <img style={{maxWidth: "150px", maxHeight: "150px"}} src={URL.createObjectURL(image)} alt="preview"/> : <></>}
                                 </div>
                             </p>
                             </div>
