@@ -173,7 +173,7 @@ const getAUser = async (request, response) => {
         const user = await models.Session.findById(userid)
 
         if(user) {
-            return response.status(200).json({status: "success", user: user})
+            return response.status(200).json({status: "success", user: user.username})
         }
         else {
             return response.status(401).json({error: "could not find user"})

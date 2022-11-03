@@ -8,7 +8,7 @@ const Review = ({review}) => {
 
     useEffect(() => {
         axios.get(`/api/user/${review.reviewerid}`)
-             .then(response => setUser(response.data.user.username))
+             .then(response => setUser(response.data.user))
              .catch(error => console.log(error))
     }, [])
 
