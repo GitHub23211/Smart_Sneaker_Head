@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import axios from "axios"
+
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
-import { Paper } from "@mui/material"
+import { Paper, Grid, Button } from "@mui/material"
 
 const CheckoutForm = ({}) => {
     const stripe = useStripe()
@@ -13,15 +15,12 @@ const CheckoutForm = ({}) => {
         if(!stripe) {
             return
         }
-
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         )
-
         if(!clientSecret) {
             return
         }
-
         stripe.retrievePaymentIntent(clientSecret)
               .then( ({paymentIntent}) => {
                     switch(paymentIntent.status) {
@@ -54,15 +53,17 @@ const CheckoutForm = ({}) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/user/"
+                return_url: "http://localhost:3000/user/orderconfirm/"
             }
         })
 
-        if (error.type === "card_error" || error.type === "validation_error") {
-            setMessage(error.message);
-        } 
-        else {
-            setMessage("An unexpected error occurred.");
+        if(error) {
+            if (error.type === "card_error" || error.type === "validation_error") {
+                setMessage(error.message);
+            } 
+            else {
+                setMessage("An unexpected error occurred.");
+            }
         }
 
         setIsLoading(false)
@@ -70,18 +71,30 @@ const CheckoutForm = ({}) => {
 
     return (
 
-      <Paper sx={{margin:20 , height:"auto"}}>
-        <form id="payment-form" onSubmit={handleSubmit}>
-          <PaymentElement id="payment-element" />
-          <button disabled={isLoading || !stripe || !elements} id="submit">
-            <span id="button-text">
-              {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-            </span>
-          </button>
-          {/* Show any error or success messages */}
-          {message && <div id="payment-message">{message}</div>}
-        </form>
-      </Paper>  
+        <>
+        <h1 style={{marginTop: "2%"}}>Enter Payment Details</h1>
+
+            <Grid style={{maxWidth: "50%", marginLeft: "25%"}}>
+                <form id="payment-form" onSubmit={handleSubmit}>
+                <Paper style={{padding: "5%"}}>
+                    <PaymentElement id="payment-element" />
+
+                    <div>
+                        <Button type="submit" color='primary' variant="contained" style={{margin: "2%"}}
+                        fullwidth disabled={isLoading || !stripe || !elements} id="submit">
+                            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+                        </Button>
+                    </div>
+                    
+                </Paper>
+
+
+
+                {message && <div id="payment-message">{message}</div>}
+                </form>
+            </Grid>
+
+        </>
 
       )
 
