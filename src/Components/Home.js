@@ -87,8 +87,7 @@ const Home = () => {
         <section className="home-banner-3">
          <img src="./images/banner3_image_1.png" width="100px" height="auto" alt="left"/>
          <img src="./images/banner3_image_2.png" width="100px" height="auto" alt="left"/>
-         <img src="./images/banner3_image_3.png" width="120px" height="auto" alt="left"/>
-         <img src="./images/banner3_image_4.png" width="100px" height="auto" alt="left"/>
+\         <img src="./images/banner3_image_4.png" width="100px" height="auto" alt="left"/>
          <img src="./images/banner3_image_5.png" width="100px" height="auto" alt="left"/>
        </section>
 
