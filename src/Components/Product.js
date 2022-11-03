@@ -10,6 +10,7 @@ import axios from "axios"
 import Rating from '@mui/material/Rating';
 import Carousel from 'react-bootstrap/Carousel';
 import LoginContext from '../LoginContext';
+import Review from './UserComponents/Review'
 
 
 const Product =()=>{
@@ -204,10 +205,12 @@ const Product =()=>{
                           <Button onClick={()=>setOpen(false)}>Okay</Button>
                       </DialogActions>
         </Dialog>
-          <section>
+          <section style={{margin: "30px"}}>
             <h1>Size Chart</h1>
             <img src="./images/Sizechart.png" width="1000vh" height="auto" alt="left"/>
           </section>
+
+          {isLogin ? <Review /> : <></>}
         </section>
       )
     }
