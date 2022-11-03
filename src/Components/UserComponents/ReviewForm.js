@@ -1,6 +1,6 @@
 import {Grid, TextField, Button} from "@mui/material";
 
-const Review = () => {
+const ReviewForm = () => {
 
     const handleSubmit = () => {
         console.log("review submitted")
@@ -23,4 +23,4 @@ const Review = () => {
     )
 }
 
-export default Review
+export default ReviewForm

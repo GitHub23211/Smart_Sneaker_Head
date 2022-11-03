@@ -10,7 +10,9 @@ import axios from "axios"
 import Rating from '@mui/material/Rating';
 import Carousel from 'react-bootstrap/Carousel';
 import LoginContext from '../LoginContext';
+
 import Review from './UserComponents/Review'
+import ReviewForm from './UserComponents/ReviewForm'
 
 
 const Product =()=>{
@@ -210,7 +212,7 @@ const Product =()=>{
             <img src="./images/Sizechart.png" width="1000vh" height="auto" alt="left"/>
           </section>
 
-          {isLogin ? <Review /> : <></>}
+          {isLogin ? <ReviewForm /> : <></>}
         </section>
       )
     }
