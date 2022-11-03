@@ -75,11 +75,11 @@ productSchema.set('toJSON' , {
 const Product = mongoose.model("Product", productSchema)
 
 const reviewSchema = new mongoose.Schema({
-    name: String,
+    title: String,
     contents: String,
     rating: Number,
     productid: {type: mongoose.Types.ObjectId, ref: "Product", required: true},
-    reviewer: {type: mongoose.Types.ObjectId, ref: "Session", required: true}
+    reviewerid: {type: mongoose.Types.ObjectId, ref: "Session", required: true}
 })
 
 reviewSchema.set('toJSON' , {

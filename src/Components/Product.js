@@ -212,7 +212,7 @@ const Product =()=>{
             <img src="./images/Sizechart.png" width="1000vh" height="auto" alt="left"/>
           </section>
 
-          {isLogin ? <ReviewForm /> : <></>}
+          {isLogin ? <ReviewForm product={product} /> : <></>}
         </section>
       )
     }
