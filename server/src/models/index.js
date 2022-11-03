@@ -90,6 +90,8 @@ reviewSchema.set('toJSON' , {
     }
 })
 
+reviewSchema.index({productid: 1, reviewerid: 1}, {unique: true})
+
 const Review = mongoose.model("Review", reviewSchema)
 
 const startDb = () => {

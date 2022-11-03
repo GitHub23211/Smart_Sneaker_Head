@@ -9,7 +9,7 @@ const router = express.Router()
 router.get('/api/product', product.getProducts)
 
 /* GET request to get reviews for product */
-router.get('/api/reviews/:productid', review.getReviews)
+router.get('/api/review/:productid', review.getReviews)
 
 /* GET request to get one product */
 router.get('/api/product/:productid', product.getProduct)

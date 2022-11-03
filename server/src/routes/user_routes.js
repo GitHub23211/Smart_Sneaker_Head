@@ -29,6 +29,6 @@ router.delete(`/api/wishlist/delete/:productid`, wishlist.deleteFromWishlist)
 router.put('/api/profile/update', profile.updateProfile)
 
 /* PUT request to add review to product */
-router.put(`/api/reviews/add/:productid`, review.createReview)
+router.put(`/api/review/add/:productid`, review.createReview)
 
 module.exports = router 
