@@ -4,15 +4,12 @@ import { Link, Outlet } from 'react-router-dom';
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
 
-
 import {ListItemButton, ListItemIcon,List , ListItem , ListItemText,Grid, Paper} from "@mui/material";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
-import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
-import SellIcon from '@mui/icons-material/Sell';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const User = () =>{
 
@@ -20,6 +17,11 @@ const User = () =>{
   const outletStyle = {margin:'10px' ,padding:"10px", height:'auto', alignItems:"center",justifyContent:"center", overflow:"auto"}
   const {setLogin,setLoginType} = useContext(LoginContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
+
+  const linkstyle = {
+    color:"black" , 
+    textDecoration: 'none'
+  }
 
 
   const handleLogout = () => {
@@ -38,7 +40,7 @@ const User = () =>{
     <Paper style={paperStyle}>
     <nav className="side-nav">
     
-      <Link style={{color:"black" , textDecoration: 'none'}}  to = "/user/profile">
+      <Link style={linkstyle}  to = "/user/profile">
         <List>
           <ListItem disablePadding><ListItemButton >
             <ListItemIcon>< AccountBoxIcon/></ListItemIcon>
@@ -48,7 +50,7 @@ const User = () =>{
         </List>
         </Link> 
 
-        <Link style={{color:"black" , textDecoration: 'none'}} to = "/user/updateprofile">
+        <Link style={linkstyle} to = "/user/updateprofile">
         <List>
           <ListItem disablePadding>
             <ListItemButton > 
@@ -59,7 +61,7 @@ const User = () =>{
         </List>
         </Link> 
 
-        <Link style={{color:"black" , textDecoration: 'none'}} to = "/user/orders">
+        <Link style={linkstyle} to = "/user/orders">
         <List>
           <ListItem disablePadding>
             <ListItemButton> 
@@ -70,18 +72,18 @@ const User = () =>{
         </List>
         </Link>
 
-        <Link style={{color:"black" , textDecoration: 'none'}} to = "/user/wishlist">
+        <Link style={linkstyle} to = "/user/wishlist">
         <List>
           <ListItem disablePadding>
             <ListItemButton> 
-            <ListItemIcon><SellIcon /></ListItemIcon>
+            <ListItemIcon><FavoriteBorderIcon /></ListItemIcon>
               <ListItemText primary="WISHLIST" />
             </ListItemButton>
           </ListItem>
       </List>
       </Link>
 
-      <Link style={{color:"black" , textDecoration: 'none'}}  to = "/">
+      <Link style={linkstyle}  to = "/">
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={handleLogout} > 
