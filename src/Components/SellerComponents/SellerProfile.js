@@ -1,4 +1,4 @@
-import { React,useState, useContext } from "react";
+import { React,useState, useEffect } from "react";
 import {Avatar,Typography} from "@mui/material";
 import axios from "axios";
 import LoginContext from '../../LoginContext';
@@ -14,19 +14,25 @@ const SellerProfile = ()=>{
     const [userEmail,setUserEmail] = useState("")
     const [userAddress,setUserAddress] = useState("")
     const [avatar, setAvatar] = useState("")
+    const [abn,setABN] = useState("")
+    const [companyName, setCompanyName] = useState("")
 
-     axios.get('/auth/seller')
-    .then(response => {
-        console.log(response.data)
-        if(response.data.status === "success"){
-            setUserName(response.data.username)
-            setUserEmail(response.data.email)
-            setUserAddress(response.data.address)
-            setAvatar(response.data.avatar)
-        }
-    }).catch(error => {
-        console.log(error)
-    })
+    useEffect(() => {
+        axios.get('/auth/seller')
+        .then(response => {
+            console.log(response.data)
+            if(response.data.status === "success"){
+                setUserName(response.data.username)
+                setUserEmail(response.data.email)
+                setUserAddress(response.data.address)
+                setAvatar(response.data.avatar)
+                setABN(response.data.abn)
+                setCompanyName(response.data.companyName)
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }, [])
  
 
     return(
@@ -35,6 +41,8 @@ const SellerProfile = ()=>{
           <h1>Name : {userName}</h1>
           <Typography><MailOutlineIcon/>{userEmail}</Typography>
           <Typography><LocationOnIcon />{userAddress}</Typography>
+          <Typography>ABN: {abn}</Typography>
+          <Typography>Company Name: {companyName}</Typography>
       </section>
     )
 }

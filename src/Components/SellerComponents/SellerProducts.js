@@ -8,20 +8,20 @@ const SellerProducts =()=>{
    const [sellID,setSellID] = useState("")
    const [deletedItem, setDeletedItem] = useState(false)
 
-   axios.get('/auth/seller')
-   .then(response => {
-      console.log(response.data)
-      setSellID(response.data.id)
-   }).catch(error => {
-      console.log(error)
-   })
-
    const deleteItem = (id) => {
       axios.delete(`/api/product/delete/${id}`)
       setDeletedItem(!deletedItem)
    }
 
    useEffect( ()=>{
+      axios.get('/auth/seller')
+      .then(response => {
+      console.log(response.data)
+      setSellID(response.data.id)
+      }).catch(error => {
+      console.log(error)
+      },[])
+
      axios.get('/api/product' )
      .then(response =>{
       console.log(response.data.products)
