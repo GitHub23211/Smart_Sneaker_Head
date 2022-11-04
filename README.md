@@ -7,20 +7,38 @@
 * Jason Yu, 45182671 - Database Specialist
 
 ## Application Description
-Website emulating online marketplaces like eBay.
+We wanted to create a Website that could allow users to organically buy and sell sneakers to each other. We want it to be an eCommerce website similar to eBay. It will have a searchable catalogue that users can use to browse items. Optionally, users can browse as a guest, but must register an account to add items to a cart.
+## Target Augience
+There are no strict demographic criteria for our target audience but, in general we aim to cater our product to people who are:
+18 years old and over
+Capable and knowledgeable of buying and selling products online.
+## Data Sources
+User, Product, Basket, Wishlist, Product Review
 
-## Sprint Plan
-Week 9 Sprint
-Front-end : Set up basic react router routes, and then the Home Page, Login Page, and Registration Page.
-Back-end: Set up API endpoints, and database models (user, product, basket etc).
+## What our MVP achieved
+We have a Landing Page with basic information such as About Us, FAQs, Contact Us and Social Media. We have a carousel to highlight feature products. A view for all the products on sale, filters for products by brand or by name in the navigation bar. A single product view that details the sneakers. We register and login users as either a buyer or a seller. A buyer can update their profile information, view their wishlist, view their orders and delete their account and log out. Buyers can add sneakers in quantities to their cart or wishlist. Buyers can pay for their items with credit card using Stripe and apply discount codes. A seller can view the items the are selling, edit the items or delete their listed items.
 
-Week 10 Sprint
-Front-end: User Account Page,  Product Page, Search Page.
-Back-end: Set up API calls for front-end to retrieve data from database.
+## Project Source Code
+The documentation folder has our markdown files for APIs
+The public folder holds the assets of images and videos used on the website
+The server folder holds all our backend code. inside the src folder are all our backend tests and backend files like middleware, controllers and routes. It also contains the pictures from the database used on the website.
+The src folder holds all our front end code. We have seperated our components and styling files into seperate folders. Inside Components, we further seperated it into components for the website, the components for a user/buyer and the components for a seller. 
+Most of our work has been done on the highlighted folders mentioned above. 
 
-Week 11 Sprint
-Front-end: Payment Page.
-Back-end: Set up password encryption.
+## Continuation of the Project
+Fix some known bugs, Navigation Bar disappearing sometimes
+Keep polishing the CSS.
+Implement more pop ups to make it obvious that an action has been completed, e.g. adding item to cart, adding item to wishlist, logging out confirmation
+Allow buyers to see the seller of the sneaker and their profile
+Place information from the ABN into the Seller profile. 
+Improve the filtering options for sneakers.
 
-Week 12 Sprint
-Front-end : Implementing or polishing up final core functionalities, and if possible, implementing extensions.
+
+## Summary of Roles
+Joshua Santos - 45203083 - Backend Specialist
+Himanshi Garg - 46101942 - Frontend Specialist
+Ash Bhatia - 45625271  - Testing Specialist
+Jason Yu - 45182671 - Database Specialist
+
+
+We used Git Projects as our project management tool. We interacted with each other on Facebook Messenger and met up on Campus for our Sprint Reports. We created development branches for writing code to interaction. 

@@ -25,6 +25,7 @@ import UserProfile from './Components/UserComponents/UserProfile';
 import UpdateProfile from './Components/UserComponents/UpdateProfile';
 import Cart  from './Components/UserComponents/Cart';
 import Payment  from './Components/UserComponents/Payment';
+import OrderConfirmation from './Components/UserComponents/OrderConfirmation';
 
 import Seller from './Components/SellerComponents/Seller';
 import SellerRegister from './Components/SellerComponents/SellerRegister';
@@ -124,6 +125,7 @@ function App() {
         </Route>  
         <Route path = "/user/cart" element={<Cart />} />
         <Route path = "/user/checkout" element={<Payment />} />
+        <Route path = "/user/orderconfirm/" element={<OrderConfirmation />} />
 
         <Route path = "/seller" element={<Seller />}>
                <Route index element={<SellerProfile />} />
