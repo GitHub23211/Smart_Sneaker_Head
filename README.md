@@ -40,7 +40,7 @@ Improve the filtering options for sneakers
 
 
 ## Summary of Roles
-Joshua Santos - 45203083 - Backend Specialist, contributed to all of the backend code, set up all the APIS and <br/>
+Joshua Santos - 45203083 - Backend Specialist, contributed to all of the backend code, testing <br/>
 Himanshi Garg - 46101942 - Frontend Specialist, contributed the most to the frontend code, styling <br/>
 Ash Bhatia - 45625271  - Testing Specialist, contributed to the assets of our website, documentation <br/>
 Jason Yu - 45182671 - Database Specialist, contributed to the frontend code, styling, documentation  <br/>
