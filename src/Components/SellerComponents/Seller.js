@@ -16,6 +16,10 @@ const Seller = () =>{
 
   const paperStyle = {height:'100vh'}
   const outletStyle = {margin:'20px' ,padding:"30px", height:'auto', alignItems:"center",justifyContent:"center"}
+  const linkstyle = {
+    color:"black" , 
+    textDecoration: 'none'
+  }
 
   const {setLogin,setLoginType} = useContext(LoginContext);
   const [cookies, setCookie, removeCookie] = useCookies(['login_type']);
@@ -37,7 +41,7 @@ const Seller = () =>{
     <Paper style={paperStyle}>
     <nav className="side-nav">
     
-      <Link style={{color:"black" , textDecoration: 'none'}}  to = "/seller/profile">
+      <Link style={linkstyle}  to = "/seller/profile">
         <List>
           <ListItem disablePadding><ListItemButton >
             <ListItemIcon>< AccountBoxIcon/></ListItemIcon>
@@ -47,7 +51,7 @@ const Seller = () =>{
         </List>
         </Link> 
 
-        <Link style={{color:"black" , textDecoration: 'none'}} to = "/seller/products">
+        <Link style={linkstyle}  to = "/seller/products">
         <List>
           <ListItem disablePadding>
             <ListItemButton> 
@@ -58,7 +62,7 @@ const Seller = () =>{
         </List>
         </Link>
 
-        <Link style={{color:"black" , textDecoration: 'none'}} to = "/seller/sellproduct">
+        <Link style={linkstyle}  to = "/seller/sellproduct">
         <List>
           <ListItem disablePadding>
             <ListItemButton> 
@@ -69,7 +73,7 @@ const Seller = () =>{
       </List>
       </Link>
 
-      <Link style={{color:"black" , textDecoration: 'none'}}  to = "/">
+      <Link style={linkstyle} to = "/">
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={handleLogout} > 
