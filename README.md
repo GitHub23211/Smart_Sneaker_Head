@@ -1,5 +1,6 @@
 # Group H Project Proposal - Smart Sneakers
-# Website URL: https://afternoon-journey-19312.herokuapp.com/
+# Website URL: 
+https://afternoon-journey-19312.herokuapp.com/
 # [Link to back-end API usage](api.md)
 ## Members
 * Joshua Santos, 45203083 - Backend Specialist
