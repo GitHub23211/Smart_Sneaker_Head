@@ -1,8 +1,4 @@
-import {useState, useEffect} from "react"
-import {Link} from 'react-router-dom';
-import axios from "axios"
-
-import { Paper, Grid, Button } from "@mui/material"
+import {Grid} from "@mui/material"
 
 import CheckoutItem from "./CheckoutItem"
 

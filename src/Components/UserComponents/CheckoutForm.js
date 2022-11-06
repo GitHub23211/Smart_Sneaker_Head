@@ -73,7 +73,7 @@ const CheckoutForm = ({}) => {
 
         <>
             <form id="payment-form" onSubmit={handleSubmit}>
-            <Paper>
+            <Paper style={{marginLeft: "12.5%", padding: "5%", maxWidth: "75%"}}>
                 <PaymentElement id="payment-element" />
 
                 <div>
