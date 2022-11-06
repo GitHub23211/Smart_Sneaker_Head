@@ -31,7 +31,10 @@ The src folder holds all our front end code. We have seperated our components an
 Most of our work has been done on the highlighted folders mentioned above. <br/>
 
 ## Continuation of the Project
-Fix some known bugs such as the navigation bar disappearing  
+Fix some known bugs such as the navigation bar disappearing.  
+Create an order confirmation page to let users know if their purchase was successful or not.  
+Clear user cart after a successful purchase.  
+Store orders on the database and create an API endpoint for these orders so users can view their current and previous orders.  
 Improve implementation of user reviews and ratings.  
 Implement a recommender system that was taught in Week 11 and 12.
 Further improvements to CSS and UI design  
