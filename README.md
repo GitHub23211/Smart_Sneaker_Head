@@ -49,7 +49,7 @@ We have a Landing Page with basic information such as About Us, FAQs, Contact Us
 ## Summary of Roles
 Joshua Santos - 45203083 - Backend Specialist: contributed to all of the backend code, CI and backend testing, and a majority of the project management. <br/>
 Himanshi Garg - 46101942 - Frontend Specialist: contributed the most to the frontend code, styling, and a majority of the project management. <br/>
-Ash Bhatia - 45625271  - Assets Specialist: contributed to the assets of our website, and some of our documentation. <br/>
+Arshia Bhatia - 45625271  - Assets Specialist: contributed to the assets of our website, and some of our documentation. <br/>
 Jason Yu - 45182671 - UI and CSS Specialist: contributed to the frontend code, CSS styling, UI design, and most of our documentation.  <br/>
 
 
