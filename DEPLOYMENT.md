@@ -9,7 +9,7 @@ git push heroku master
 ```
 Otherwise, read on:
 
-** MAKE SURE THIS IS ALL DONE ON THE MASTER BRANCH. **
+**MAKE SURE THIS IS ALL DONE ON THE MASTER BRANCH.**
 
 1. Create a Procfile with the following contents in the project's root directory:
 
