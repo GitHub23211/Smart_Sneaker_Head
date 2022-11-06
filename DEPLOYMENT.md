@@ -30,7 +30,7 @@ git remote add heroku https://git.heroku.com/afternoon-journey-19312.git
 git push heroku master
 ```
 
-4. If the build and release is successful, go to the Heroku website, find and click on the "afternoon-journey-19312" application link, and then go to Settings --> Config Vars and copy the .env variables from the .env file into here if they are not there already.
+4. If the build and release is successful, go to the Heroku website, login to our project account, find and click on the "afternoon-journey-19312" application link, and then go to Settings --> Config Vars and copy the .env variables from the .env file into here if they are not there already.
 
 5. Website should now be successfully deployed. </br>
 
