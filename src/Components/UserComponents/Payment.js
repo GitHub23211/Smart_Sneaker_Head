@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js"
 import CheckoutForm from "./CheckoutForm"
 import axios from "axios"
 
-import { Box, Grid, Button, Paper } from "@mui/material"
+import { Box, Grid} from "@mui/material"
 
 import OrderConfirmation from "./OrderConfirmation"
 
@@ -16,14 +16,15 @@ const Payment = ({}) => {
     const [cart, setCart] = useState([])    
 
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
-        const payload = {
-            cart: cart
+        if(cart.length > 0) {
+            const payload = {
+                total: cart.reduce(function(total, item) {return (item.price * item.quantity) + total}, 0) * 100
+            }
+            axios.post("/api/cart/checkout", payload)
+                 .then(response => {
+                    setClientSecret(response.data.clientSecret)
+                 })
         }
-        axios.post("/api/cart/checkout", payload)
-             .then(response => {
-                setClientSecret(response.data.clientSecret)
-             })
     }, [cart])
 
     useEffect(() => {
@@ -50,7 +51,7 @@ const Payment = ({}) => {
                     <OrderConfirmation cart={cart}/>
                 </Grid>
 
-                <Grid item style={{marginLeft: "12.5%", padding: "5%", maxWidth: "75%"}}>
+                <Grid item>
                     {clientSecret && (
                         <Elements options={options} stripe={stripePromise}>
                             <CheckoutForm />
