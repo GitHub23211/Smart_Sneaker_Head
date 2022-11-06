@@ -28,3 +28,10 @@ git push heroku master
 5. Website should now be successfully deployed. </br>
 
 # Continuous Integration
+We used Github Actions for CI. We only had time to get a few tests for the backend, and unfortunately, had no time to implement any tests for the frontend.   
+
+Jest was used create the tests, and supertest was used as a wrapper around the Express.js application so that it could send and receive API calls.  
+
+We decided to use the live database instead of an in-memory MongoDB database for testing, but we created a separate collection from our production collection to run tests our on.
+
+CI is rather simple. A .yml file in the .github/workflows folder tells Github Actions how to run our tests. We used the "Actions secrets" in our repository settings to store the necessary .env variables to run our tests and then have the .yml file make references to those instead of creating a whole set of testing .env variables.
