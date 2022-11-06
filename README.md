@@ -30,18 +30,18 @@ The src folder holds all our front end code. We have seperated our components an
 Most of our work has been done on the highlighted folders mentioned above. <br/>
 
 ## Continuation of the Project
-Fix some known bugs such as the navigation bar disappearing.  
-Create an order confirmation page to let users know if their purchase was successful or not.  
-Clear user cart after a successful purchase.  
-Store orders on the database and create an API endpoint for these orders so users can view their current and previous orders.  
-Improve implementation of user reviews and ratings.  
-Implement a recommender system that was taught in Week 11 and 12.
-Further improvements to CSS and UI design  
-Implement more pop ups to make it obvious that an action has been completed, e.g. adding item to cart, adding item to wishlist, logging out confirmation  
-Allow buyers to see a seller's profile.
-Add seller reviews and ratings to let users know about the reputation of a seller.   
-Place information from the ABN into the Seller profile automatically instead of having the seller fill it out themselves.    
-Improve search and query options for sneakers so users can find exactly what they want   
+* Fix some known bugs such as the navigation bar disappearing.  
+* Create an order confirmation page to let users know if their purchase was successful or not.  
+* Clear user cart after a successful purchase.  
+* Store orders on the database and create an API endpoint for these orders so users can view their current and previous orders.  
+* Improve implementation of user reviews and ratings.  
+* Implement a recommender system that was taught in Week 11 and 12.
+* Further improvements to CSS and UI design  
+* Implement more pop ups to make it obvious that an action has been completed, e.g. adding item to cart, adding item to wishlist, logging out confirmation  
+* Allow buyers to see a seller's profile.
+* Add seller reviews and ratings to let users know about the reputation of a seller.   
+* Place information from the ABN into the Seller profile automatically instead of having the seller fill it out themselves.    
+* Improve search and query options for sneakers so users can find exactly what they want   
 
 
 ## Summary of Roles
