@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from "react";
 import CartItem from "../UserComponents/CartItem";
 import axios from "axios";
-import{ Paper,Box,Divider,Button, Grid, TextField, Typography} from "@mui/material";
+import{ Paper,Box,Divider,Button, Grid, TextField} from "@mui/material";
 import {Link} from 'react-router-dom';
            
 const Cart = ()=>{

@@ -8,7 +8,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductContext from '../../ProductContext';
 
-const CartItem = ({data:{id,name,price,quantity,pictures, refereshCartHook}})=>{
+const CartItem = ({data:{productid,name,price,quantity,pictures, refereshCartHook}})=>{
     const {setProduct} = useContext(ProductContext);
     const [count, setCount] = useState(quantity);
 
@@ -26,7 +26,7 @@ const CartItem = ({data:{id,name,price,quantity,pictures, refereshCartHook}})=>{
 
     const handleView = () => {
       setProduct({
-          id:id,
+          id:productid,
           name: name,
           price: price,
           quantity:quantity,
@@ -35,7 +35,7 @@ const CartItem = ({data:{id,name,price,quantity,pictures, refereshCartHook}})=>{
     };
 
     const handleDeleteItem = () =>{
-      axios.delete(`/api/cart/delete/${id}`)
+      axios.delete(`/api/cart/delete/${productid}`)
       .then(response=>{
         refereshCartHook();
       }).catch(error=>{
@@ -44,7 +44,7 @@ const CartItem = ({data:{id,name,price,quantity,pictures, refereshCartHook}})=>{
     };
  
     const handleUpdateItem = (prodObj) => {   
-      axios.put(`/api/cart/update/${id}`,prodObj)
+      axios.put(`/api/cart/update/${productid}`,prodObj)
       .then(response=>{
         refereshCartHook();
       }).catch(error=>{
@@ -54,7 +54,7 @@ const CartItem = ({data:{id,name,price,quantity,pictures, refereshCartHook}})=>{
 
     useEffect( () => {
       const prodObj = {
-        productid : id,
+        productid : productid,
         quantity : count
       };
       handleUpdateItem(prodObj);
