@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
             productid: {type: mongoose.Types.ObjectId, ref: "Product"},
             name: String,
             price: Number,
+            pictures: {
+                mainView: String,
+                secondView: String,
+                thirdView: String,
+            },
             quantity: Number
         }
     ],

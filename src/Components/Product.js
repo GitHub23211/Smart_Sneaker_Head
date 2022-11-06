@@ -50,6 +50,7 @@ const Product =()=>{
     productid : product.id,
     name: product.name,
     price: product.price,
+    pictures: product.pictures,
     quantity : count
   }
 

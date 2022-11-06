@@ -8,7 +8,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ProductContext from '../../ProductContext';
 
-const CartItem = ({data:{id,name,price,seller,description,quantity,pictures, refereshCartHook}})=>{
+const CartItem = ({data:{id,name,price,quantity,pictures, refereshCartHook}})=>{
     const {setProduct} = useContext(ProductContext);
     const [count, setCount] = useState(quantity);
 
@@ -29,10 +29,8 @@ const CartItem = ({data:{id,name,price,seller,description,quantity,pictures, ref
           id:id,
           name: name,
           price: price,
-          description: description, 
           quantity:quantity,
           pictures: pictures,
-          seller: seller
       });
     };
 

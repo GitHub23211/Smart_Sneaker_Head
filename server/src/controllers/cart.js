@@ -20,6 +20,7 @@ const addToCart = async (request, response) => {
                     productid: productid,
                     name: request.body.name,
                     price: request.body.price,
+                    pictures: request.body.pictures,
                     quantity: request.body.quantity
                 }
                 const newCart = user.cart.concat(itemToAdd)
