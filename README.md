@@ -7,7 +7,9 @@
 * Jason Yu, 45182671 - Database Specialist
 
 ## Application Description
-We wanted to create a Website that would allow users to organically buy and sell sneakers to each other. We want it to be an eCommerce website similar to eBay. It will have a searchable catalogue that users can use to browse items. Optionally, users can browse as a guest, but must register an account to add items to a cart. Users can list items if they register a seller account.
+We created a website where buyers can purchase a variety of sneakers from both established retailers, and independent sellers. From the brand-new, cutting-edge sneaker product lines of Nike or Adidas, to the humble vintage and rare sneakers of independents. Our website allows users to register and buy sneakers straight away. Our products can be filtered by brands, or by using the search bar to search for the names of sneakers they want to purchase. They may also wishlist our products if they would like to purchase it at another time. Users do not need to worry about the security of their payment information. We have integrated Stripe's Payment API to securely handle all payments made to us.  
+
+On the other hand, sellers can also register on our site and sell their products straight away, assuming they have a valid ABN. Sellers may choose to register a product on our website by providing its name, brand (optional), price, quantity, description and up to three pictures that showcase the appearance of their product. Sellers can also edit or delete registered products so that they can accurately match the stock they have on hand.
 
 ## Target Audience
 There are no strict demographic criteria for our target audience but, in general we aim to cater our product to people who are: <br/>
