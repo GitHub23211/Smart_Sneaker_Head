@@ -11,6 +11,6 @@ After logging in, you will see the LOGIN and REGISTER button on the top right re
 ## Logged In Seller
 After logging in, you will see only the logo on the top bar (Seller_Profile.png). If you click on Seller Profile on the left, you will see your seller profile and your information (Seller_Profile.png). If you click on My Proucts, you will see the list of items you have on sale (My_Products.png). If you click on VIEW ITEM, you will see your item from the buyer perspective without a add to cart button (Seller_Item.png). If you click DELETE ITEM, it will prompt you for confirmatio (Delete_product.png). If you click on EDIT ITEM, it will show you the form for editing an item on sale (Edit_Product.png). If you click on Sell a Product on the left, it will show you a form to fill in with the details of the new product you want to sell (Sell_An_Item.png). If you click on Logout, it will redict you to the landing page (Landing_Page.png)
 # Videos
-Home_Page.mp4 shows all the features of the website
-Buyer_accountmp4 shows all the features of a logged in User
-Seller_Account.mp4 shows all the features of a logged in Seller
+Home_Page.mp4 shows all the features of the website</br>
+Buyer_accountmp4 shows all the features of a logged in User</br>
+Seller_Account.mp4 shows all the features of a logged in Seller</br>
