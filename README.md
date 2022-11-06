@@ -23,11 +23,11 @@ User, Seller, Products, Cart, Wishlist, Product Review
 We have a Landing Page with basic information such as About Us, FAQs, Contact Us and Social Media. We have a carousel to highlight feature products. A view for all the products on sale, filters for products by brand or by name in the navigation bar. A single product view that details the sneakers. We register and login users as either a buyer or a seller. A buyer can update their profile information, view their wishlist, view their orders and log out. Buyers can add sneakers in quantities to their cart or wishlist. Buyers can pay for their items with credit card using Stripe and apply discount codes. A seller can register and view the items they are selling, and edit or delete their listed items.
 
 ## Project Source Code
-The documentation folder has our markdown files for APIs <br/>
-The public folder holds the assets of images and videos used on the website <br/>
-The server folder holds all our backend code. Inside the server/src are all our backend tests and backend files like middleware, controllers and routes. It also contains the pictures used on the website. <br/>
-The src folder holds all our front end code. We have seperated our components and styling files into seperate folders. Inside Components, we further seperated it into components for the website, the components for a user/buyer and the components for a seller. <br/>
-Most of our work has been done on the highlighted folders mentioned above. <br/>
+* The documentation folder has our markdown files for APIs <br/>
+* The public folder holds the assets of images and videos used on the website <br/>
+* The server folder holds all our backend code. Inside the server/src are all our backend tests and backend files like middleware, controllers and routes. It also contains the pictures used on the website. <br/>
+* The src folder holds all our front end code. We have seperated our components and styling files into seperate folders. Inside Components, we further seperated it into components for the website, the components for a user/buyer and the components for a seller. <br/>
+* Most of our work has been done on the highlighted folders mentioned above. <br/>
 
 ## Continuation of the Project
 * Fix some known bugs such as the navigation bar disappearing.  
