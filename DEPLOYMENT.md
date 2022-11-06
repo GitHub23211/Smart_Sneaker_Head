@@ -18,7 +18,7 @@ release: npm run build
 web: node server/src/index.js
 ```
 
-2. Add the heroku repository to the list:
+2. Add the heroku repository to the list of remote repositories:
 
 ```
 git remote add heroku https://git.heroku.com/afternoon-journey-19312.git
