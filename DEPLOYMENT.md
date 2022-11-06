@@ -2,7 +2,14 @@
 https://afternoon-journey-19312.herokuapp.com/
 
 # Steps to build and deploy the web application
-The application is built and deployed on Heroku. MAKE SURE THIS IS ALL DONE ON THE MASTER BRANCH.
+The application is built and deployed on Heroku.
+If everything has been set up correctly, then you only need to merge any changes or updates from the "develop" branch into the "master" branch, checkout to the master branch, pull the changes and then, in the console, enter:
+```
+git push heroku master
+```
+Otherwise, read on:
+
+** MAKE SURE THIS IS ALL DONE ON THE MASTER BRANCH. **
 
 1. Create a Procfile with the following contents in the project's root directory:
 
