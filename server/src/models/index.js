@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
     cart: [ 
         {
             productid: {type: mongoose.Types.ObjectId, ref: "Product"},
+            name: String,
+            price: Number,
             quantity: Number
         }
     ],
