@@ -1,5 +1,4 @@
 # Group H Project Proposal - Smart Sneakers
-# [Link to back-end API usage](api.md)
 # [Link to Deployment Information](DEPLOYMENT.md)
 ## Members
 * Joshua Santos, 45203083 - Backend Specialist
