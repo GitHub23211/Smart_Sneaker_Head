@@ -53,7 +53,7 @@ const CheckoutForm = ({}) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/user/orderconfirm/"
+                return_url: "http://localhost:3000/"
             }
         })
 
@@ -72,28 +72,20 @@ const CheckoutForm = ({}) => {
     return (
 
         <>
-        <h1 style={{marginTop: "2%"}}>Enter Payment Details</h1>
+            <form id="payment-form" onSubmit={handleSubmit}>
+            <Paper style={{marginLeft: "12.5%", padding: "5%", maxWidth: "75%"}}>
+                <PaymentElement id="payment-element" />
 
-            <Grid style={{maxWidth: "50%", marginLeft: "25%"}}>
-                <form id="payment-form" onSubmit={handleSubmit}>
-                <Paper style={{padding: "5%"}}>
-                    <PaymentElement id="payment-element" />
+                <div>
+                    <Button type="submit" color='primary' variant="contained" style={{margin: "2%"}}
+                    fullwidth disabled={isLoading || !stripe || !elements} id="submit">
+                        {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+                    </Button>
+                </div>
+            </Paper>
 
-                    <div>
-                        <Button type="submit" color='primary' variant="contained" style={{margin: "2%"}}
-                        fullwidth disabled={isLoading || !stripe || !elements} id="submit">
-                            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-                        </Button>
-                    </div>
-                    
-                </Paper>
-
-
-
-                {message && <div id="payment-message">{message}</div>}
-                </form>
-            </Grid>
-
+            {message && <div id="payment-message">{message}</div>}
+            </form>
         </>
 
       )

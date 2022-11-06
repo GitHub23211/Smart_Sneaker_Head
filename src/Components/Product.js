@@ -48,6 +48,9 @@ const Product =()=>{
 
   const ProdObj = {
     productid : product.id,
+    name: product.name,
+    price: product.price,
+    pictures: product.pictures,
     quantity : count
   }
 

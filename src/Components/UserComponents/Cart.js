@@ -1,12 +1,11 @@
 import React,{useEffect, useState} from "react";
 import CartItem from "../UserComponents/CartItem";
 import axios from "axios";
-import{ Paper,Box,Divider,Button, Grid, TextField, Typography} from "@mui/material";
+import{ Paper,Box,Divider,Button, Grid, TextField} from "@mui/material";
 import {Link} from 'react-router-dom';
            
 const Cart = ()=>{
     const [cartList,setCartList] = useState([]);
-    const [newCartList,setNewCartList] = useState([])
     const [refreshCart,setRefreshCart] = useState(false)
     const [cart_total , setCartTotal] = useState(0)
     const [discount , setDiscount] = useState(0)
@@ -45,40 +44,15 @@ const Cart = ()=>{
     }, [refreshCart]);
       
     useEffect(()=>{
-        let item_list= [];
-        axios.get('/api/product')
-        .then(response=>{
-          const size = response.data.products.length;
-          let total = 0;
-          for(let i = 0 ; i <cartList.length ;i++){
-            const cart_prod_id = cartList[i].productid;
-            
-            for(let j=0; j<size; j++) {
-                let product = {
-                    ...response.data.products[j],
-                };
-                if(cart_prod_id === product.id){
-                    product.quantity = cartList[i].quantity;
-                    item_list.push(product);
-                    let price = product.price;
-                    total = total + (product.quantity * price)
-                }
-            } 
-            
-        }
-            setCartTotal(total)
-            setNewCartList(item_list)
-        }).catch(error=>{
-          console.log(error)
-        })
-    }, [cartList]);
+            setCartTotal(cartList.reduce(function(total, item) {return (item.quantity * item.price) + total}, 0))
+        }, [cartList]);
 
     return(
         <>
         <h1>Shopping Cart</h1>
         <Box sx={{ display: 'inline-flex', pr:'100px' }}>
             <Box sx={{border:"black", pr:'100px'}} >
-            { newCartList.map(p => 
+            { cartList.map(p => 
                 (  
                    <>
                     < CartItem data={{...p, "refereshCartHook": updateCart}}/> 

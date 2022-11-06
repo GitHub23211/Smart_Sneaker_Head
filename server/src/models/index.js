@@ -9,6 +9,13 @@ const userSchema = new mongoose.Schema({
     cart: [ 
         {
             productid: {type: mongoose.Types.ObjectId, ref: "Product"},
+            name: String,
+            price: Number,
+            pictures: {
+                mainView: String,
+                secondView: String,
+                thirdView: String,
+            },
             quantity: Number
         }
     ],
