@@ -2,7 +2,7 @@
 https://afternoon-journey-19312.herokuapp.com/
 
 # Steps to build and deploy the web application
-The application is built and deployed on Heroku. 
+The application is built and deployed on Heroku. MAKE SURE THIS IS ALL DONE ON THE MASTER BRANCH.
 
 1. Create a Procfile with the following contents in the project's root directory:
 
